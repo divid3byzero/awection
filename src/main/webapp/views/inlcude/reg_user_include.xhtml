@@ -1,0 +1,51 @@
+<ui:composition template="../template/form_temp.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+    <ui:param name="id" value="regUserForm"/>
+    <ui:define name="content">
+        <div class="content">
+            <h:outputText styleClass="auc-headline" value="#{msg['register.title']}"/>
+            <h:panelGrid columns="2">
+                <p:outputLabel for="firstName"
+                               value="#{msg['form.firstname']}"/>
+                <p:inputText id="firstName" styleClass="pull-left" required="true"
+                             value="#{userController.userRegisterView.firstName}"/>
+
+                <p:outputLabel for="surname" value="#{msg['form.surname']}"/>
+                <p:inputText styleClass="pull-left" id="surname" required="true"
+                             value="#{userController.userRegisterView.surName}"/>
+
+                <p:outputLabel for="mail" value="#{msg['form.mail']}"/>
+                <p:inputText id="mail" required="true"
+                             value="#{userController.userRegisterView.mail}">
+                    <f:validateRegex
+                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </p:inputText>
+
+                <p:outputLabel for="password"
+                               value="#{msg['form.password']}"/>
+                <p:password styleClass="pull-left" id="password" required="true"
+                            value="#{userController.userRegisterView.password}">
+                    <f:validator validatorId="passwordConfirm"/>
+                    <f:attribute name="equalPassword" value="#{equalPassword}"/>
+                </p:password>
+
+                <p:outputLabel for="passwordRepeat"
+                               value="#{msg['form.passwordrepeat']}"/>
+                <p:password id="passwordRepeat" required="true" binding="#{equalPassword}"/>
+            </h:panelGrid>
+
+            <p:commandButton
+                    value="#{msg['form.register']}"
+                    action="#{userController.registerUser()}"
+                    ajax="true"
+                    update="@form"/>
+        </div>
+    </ui:define>
+</ui:composition>
