@@ -9,11 +9,8 @@
 
     <h:body>
         <h:form>
-            <p:commandLink styleClass="font link" value="#{msg['link.login']}"
-                           onclick="PF('loginBox').show();"/>
-        </h:form>
-        <p:dialog widgetVar="loginBox" modal="true" closeOnEscape="true" resizable="false">
-            <h:form>
+            <p:commandLink id="loginLink" value="#{msg['link.login']}"/>
+            <p:overlayPanel for="loginLink" hideEffect="fade">
                 <div>
                     <p:inputText id="firstName" value="#{loginView.userName}"/>
                     <p:watermark value="#{msg['form.mail']}" for="firstName"/>
@@ -25,8 +22,8 @@
                 <p:commandButton value="#{msg['link.login']}" ajax="true"
                                  action="#{loginController.login()}"
                                  oncomplete="handleLoginRequest(xhr, status, args)"/>
-            </h:form>
-        </p:dialog>
+            </p:overlayPanel>
+        </h:form>
 
         <script type="text/javascript">
 
