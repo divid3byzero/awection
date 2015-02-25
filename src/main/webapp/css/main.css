@@ -1,0 +1,10 @@
+.auc-headline {
+    display: inline-block;
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.link {
+    text-decoration: none;
+}
