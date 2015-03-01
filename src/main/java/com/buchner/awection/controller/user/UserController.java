@@ -1,9 +1,9 @@
-package com.buchner.auction.frontend.user.controller;
+package com.buchner.awection.controller.user;
 
-import com.buchner.auction.frontend.user.model.internal.AuctionUser;
-import com.buchner.auction.frontend.user.model.LoginView;
-import com.buchner.auction.frontend.user.model.UserRegisterView;
-import com.buchner.auction.frontend.user.model.internal.LiferayComponentService;
+import com.buchner.awection.model.internal.AuctionUser;
+import com.buchner.awection.model.user.LoginView;
+import com.buchner.awection.model.user.UserRegisterView;
+import com.buchner.awection.model.internal.LiferayComponentService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

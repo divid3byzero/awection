@@ -1,4 +1,4 @@
-package com.buchner.auction.frontend.user.model.internal;
+package com.buchner.awection.model.internal;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

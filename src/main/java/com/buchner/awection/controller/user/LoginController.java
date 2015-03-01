@@ -1,9 +1,9 @@
-package com.buchner.auction.frontend.user.controller;
+package com.buchner.awection.controller.user;
 
-import com.buchner.auction.frontend.user.model.LoginView;
-import com.buchner.auction.frontend.user.model.internal.AwectionCredentials;
-import com.buchner.auction.frontend.user.model.internal.HttpService;
-import com.buchner.auction.frontend.user.model.internal.LiferayComponentService;
+import com.buchner.awection.model.user.LoginView;
+import com.buchner.awection.model.internal.AwectionCredentials;
+import com.buchner.awection.model.internal.HttpService;
+import com.buchner.awection.model.internal.LiferayComponentService;
 import org.primefaces.context.RequestContext;
 
 import javax.enterprise.context.ApplicationScoped;

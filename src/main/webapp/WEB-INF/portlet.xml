@@ -2,7 +2,7 @@
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name>auction-frontend-user</portlet-name>
+		<portlet-name>auction-register-user</portlet-name>
 		<display-name>User registration</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -14,9 +14,9 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>auction-frontend-user</title>
-			<short-title>auction-frontend-user</short-title>
-			<keywords>auction-frontend-user</keywords>
+			<title>Auction register user</title>
+			<short-title>Auction register user</short-title>
+			<keywords>Auction register user</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -33,7 +33,7 @@
 	</portlet>
 
     <portlet>
-        <portlet-name>auction-frontend-login</portlet-name>
+        <portlet-name>auction-login</portlet-name>
         <display-name>User login</display-name>
         <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
         <init-param>
@@ -45,9 +45,40 @@
             <mime-type>text/html</mime-type>
         </supports>
         <portlet-info>
-            <title>Awection User login</title>
-            <short-title>Awection User login</short-title>
-            <keywords>Awection User login</keywords>
+            <title>Auction User login</title>
+            <short-title>Auction User login</short-title>
+            <keywords>Auction User login</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auction-article-add</portlet-name>
+        <display-name>Auction Article - add</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/createArticle.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auction Article - add</title>
+            <short-title>Auction Article - add</short-title>
+            <keywords>Auction Article - add</keywords>
         </portlet-info>
         <security-role-ref>
             <role-name>administrator</role-name>
