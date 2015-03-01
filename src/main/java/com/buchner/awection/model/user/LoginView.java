@@ -1,6 +1,6 @@
-package com.buchner.auction.frontend.user.model;
+package com.buchner.awection.model.user;
 
-import com.buchner.auction.frontend.user.model.internal.AwectionCredentials;
+import com.buchner.awection.model.internal.AwectionCredentials;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

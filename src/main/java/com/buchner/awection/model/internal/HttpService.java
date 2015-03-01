@@ -1,12 +1,10 @@
-package com.buchner.auction.frontend.user.model.internal;
+package com.buchner.awection.model.internal;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceRequest;
-import javax.servlet.http.HttpServletRequest;
 
 @RequestScoped
 public class HttpService {

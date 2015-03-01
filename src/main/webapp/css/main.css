@@ -1,0 +1,11 @@
+tr, td {
+    border: none !important;
+}
+
+table, tbody {
+    border-color: white;
+}
+
+.aui input[type="file"] {
+    line-height: normal !important;
+}

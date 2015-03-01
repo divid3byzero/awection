@@ -4,7 +4,8 @@
 
 <display>
     <category name="Auction User">
-        <portlet id="auction-frontend-user"/>
-        <portlet id="auction-frontend-login"/>
+        <portlet id="auction-register-user"/>
+        <portlet id="auction-login"/>
+        <portlet id="auction-article-add"/>
     </category>
 </display>

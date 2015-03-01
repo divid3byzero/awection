@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head/>
+
+    <h:body>
+
+
+        <div class="content">
+            <h:form enctype="multipart/form-data">
+                <div class="clearfix">
+                    <div class="pull-left">
+
+                        <p:panelGrid columns="2">
+                            <p:outputLabel styleClass="font" for="articleShortDescription"
+                                           value="#{msg['article.add.shortdesc']}"/>
+                            <p:inputText id="articleShortDescription"
+                                         value="#{articleView.shortDescription}"/>
+
+                            <p:outputLabel styleClass="font" for="articleLongDescription"
+                                           value="#{msg['article.add.longdesc']}"/>
+                            <p:inputTextarea styleClass="font" id="articleLongDescription"
+                                             value="#{articleView.longDescription}"/>
+                        </p:panelGrid>
+                    </div>
+                    <div class="pull-left">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel styleClass="font" for="articleCategory"
+                                           value="#{msg['article.add.category']}"/>
+                            <p:selectOneMenu styleClass="font" id="articleCategory"
+                                             value="#{articleView.articleCategory}" required="true">
+                                <f:selectItem itemLabel="#{msg['article.add.category']}"
+                                              itemValue=""/>
+                                <f:selectItems value="#{articleViewLabelProvider.auctionCategory}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel styleClass="font" for="auctionType"
+                                           value="#{msg['article.add.type']}"/>
+                            <p:selectOneMenu styleClass="font" id="auctionType"
+                                             value="#{articleView.auctionType}" required="true">
+                                <f:selectItem itemLabel="#{msg['article.add.type']}" itemValue=""/>
+                                <f:selectItems value="#{articleViewLabelProvider.auctionTypes}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </div>
+                    <div class="pull-left">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel styleClass="font" for="articleImage"
+                                           value="#{msg['article.add.image']}"/>
+                            <p:fileUpload styleClass="font" mode="simple" skinSimple="true" id="articleImage"
+                                          value="#{articleView.uploadedFile}"/>
+
+                            <p:outputLabel styleClass="font" for="articleImage"
+                                           value="#{msg['article.add.price']}"/>
+                            <p:inputText value="#{articleView.startPrice}"/>
+                        </p:panelGrid>
+                    </div>
+                </div>
+                <div>
+                    <p:commandButton value="#{msg['form.send']}"
+                                     ajax="false"
+                                     action="#{articleController.saveArticle()}"/>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>

@@ -1,4 +1,4 @@
-package com.buchner.auction.frontend.user.model.internal;
+package com.buchner.awection.model.internal;
 
 import com.liferay.faces.util.portal.WebKeys;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.util.PortalClassInvoker;
 import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -16,6 +17,8 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +60,14 @@ public class LiferayComponentService {
         } catch (PortalException | SystemException e) {
             System.out.print(e);
         }
+    }
+
+    @Produces
+    @RequestScoped
+    public User produceCurrentUser() {
+
+        ThemeDisplay currentThemeDisplay = getCurrentThemeDisplay();
+        return currentThemeDisplay.getUser();
     }
 
     public void invokeLogin(AwectionCredentials awectionCredentials) throws Exception {
