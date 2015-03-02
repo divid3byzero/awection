@@ -11,7 +11,7 @@
         <div class="content">
             <h:outputText styleClass="subheadline" value="#{msg['usera.articles.title']}"/>
             <h:form>
-                <p:dataTable value="#{auctionUserView.userArticles}" var="article" rowKey="#{article.id}">
+                <p:dataTable value="#{auctionUserView.articleTableModel}" var="article" rowKey="#{article.id}">
                     <p:column styleClass="font" headerText="#{msg['usera.articles.category']}">
                         <h:outputText value="#{article.category}"/>
                     </p:column>
