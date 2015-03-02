@@ -19,12 +19,12 @@
                             <p:outputLabel styleClass="font" for="articleShortDescription"
                                            value="#{msg['article.add.shortdesc']}"/>
                             <p:inputText id="articleShortDescription"
-                                         value="#{articleView.shortDescription}"/>
+                                         value="#{auctionView.shortDescription}"/>
 
                             <p:outputLabel styleClass="font" for="articleLongDescription"
                                            value="#{msg['article.add.longdesc']}"/>
                             <p:inputTextarea styleClass="font" id="articleLongDescription"
-                                             value="#{articleView.longDescription}"/>
+                                             value="#{auctionView.longDescription}"/>
                         </p:panelGrid>
                     </div>
                     <div class="pull-left">
@@ -32,18 +32,18 @@
                             <p:outputLabel styleClass="font" for="articleCategory"
                                            value="#{msg['article.add.category']}"/>
                             <p:selectOneMenu styleClass="font" id="articleCategory"
-                                             value="#{articleView.articleCategory}" required="true">
+                                             value="#{auctionView.articleCategory}" required="true">
                                 <f:selectItem itemLabel="#{msg['article.add.category']}"
                                               itemValue=""/>
-                                <f:selectItems value="#{articleViewLabelProvider.auctionCategory}"/>
+                                <f:selectItems value="#{auctionViewLabelProvider.auctionCategory}"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel styleClass="font" for="auctionType"
                                            value="#{msg['article.add.type']}"/>
                             <p:selectOneMenu styleClass="font" id="auctionType"
-                                             value="#{articleView.auctionType}" required="true">
+                                             value="#{auctionView.auctionType}" required="true">
                                 <f:selectItem itemLabel="#{msg['article.add.type']}" itemValue=""/>
-                                <f:selectItems value="#{articleViewLabelProvider.auctionTypes}"/>
+                                <f:selectItems value="#{auctionViewLabelProvider.auctionTypes}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
                     </div>
@@ -52,18 +52,18 @@
                             <p:outputLabel styleClass="font" for="articleImage"
                                            value="#{msg['article.add.image']}"/>
                             <p:fileUpload styleClass="font" mode="simple" skinSimple="true" id="articleImage"
-                                          value="#{articleView.uploadedFile}"/>
+                                          value="#{auctionView.uploadedFile}"/>
 
                             <p:outputLabel styleClass="font" for="articleImage"
                                            value="#{msg['article.add.price']}"/>
-                            <p:inputText value="#{articleView.startPrice}"/>
+                            <p:inputText value="#{auctionView.startPrice}"/>
                         </p:panelGrid>
                     </div>
                 </div>
                 <div>
                     <p:commandButton value="#{msg['form.send']}"
                                      ajax="false"
-                                     action="#{articleController.saveArticle()}"/>
+                                     action="#{auctionController.saveAuction()}"/>
                 </div>
             </h:form>
         </div>

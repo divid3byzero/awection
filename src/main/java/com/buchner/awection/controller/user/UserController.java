@@ -1,9 +1,9 @@
 package com.buchner.awection.controller.user;
 
 import com.buchner.awection.model.core.AuctionUser;
+import com.buchner.awection.model.core.LiferayComponentService;
 import com.buchner.awection.model.user.LoginView;
 import com.buchner.awection.model.user.UserRegisterView;
-import com.buchner.awection.model.core.LiferayComponentService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -22,6 +22,7 @@ public class UserController {
     @Inject
     private LiferayComponentService lrayComponentService;
 
+
     public UserRegisterView getUserRegisterView() {
 
         return userRegisterView;
@@ -35,6 +36,6 @@ public class UserController {
     public void registerUser() {
 
         AuctionUser auctionUser = userRegisterView.createAuctionUser();
-        lrayComponentService.createUser(auctionUser);
+        lrayComponentService.createLrayUser(auctionUser);
     }
 }

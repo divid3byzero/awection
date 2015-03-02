@@ -1,27 +1,23 @@
 package com.buchner.awection.model.core.database;
 
-import com.buchner.awection.model.core.entity.Article;
-import com.buchner.awection.model.core.entity.ArticleDao;
-
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 public class EntityService {
 
-    private EntityManager entityManager;
+    // Needed for CDI
+    protected EntityService() {
 
-    public EntityService() {
-
-        this.entityManager = Persistence.createEntityManagerFactory("auction").createEntityManager();
     }
 
-
     @Produces
-    @ArticleDao
-    public AwectionDao<Article> produceArticleDao() {
+    @RequestScoped
+    public EntityManager produceEntityManager() {
 
-        return new AwectionDao<>(entityManager, Article.class);
+        return Persistence.createEntityManagerFactory("auction").createEntityManager();
     }
 
 }

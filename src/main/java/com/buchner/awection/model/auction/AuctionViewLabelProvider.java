@@ -1,23 +1,24 @@
-package com.buchner.awection.model.article;
+package com.buchner.awection.model.auction;
+
+import com.buchner.awection.model.core.AuctionType;
 
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named
-public class ArticleViewLabelProvider {
+public class AuctionViewLabelProvider {
 
-    public ArticleViewLabelProvider() {
+    public AuctionViewLabelProvider() {
 
     }
 
     public List<String> getAuctionTypes() {
 
         List<String> auctionTypes = new ArrayList<>();
-        auctionTypes.add("English");
-        auctionTypes.add("Dutch");
-        auctionTypes.add("Simultaneous second price auction");
-        auctionTypes.add("Continuous double auction");
+        for (AuctionType auctionType : AuctionType.values()) {
+            auctionTypes.add(auctionType.getName());
+        }
         return auctionTypes;
     }
 

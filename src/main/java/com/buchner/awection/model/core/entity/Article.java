@@ -1,10 +1,7 @@
 package com.buchner.awection.model.core.entity;
 
-import com.buchner.awection.model.core.AuctionType;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Table(name = "articles")
@@ -17,17 +14,10 @@ public class Article {
     @Lob
     private byte[] image;
 
-    @Enumerated(EnumType.STRING)
-    private AuctionType auctionType;
-
-    @JoinColumn(name = "id", referencedColumnName = "lrayId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Set<Long> userIds;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id", updatable = false, insertable = false)
+    @OneToOne(mappedBy = "article", fetch = FetchType.LAZY)
     private Auction auction;
 
+    private long userId;
     private String shortDesc;
     private String longDesc;
     private String category;
@@ -78,24 +68,24 @@ public class Article {
         this.category = category;
     }
 
-    public AuctionType getAuctionType() {
+    public Auction getAuction() {
 
-        return auctionType;
+        return auction;
     }
 
-    public void setAuctionType(AuctionType auctionType) {
+    public void setAuction(Auction auction) {
 
-        this.auctionType = auctionType;
+        this.auction = auction;
     }
 
-    public Set<Long> getUserIds() {
+    public long getUserId() {
 
-        return userIds;
+        return userId;
     }
 
-    public void setUserIds(Set<Long> userIds) {
+    public void setUserId(long userId) {
 
-        this.userIds = userIds;
+        this.userId = userId;
     }
 
     public BigDecimal getPrice() {
