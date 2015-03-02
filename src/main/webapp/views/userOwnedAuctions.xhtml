@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head/>
+
+    <h:body>
+        <div class="content">
+            <h:outputText styleClass="subheadline" value="#{msg['userowned.auction.tite']}"/>
+            <h:form>
+                <p:dataTable value="#{auctionUserView.userOwnedAuctions}" var="auction">
+                    <p:column styleClass="font" headerText="#{msg['userowned.auction.shortdesc']}">
+                        <h:outputText styleClass="font" value="#{auction.article.shortDesc}"/>
+                    </p:column>
+                    <p:column styleClass="font" headerText="#{msg['userowned.auction.auctiontype']}">
+                        <h:outputText styleClass="font" value="#{auction.auctionType.name}"/>
+                    </p:column>
+                    <p:column styleClass="font" rendered="#{auction.running}" headerText="#{msg['userowned.auction.currentprice']}">
+                        <h:outputText styleClass="font" value="#{auction.price}"/>
+                    </p:column>
+                    <p:column styleClass="font" rendered="#{!auction.running}" headerText="#{msg['userowned.auction.endprice']}">
+                        <h:outputText styleClass="font" value="#{auction.price}"/>
+                    </p:column>
+                    <p:column styleClass="font" rendered="#{auction.running}" headerText="#{msg['userowned.auction.runningauction']}">
+                        <h:outputText styleClass="font" value="#{msg['userowned.auction.running']}"/>
+                    </p:column>
+                    <p:column styleClass="font" rendered="#{!auction.running}" headerText="#{msg['userowned.auction.runningauction']}">
+                        <h:outputText styleClass="font" value="#{msg['userowned.auction.notrunning']}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>

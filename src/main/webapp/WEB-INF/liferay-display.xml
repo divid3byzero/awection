@@ -7,5 +7,7 @@
         <portlet id="auction-register-user"/>
         <portlet id="auction-login"/>
         <portlet id="auction-article-add"/>
+        <portlet id="auctions-user-owned"/>
+        <portlet id="auctions-user-articles"/>
     </category>
 </display>

@@ -21,7 +21,7 @@ public class Auction {
     private Article article;
 
     private long userId;
-    private BigDecimal endPrice;
+    private BigDecimal price;
     private boolean isRunning;
 
     public Auction() {
@@ -63,14 +63,14 @@ public class Auction {
         this.userId = userId;
     }
 
-    public BigDecimal getEndPrice() {
+    public BigDecimal getPrice() {
 
-        return endPrice;
+        return price;
     }
 
-    public void setEndPrice(BigDecimal endPrice) {
+    public void setPrice(BigDecimal price) {
 
-        this.endPrice = endPrice;
+        this.price = price;
     }
 
     public boolean isRunning() {

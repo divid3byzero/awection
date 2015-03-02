@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head/>
+
+    <h:body>
+        <div class="content">
+            <h:outputText styleClass="subheadline" value="#{msg['usera.articles.title']}"/>
+            <h:form>
+                <p:dataTable value="#{auctionUserView.userArticles}" var="article" rowKey="#{article.id}">
+                    <p:column styleClass="font" headerText="#{msg['usera.articles.category']}">
+                        <h:outputText value="#{article.category}"/>
+                    </p:column>
+                    <p:column styleClass="font" headerText="#{msg['usera.articles.image']}">
+                        <p:graphicImage value="#{article.imageData}"/>
+                    </p:column>
+                    <p:column styleClass="font" headerText="#{msg['usera.articles.shortdesc']}">
+                        <h:outputText value="#{article.shorDesc}"/>
+                    </p:column>
+                    <p:column styleClass="font" headerText="#{msg['usera.articles.price']}">
+                        <h:outputText value="#{article.price}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
