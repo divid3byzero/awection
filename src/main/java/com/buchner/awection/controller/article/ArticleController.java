@@ -1,8 +1,8 @@
 package com.buchner.awection.controller.article;
 
-import com.buchner.awection.database.ArticleFacade;
+import com.buchner.awection.model.core.database.ArticleFacade;
 import com.buchner.awection.model.article.ArticleView;
-import com.buchner.awection.model.internal.entity.Article;
+import com.buchner.awection.model.core.entity.Article;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

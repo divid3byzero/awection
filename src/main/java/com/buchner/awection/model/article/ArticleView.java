@@ -1,6 +1,6 @@
 package com.buchner.awection.model.article;
 
-import com.buchner.awection.model.internal.entity.Article;
+import com.buchner.awection.model.core.entity.Article;
 import com.liferay.portal.model.User;
 import org.primefaces.model.UploadedFile;
 

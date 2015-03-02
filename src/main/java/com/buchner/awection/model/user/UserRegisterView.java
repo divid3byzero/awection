@@ -1,6 +1,6 @@
 package com.buchner.awection.model.user;
 
-import com.buchner.awection.model.internal.AuctionUser;
+import com.buchner.awection.model.core.AuctionUser;
 
 import javax.enterprise.context.RequestScoped;
 
