@@ -31,6 +31,6 @@ public class HttpService {
             (ResourceRequest) FacesContext.getCurrentInstance().getExternalContext()
                 .getRequest();
         return resourceRequest.getScheme() + "://" + resourceRequest.getServerName() + ":" + resourceRequest
-            .getServerPort() + "/web/guest/my-account";
+            .getServerPort() + "/web/guest/dashboard";
     }
 }

@@ -1,8 +1,14 @@
 package com.buchner.awection.model.core.database;
 
+import com.buchner.awection.model.core.entity.Auction;
+
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
+@RequestScoped
 public class AuctionDao {
 
     @Inject
@@ -13,9 +19,9 @@ public class AuctionDao {
 
     }
 
-    public void save(Object entity) {
+    public void save(Auction auction) {
 
-        entityManager.persist(entity);
+        entityManager.persist(auction);
     }
 
     public Object findById(int id, Class entityClass) {
@@ -23,30 +29,12 @@ public class AuctionDao {
         return entityManager.find(entityClass, id);
     }
 
-    public Object findByAttribute(Object attribute, Class entityClass) {
+    public List<Auction> findAllAuctionsByUserId(long userId) {
 
-        return entityManager.find(entityClass, attribute);
+        TypedQuery<Auction> namedQuery = entityManager
+            .createQuery("select au from Auction au where au.userId = :userId", Auction.class);
+        namedQuery.setParameter("userId", userId);
+        return namedQuery.getResultList();
     }
-
-    public void transaction() {
-
-        entityManager.getTransaction().begin();
-    }
-
-    public void commit() {
-
-        entityManager.getTransaction().commit();
-    }
-
-    public void rollback() {
-
-        entityManager.getTransaction().rollback();
-    }
-
-    public void close() {
-
-        entityManager.close();
-    }
-
 
 }

@@ -11,55 +11,83 @@
 
 
         <div class="content">
+            <h:outputText styleClass="subheadline" value="#{msg['article.add.title']}"/>
             <h:form enctype="multipart/form-data">
-                <div class="clearfix">
-                    <div class="pull-left">
-
-                        <p:panelGrid columns="2">
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
                             <p:outputLabel styleClass="font" for="articleShortDescription"
                                            value="#{msg['article.add.shortdesc']}"/>
+                        </p:column>
+                        <p:column>
                             <p:inputText id="articleShortDescription"
+                                         required="true"
                                          value="#{auctionView.shortDescription}"/>
-
+                        </p:column>
+                        <p:column rowspan="5">
                             <p:outputLabel styleClass="font" for="articleLongDescription"
                                            value="#{msg['article.add.longdesc']}"/>
-                            <p:inputTextarea styleClass="font" id="articleLongDescription"
+                            <p:inputTextarea styleClass="font" rows="15" id="articleLongDescription"
+                                             required="true"
                                              value="#{auctionView.longDescription}"/>
-                        </p:panelGrid>
-                    </div>
-                    <div class="pull-left">
-                        <p:panelGrid columns="2">
-                            <p:outputLabel styleClass="font" for="articleCategory"
-                                           value="#{msg['article.add.category']}"/>
-                            <p:selectOneMenu styleClass="font" id="articleCategory"
-                                             value="#{auctionView.articleCategory}" required="true">
-                                <f:selectItem itemLabel="#{msg['article.add.category']}"
-                                              itemValue=""/>
-                                <f:selectItems value="#{auctionViewLabelProvider.auctionCategory}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel styleClass="font" for="auctionType"
-                                           value="#{msg['article.add.type']}"/>
-                            <p:selectOneMenu styleClass="font" id="auctionType"
-                                             value="#{auctionView.auctionType}" required="true">
-                                <f:selectItem itemLabel="#{msg['article.add.type']}" itemValue=""/>
-                                <f:selectItems value="#{auctionViewLabelProvider.auctionTypes}"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
-                    </div>
-                    <div class="pull-left">
-                        <p:panelGrid columns="2">
-                            <p:outputLabel styleClass="font" for="articleImage"
-                                           value="#{msg['article.add.image']}"/>
-                            <p:fileUpload styleClass="font" mode="simple" skinSimple="true" id="articleImage"
-                                          value="#{auctionView.uploadedFile}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
 
                             <p:outputLabel styleClass="font" for="articleImage"
                                            value="#{msg['article.add.price']}"/>
-                            <p:inputText value="#{auctionView.startPrice}"/>
-                        </p:panelGrid>
-                    </div>
-                </div>
+                        </p:column>
+                        <p:column>
+                            <p:inputText required="true" value="#{auctionView.startPrice}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel styleClass="font" for="articleCategory"
+                                           value="#{msg['article.add.category']}"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu styleClass="font" id="articleCategory"
+                                             value="#{auctionView.articleCategory}"
+                                             required="true">
+                                <f:selectItem itemLabel="#{msg['article.add.category']}"
+                                              itemValue=""/>
+                                <f:selectItems
+                                        value="#{auctionViewLabelProvider.auctionCategory}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel styleClass="font" for="auctionType"
+                                           value="#{msg['article.add.type']}"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu styleClass="font" id="auctionType"
+                                             value="#{auctionView.auctionType}"
+                                             required="true">
+                                <f:selectItem itemLabel="#{msg['article.add.type']}"
+                                              itemValue=""/>
+                                <f:selectItems
+                                        value="#{auctionViewLabelProvider.auctionTypes}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+
+                            <p:outputLabel styleClass="font" for="articleImage"
+                                           value="#{msg['article.add.image']}"/>
+                        </p:column>
+                        <p:column>
+                            <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
+                                          id="articleImage"
+                                          value="#{auctionView.uploadedFile}"/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
                 <div>
                     <p:commandButton value="#{msg['form.send']}"
                                      ajax="false"

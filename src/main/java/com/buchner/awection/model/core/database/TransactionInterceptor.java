@@ -21,9 +21,7 @@ public class TransactionInterceptor {
             invocationContext.proceed();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            entityManager.close();
         }
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 }

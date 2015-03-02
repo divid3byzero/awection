@@ -7,5 +7,14 @@
         <portlet id="auction-register-user"/>
         <portlet id="auction-login"/>
         <portlet id="auction-article-add"/>
+        <portlet id="auctions-user-owned"/>
+        <portlet id="auctions-user-articles"/>
+    </category>
+    <category name="Auctions">
+        <portlet id="auctions-search"/>
+        <portlet id="auctions-dutch"/>
+        <portlet id="auctions-english"/>
+        <portlet id="auctions-second-price"/>
+        <portlet id="auctions-cda"/>
     </category>
 </display>

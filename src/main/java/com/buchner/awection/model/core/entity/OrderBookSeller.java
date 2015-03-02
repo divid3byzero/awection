@@ -4,20 +4,18 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "orderbook")
-public class OrderBook {
+@Table(name = "orderbook_seller")
+public class OrderBookSeller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private boolean sell;
-    private boolean buy;
     private BigDecimal value;
     private int auctionId;
     private int userId;
 
-    public OrderBook() {
+    public OrderBookSeller() {
 
     }
 
@@ -29,26 +27,6 @@ public class OrderBook {
     public void setId(int id) {
 
         this.id = id;
-    }
-
-    public boolean isSell() {
-
-        return sell;
-    }
-
-    public void setSell(boolean sell) {
-
-        this.sell = sell;
-    }
-
-    public boolean isBuy() {
-
-        return buy;
-    }
-
-    public void setBuy(boolean buy) {
-
-        this.buy = buy;
     }
 
     public BigDecimal getValue() {

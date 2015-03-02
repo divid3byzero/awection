@@ -1,6 +1,7 @@
 package com.buchner.awection.model.auction;
 
 import com.buchner.awection.model.core.AuctionType;
+import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Article;
 import com.buchner.awection.model.core.entity.Auction;
 import com.liferay.portal.model.User;
@@ -24,30 +25,19 @@ public class AuctionView {
     private String startPrice;
 
     @Inject
+    private AuctionFacade auctionFacade;
+
+    @Inject
     private User currentUser;
 
     public AuctionView() {
 
     }
 
-    public Auction buildAuctionWithArticle() {
+    public void buildAuctionWithArticle() {
 
-        Article article = new Article();
-        article.setUserId(currentUser.getUserId());
-        article.setCategory(articleCategory);
-        article.setShortDesc(shortDescription);
-        article.setLongDesc(longDescription);
-        article.setImage(uploadedFile.getContents());
-        article.setPrice(new BigDecimal(startPrice));
-
-        Auction auction = new Auction();
-        auction.setUserId(currentUser.getUserId());
-        auction.setAuctionType(auctionType);
-        auction.setRunning(true);
-
-        auction.setArticle(article);
-        article.setAuction(auction);
-        return auction;
+        Auction auction = createAuction();
+        auctionFacade.createAuction(auction);
     }
 
     public String getAuctionType() {
@@ -116,6 +106,26 @@ public class AuctionView {
     public User getCurrenLrayUser() {
 
         return currentUser;
+    }
+
+    private Auction createAuction() {
+
+        Article article = new Article();
+        article.setUserId(currentUser.getUserId());
+        article.setCategory(articleCategory);
+        article.setShortDesc(shortDescription);
+        article.setLongDesc(longDescription);
+        article.setImage(uploadedFile.getContents());
+        article.setPrice(new BigDecimal(startPrice));
+
+        Auction auction = new Auction();
+        auction.setUserId(currentUser.getUserId());
+        auction.setAuctionType(auctionType);
+        auction.setRunning(true);
+
+        auction.setArticle(article);
+        article.setAuction(auction);
+        return auction;
     }
 
     private AuctionType findAuctionTypeFromName(String name) {

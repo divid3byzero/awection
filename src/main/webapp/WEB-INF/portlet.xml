@@ -94,6 +94,223 @@
         </security-role-ref>
     </portlet>
 
+    <portlet>
+        <portlet-name>auctions-user-owned</portlet-name>
+        <display-name>Auctions - User owned</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/userOwnedAuctions.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auctions - User owned</title>
+            <short-title>Auctions - User owned</short-title>
+            <keywords>Auctions - User owned</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-user-articles</portlet-name>
+        <display-name>Articles - User</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/userArticles.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Articles - User</title>
+            <short-title>Articles - User</short-title>
+            <keywords>Articles - User</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-search</portlet-name>
+        <display-name>Auctions - Search</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/auctionSearch.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auctions - Search</title>
+            <short-title>Auctions - Search</short-title>
+            <keywords>Auctions - Search</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-dutch</portlet-name>
+        <display-name>Auction - Dutch</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/dutchAuction.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auction - Dutch</title>
+            <short-title>Auction - Dutch</short-title>
+            <keywords>Auction - Dutch</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-english</portlet-name>
+        <display-name>Auction - English</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/englishAuction.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auction - English</title>
+            <short-title>Auction - English</short-title>
+            <keywords>Auction - English</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-second-price</portlet-name>
+        <display-name>Auction - Second Price</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/secondPriceAuction.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auction - Second Price</title>
+            <short-title>Auction - Second Price</short-title>
+            <keywords>Auction - Second Price</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>auctions-cda</portlet-name>
+        <display-name>Auction - CDA</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/cdAuction.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Auction - CDA</title>
+            <short-title>Auction - CDA</short-title>
+            <keywords>Auction - CDA</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
     <filter>
 		<filter-name>CDIPortletFilter</filter-name>
 		<filter-class>com.liferay.cdi.portlet.bridge.CDIPortletFilter</filter-class>
@@ -103,6 +320,9 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CDIPortletFilter</filter-name>
-		<portlet-name>auction-frontend-user</portlet-name>
+		<portlet-name>auction-register-user</portlet-name>
+        <portlet-name>auction-login</portlet-name>
+        <portlet-name>auction-article-add</portlet-name>
+        <portlet-name>auctions-user-owned</portlet-name>
 	</filter-mapping>
 </portlet-app>
