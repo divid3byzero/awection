@@ -13,16 +13,16 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private AuctionUser auctionUser;
-
     @Enumerated(EnumType.STRING)
     private AuctionType auctionType;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_article", referencedColumnName = "id")
+    private Article article;
+
+    private long userId;
     private BigDecimal endPrice;
     private boolean isRunning;
-    private int articleId;
 
     public Auction() {
 
@@ -33,16 +33,6 @@ public class Auction {
         return id;
     }
 
-    public AuctionUser getAuctionUser() {
-
-        return auctionUser;
-    }
-
-    public void setAuctionUser(AuctionUser auctionUser) {
-
-        this.auctionUser = auctionUser;
-    }
-
     public AuctionType getAuctionType() {
 
         return auctionType;
@@ -51,6 +41,26 @@ public class Auction {
     public void setAuctionType(AuctionType auctionType) {
 
         this.auctionType = auctionType;
+    }
+
+    public Article getArticle() {
+
+        return article;
+    }
+
+    public void setArticle(Article article) {
+
+        this.article = article;
+    }
+
+    public long getUserId() {
+
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+
+        this.userId = userId;
     }
 
     public BigDecimal getEndPrice() {
@@ -73,13 +83,13 @@ public class Auction {
         this.isRunning = isRunning;
     }
 
-    public int getArticleId() {
+    private AuctionType getAuctionType(String identifier) {
 
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-
-        this.articleId = articleId;
+        for (AuctionType auctionType : AuctionType.values()) {
+            if (identifier.equals(auctionType.getIdentifier())) {
+                return auctionType;
+            }
+        }
+        return null;
     }
 }

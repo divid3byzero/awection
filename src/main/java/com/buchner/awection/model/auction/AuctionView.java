@@ -1,6 +1,8 @@
-package com.buchner.awection.model.article;
+package com.buchner.awection.model.auction;
 
+import com.buchner.awection.model.core.AuctionType;
 import com.buchner.awection.model.core.entity.Article;
+import com.buchner.awection.model.core.entity.Auction;
 import com.liferay.portal.model.User;
 import org.primefaces.model.UploadedFile;
 
@@ -8,12 +10,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Named
 @RequestScoped
-public class ArticleView {
+public class AuctionView {
 
-    private String auctionType;
+    private AuctionType auctionType;
     private String articleCategory;
     private String shortDescription;
     private String longDescription;
@@ -23,30 +26,41 @@ public class ArticleView {
     @Inject
     private User currentUser;
 
-    public ArticleView() {
+    public AuctionView() {
 
     }
 
-    public Article getArticle() {
+    public Auction buildAuctionWithArticle() {
 
         Article article = new Article();
+        article.setUserId(currentUser.getUserId());
         article.setCategory(articleCategory);
         article.setShortDesc(shortDescription);
         article.setLongDesc(longDescription);
         article.setImage(uploadedFile.getContents());
         article.setPrice(new BigDecimal(startPrice));
-        article.setUserId(currentUser.getUserId());
-        return article;
+
+        Auction auction = new Auction();
+        auction.setUserId(currentUser.getUserId());
+        auction.setAuctionType(auctionType);
+        auction.setRunning(true);
+
+        auction.setArticle(article);
+        article.setAuction(auction);
+        return auction;
     }
 
     public String getAuctionType() {
 
-        return auctionType;
+        if (null != auctionType) {
+            return auctionType.getName();
+        }
+        return "";
     }
 
     public void setAuctionType(String auctionType) {
 
-        this.auctionType = auctionType;
+        this.auctionType = findAuctionTypeFromName(auctionType);
     }
 
     public String getArticleCategory() {
@@ -97,5 +111,20 @@ public class ArticleView {
     public void setStartPrice(String startPrice) {
 
         this.startPrice = startPrice;
+    }
+
+    public User getCurrenLrayUser() {
+
+        return currentUser;
+    }
+
+    private AuctionType findAuctionTypeFromName(String name) {
+
+        for (AuctionType auctionType : AuctionType.values()) {
+            if (name.equals(auctionType.getName())) {
+                return auctionType;
+            }
+        }
+        return null;
     }
 }

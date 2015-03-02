@@ -2,20 +2,27 @@ package com.buchner.awection.model.core;
 
 public enum AuctionType {
 
-    ENGLISH("english"),
-    DUTCH("dutch"),
-    SECOND_PRICE("second_price"),
-    CDA("cda")
-    ;
+    ENGLISH("English Auction", "english"),
+    DUTCH("Dutch Auction", "dutch"),
+    SECOND_PRICE("Second Price Auction", "second_price"),
+    CDA("Continuous Double Auction", "cda");
 
     private String name;
+    private String identifier;
 
-    private AuctionType(String name) {
+    private AuctionType(String name, String identifier) {
+
         this.name = name;
+        this.identifier = identifier;
     }
 
     public String getName() {
 
         return name;
+    }
+
+    public String getIdentifier() {
+
+        return identifier;
     }
 }

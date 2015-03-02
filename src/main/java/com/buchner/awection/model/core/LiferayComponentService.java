@@ -37,15 +37,24 @@ public class LiferayComponentService {
 
     }
 
-    public void createUser(AuctionUser auctionUser) {
+    @Produces
+    @RequestScoped
+    public User produceCurrentUser() {
+
+        ThemeDisplay currentThemeDisplay = getCurrentThemeDisplay();
+        return currentThemeDisplay.getUser();
+    }
+
+    public User createLrayUser(AuctionUser auctionUser) {
 
         long companyId = getCurrentThemeDisplay().getCompanyId();
+        User lrayUser = null;
         try {
 
             Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
             long defaultUserId = UserLocalServiceUtil.getDefaultUserId(companyId);
 
-            UserLocalServiceUtil.addUser(
+            lrayUser = UserLocalServiceUtil.addUser(
                 defaultUserId,
                 companyId, false, auctionUser.getPassword(), auctionUser.getPassword(),
                 false, auctionUser.getFirstName() + auctionUser.getSurname(),
@@ -60,14 +69,8 @@ public class LiferayComponentService {
         } catch (PortalException | SystemException e) {
             System.out.print(e);
         }
-    }
 
-    @Produces
-    @RequestScoped
-    public User produceCurrentUser() {
-
-        ThemeDisplay currentThemeDisplay = getCurrentThemeDisplay();
-        return currentThemeDisplay.getUser();
+        return lrayUser;
     }
 
     public void invokeLogin(AwectionCredentials awectionCredentials) throws Exception {
