@@ -1,4 +1,4 @@
-package com.buchner.awection.database;
+package com.buchner.awection.model.core.database;
 
 import javax.persistence.EntityManager;
 

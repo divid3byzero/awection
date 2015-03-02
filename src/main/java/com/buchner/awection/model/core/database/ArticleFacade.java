@@ -1,7 +1,7 @@
-package com.buchner.awection.database;
+package com.buchner.awection.model.core.database;
 
-import com.buchner.awection.model.internal.entity.Article;
-import com.buchner.awection.model.internal.entity.ArticleEntity;
+import com.buchner.awection.model.core.entity.Article;
+import com.buchner.awection.model.core.entity.ArticleDao;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class ArticleFacade {
 
     @Inject
-    @ArticleEntity
+    @ArticleDao
     private AwectionDao<Article> articleDao;
 
     public ArticleFacade() {

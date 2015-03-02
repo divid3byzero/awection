@@ -1,4 +1,4 @@
-package com.buchner.awection.model.internal;
+package com.buchner.awection.model.core;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

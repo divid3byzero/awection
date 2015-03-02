@@ -1,4 +1,4 @@
-package com.buchner.awection.model.internal;
+package com.buchner.awection.model.core;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;

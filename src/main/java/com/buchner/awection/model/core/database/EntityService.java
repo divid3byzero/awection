@@ -1,7 +1,7 @@
-package com.buchner.awection.database;
+package com.buchner.awection.model.core.database;
 
-import com.buchner.awection.model.internal.entity.Article;
-import com.buchner.awection.model.internal.entity.ArticleEntity;
+import com.buchner.awection.model.core.entity.Article;
+import com.buchner.awection.model.core.entity.ArticleDao;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -18,7 +18,7 @@ public class EntityService {
 
 
     @Produces
-    @ArticleEntity
+    @ArticleDao
     public AwectionDao<Article> produceArticleDao() {
 
         return new AwectionDao<>(entityManager, Article.class);
