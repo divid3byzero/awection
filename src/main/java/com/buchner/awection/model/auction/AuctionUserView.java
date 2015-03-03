@@ -19,9 +19,6 @@ public class AuctionUserView {
     @Inject
     private AuctionFacade auctionFacade;
 
-    @Inject
-    private LazyArticleTableModel articleTableModel;
-
     public AuctionUserView() {
 
     }
@@ -31,8 +28,8 @@ public class AuctionUserView {
         return auctionFacade.getUserOwnedAuctions(currentUser.getUserId());
     }
 
-    public LazyArticleTableModel getArticleTableModel() {
+    public List<ArticleBean> getUserArticles() {
 
-        return articleTableModel;
+        return auctionFacade.getUserArticles(currentUser.getUserId());
     }
 }

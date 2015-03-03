@@ -23,6 +23,13 @@ public class ArticleDao {
         entityManager.persist(article);
     }
 
+    public Article findById(int id) {
+        TypedQuery<Article> namedQuery = entityManager
+            .createQuery("select a from Article a where a.id = :id", Article.class);
+        namedQuery.setParameter("id", id);
+        return namedQuery.getSingleResult();
+    }
+
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager

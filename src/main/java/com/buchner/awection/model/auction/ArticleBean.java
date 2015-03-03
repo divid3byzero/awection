@@ -31,7 +31,9 @@ public class ArticleBean {
 
     public StreamedContent getImageData() {
 
-        return new DefaultStreamedContent(new ByteArrayInputStream(imageData));
+        DefaultStreamedContent defaultStreamedContent =
+            new DefaultStreamedContent(new ByteArrayInputStream(imageData));
+        return defaultStreamedContent;
     }
 
     public String getShorDesc() {

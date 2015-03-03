@@ -49,10 +49,16 @@ public class AuctionFacade {
         List<ArticleBean> articleBeans = new ArrayList<>();
         for (Article article : articelsByUserId) {
             articleBeans.add(
-                new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(), article.getCategory(),
+                new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(),
+                    article.getCategory(),
                     article.getPrice()));
         }
         return articleBeans;
+    }
+
+    public Article getSingleArticle(int id) {
+
+        return articleDao.findById(id);
     }
 
 }

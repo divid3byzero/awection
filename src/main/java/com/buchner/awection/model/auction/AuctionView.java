@@ -121,6 +121,7 @@ public class AuctionView {
         Auction auction = new Auction();
         auction.setUserId(currentUser.getUserId());
         auction.setAuctionType(auctionType);
+        auction.setPrice(article.getPrice());
         auction.setRunning(true);
 
         auction.setArticle(article);
