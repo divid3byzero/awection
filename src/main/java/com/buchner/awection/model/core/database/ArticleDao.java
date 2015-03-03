@@ -24,10 +24,21 @@ public class ArticleDao {
     }
 
     public Article findById(int id) {
+
         TypedQuery<Article> namedQuery = entityManager
             .createQuery("select a from Article a where a.id = :id", Article.class);
         namedQuery.setParameter("id", id);
         return namedQuery.getSingleResult();
+    }
+
+    public List<Article> findByName(String description) {
+
+        TypedQuery<Article> namedQuery = entityManager
+            .createQuery(
+                "select a from Article a where a.shortDesc like :description or a.longDesc like :description",
+                Article.class);
+        namedQuery.setParameter("description", "%" + description + "%");
+        return namedQuery.getResultList();
     }
 
     public List<Article> getArticelsByUserId(long userId) {

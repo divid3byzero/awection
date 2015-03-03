@@ -24,9 +24,19 @@ public class AuctionDao {
         entityManager.persist(auction);
     }
 
-    public Object findById(int id, Class entityClass) {
+    public Auction findById(int id) {
 
-        return entityManager.find(entityClass, id);
+        return entityManager.find(Auction.class, id);
+    }
+
+    public Auction findByArticle(int articleId) {
+
+        TypedQuery<Auction> namedQuery = entityManager
+            .createQuery("select au from Auction au where au.article.id = :articleId",
+                Auction.class);
+        namedQuery.setParameter("articleId", articleId);
+        Auction singleResult = namedQuery.getSingleResult();
+        return singleResult;
     }
 
     public List<Auction> findAllAuctionsByUserId(long userId) {

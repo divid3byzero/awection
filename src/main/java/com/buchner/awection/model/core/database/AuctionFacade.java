@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transaction
 @RequestScoped
@@ -34,26 +35,24 @@ public class AuctionFacade {
     public List<AuctionBean> getUserOwnedAuctions(long userId) {
 
         List<Auction> allAuctionsByUserId = auctionDao.findAllAuctionsByUserId(userId);
-        List<AuctionBean> auctionBeans = new ArrayList<>();
-        for (Auction auction : allAuctionsByUserId) {
-            auctionBeans.add(
-                new AuctionBean(auction.getAuctionType(), auction.getArticle().getShortDesc(),
-                    auction.getPrice(), auction.isRunning()));
-        }
-        return auctionBeans;
+        return buildAuctionBeans(allAuctionsByUserId);
     }
 
     public List<ArticleBean> getUserArticles(long userId) {
 
-        List<Article> articelsByUserId = articleDao.getArticelsByUserId(userId);
-        List<ArticleBean> articleBeans = new ArrayList<>();
-        for (Article article : articelsByUserId) {
-            articleBeans.add(
-                new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(),
-                    article.getCategory(),
-                    article.getPrice()));
-        }
-        return articleBeans;
+        List<Article> articlesByUserId = articleDao.getArticelsByUserId(userId);
+        return buildArticleBeans(articlesByUserId);
+    }
+
+    public List<ArticleBean> getArticlesByDescription(String description) {
+
+        List<Article> articlesByDescription = articleDao.findByName(description);
+        return buildArticleBeans(articlesByDescription);
+    }
+
+    public Auction getAuctionFromArticle(int articleId) {
+
+        return auctionDao.findByArticle(articleId);
     }
 
     public Article getSingleArticle(int id) {
@@ -61,4 +60,19 @@ public class AuctionFacade {
         return articleDao.findById(id);
     }
 
+    private List<ArticleBean> buildArticleBeans(List<Article> articleEntities) {
+
+        return articleEntities.stream().map(
+            article -> new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(),
+                article.getCategory(),
+                article.getPrice())).collect(Collectors.toList());
+    }
+
+    private List<AuctionBean> buildAuctionBeans(List<Auction> allAuctionsByUserId) {
+
+        return allAuctionsByUserId.stream().map(
+            auction -> new AuctionBean(auction.getAuctionType(),
+                auction.getArticle().getShortDesc(),
+                auction.getPrice(), auction.isRunning())).collect(Collectors.toList());
+    }
 }

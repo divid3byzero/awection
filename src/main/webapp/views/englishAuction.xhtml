@@ -5,4 +5,9 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        ></ui:composition>
+        >
+
+    <p:panel rendered="#{tradeView.auction.auctionType.identifier == 'english'}" style="border: none; padding: 0;">
+        <h:outputText value="#{tradeView.auction.price}"/>
+    </p:panel>
+</ui:composition>

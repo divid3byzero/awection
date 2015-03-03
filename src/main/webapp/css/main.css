@@ -11,15 +11,25 @@ table, tbody {
 }
 
 .auction-search-panel {
-    width: 1215px;
+    width: 99.5%;
 }
 
 .auction-panel {
-    width: 596px;
+    width: 48.92%;
     margin-right: 15px;
     margin-top: 15px;
 }
 
 .auction-panel-last {
     margin-right: 0;
+}
+
+.search > .subheadline, .search > input {
+    margin-right: 10px;
+    margin-bottom: 0 !important;
+}
+
+.article-search-result {
+    width: 750px;
+    margin-left: 150px;
 }

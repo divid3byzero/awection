@@ -17,7 +17,7 @@ public class Auction {
     private AuctionType auctionType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_article", referencedColumnName = "id")
+    @JoinColumn(name = "fkArticle", referencedColumnName = "id")
     private Article article;
 
     private long userId;
