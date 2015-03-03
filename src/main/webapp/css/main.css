@@ -9,3 +9,17 @@ table, tbody {
 .aui input[type="file"] {
     line-height: normal !important;
 }
+
+.auction-search-panel {
+    width: 1215px;
+}
+
+.auction-panel {
+    width: 596px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.auction-panel-last {
+    margin-right: 0;
+}
