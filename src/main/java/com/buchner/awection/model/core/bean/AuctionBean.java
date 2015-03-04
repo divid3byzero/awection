@@ -1,4 +1,4 @@
-package com.buchner.awection.model.auction;
+package com.buchner.awection.model.core.bean;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 

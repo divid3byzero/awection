@@ -1,15 +1,10 @@
-package com.buchner.awection.model.auction;
+package com.buchner.awection.model.core.bean;
 
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-
-import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 
 public class ArticleBean {
 
     private int id;
-    private byte[] imageData;
     private String shorDesc;
     private String category;
     private BigDecimal price;
@@ -18,7 +13,6 @@ public class ArticleBean {
         BigDecimal price) {
 
         this.id = id;
-        this.imageData = imageData;
         this.shorDesc = shorDesc;
         this.category = category;
         this.price = price;
@@ -27,13 +21,6 @@ public class ArticleBean {
     public int getId() {
 
         return id;
-    }
-
-    public StreamedContent getImageData() {
-
-        DefaultStreamedContent defaultStreamedContent =
-            new DefaultStreamedContent(new ByteArrayInputStream(imageData));
-        return defaultStreamedContent;
     }
 
     public String getShorDesc() {

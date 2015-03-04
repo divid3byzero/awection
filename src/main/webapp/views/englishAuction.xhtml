@@ -7,7 +7,9 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         >
 
-    <p:panel rendered="#{tradeView.auction.auctionType.identifier == 'english'}" style="border: none; padding: 0;">
-        <h:outputText value="#{tradeView.auction.price}"/>
+    <p:panel style="border: none; padding: 0;">
+        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.englishType)}" var="auction">
+            <h:outputText value="#{auction.price}"/>
+        </ui:repeat>
     </p:panel>
 </ui:composition>

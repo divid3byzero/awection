@@ -19,17 +19,14 @@
                              ajax="true"
                              value="#{msg['auction.search.search.button']}"
                              action="#{auctionController.searchArticlesByName()}"
-                             update="@form"/>
+                             update=":form:articleSearchResult"/>
         </div>
 
         <div class="pull-left">
-            <p:dataTable rendered="#{articleSearchView.articleBeans.size() > 0}"
-                         styleClass="article-search-result"
+            <p:dataTable id="articleSearchResult" styleClass="article-search-result"
                          value="#{articleSearchView.articleBeans}" var="article"
-                         rowKey="#{article.id}"
-                         selectionMode="single"
-                         selection="#{tradeView.auction}">
-                <p:ajax event="rowSelect" update="@form"/>
+                         rowKey="#{article.id}">
+
                 <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
                     <h:outputText
                             styleClass="font"
@@ -44,9 +41,15 @@
                             value="#{articleSearchView.getAuctionFromArticle(article.id).price}"/>
                 </p:column>
                 <p:column styleClass="font" headerText="#{msg['auction.search.image']}">
-                    <p:graphicImage width="50px" value="#{imageStreamer.imageStream}">
+                    <p:graphicImage width="50px" value="#{imageStreamerService.imageStream}">
                         <f:param name="articleId" value="#{article.id}"/>
                     </p:graphicImage>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton styleClass="font" value="Start" ajax="true"
+                                     action="#{tradeController.startAuction(article.id)}"
+                                     update="@form"/>
                 </p:column>
             </p:dataTable>
         </div>

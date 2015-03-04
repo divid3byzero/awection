@@ -1,5 +1,6 @@
-package com.buchner.awection.model.core.database;
+package com.buchner.awection.model.core.app;
 
+import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Article;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -13,12 +14,12 @@ import java.io.ByteArrayInputStream;
 
 @Named
 @ApplicationScoped
-public class ImageStreamer {
+public class ImageStreamerService {
 
     @Inject
     private AuctionFacade auctionFacade;
 
-    protected ImageStreamer() {
+    protected ImageStreamerService() {
 
     }
 

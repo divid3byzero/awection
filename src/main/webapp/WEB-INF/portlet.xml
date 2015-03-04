@@ -200,5 +200,6 @@
         <portlet-name>auction-login</portlet-name>
         <portlet-name>auction-article-add</portlet-name>
         <portlet-name>auctions-user-owned</portlet-name>
+		<portlet-name>auctions</portlet-name>
 	</filter-mapping>
 </portlet-app>

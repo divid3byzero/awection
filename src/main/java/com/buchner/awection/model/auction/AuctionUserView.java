@@ -1,7 +1,8 @@
 package com.buchner.awection.model.auction;
 
+import com.buchner.awection.model.core.bean.ArticleBean;
+import com.buchner.awection.model.core.bean.AuctionBean;
 import com.buchner.awection.model.core.database.AuctionFacade;
-import com.buchner.awection.model.core.entity.Auction;
 import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;

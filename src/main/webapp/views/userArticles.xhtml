@@ -16,7 +16,7 @@
                         <h:outputText value="#{article.category}"/>
                     </p:column>
                     <p:column styleClass="font" headerText="#{msg['usera.articles.image']}">
-                        <p:graphicImage width="50px" value="#{imageStreamer.imageStream}">
+                        <p:graphicImage width="50px" value="#{imageStreamerService.imageStream}">
                             <f:param name="articleId" value="#{article.id}"/>
                         </p:graphicImage>
                     </p:column>
