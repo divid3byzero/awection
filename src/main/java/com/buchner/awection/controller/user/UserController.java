@@ -1,7 +1,7 @@
 package com.buchner.awection.controller.user;
 
-import com.buchner.awection.model.core.AuctionUser;
-import com.buchner.awection.model.core.LiferayComponentService;
+import com.buchner.awection.model.core.app.AuctionUser;
+import com.buchner.awection.model.core.app.LiferayComponentService;
 import com.buchner.awection.model.user.LoginView;
 import com.buchner.awection.model.user.UserRegisterView;
 

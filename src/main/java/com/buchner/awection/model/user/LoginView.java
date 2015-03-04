@@ -1,6 +1,6 @@
 package com.buchner.awection.model.user;
 
-import com.buchner.awection.model.core.AwectionCredentials;
+import com.buchner.awection.model.core.app.AwectionCredentials;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

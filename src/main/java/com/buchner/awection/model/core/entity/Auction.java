@@ -1,9 +1,8 @@
 package com.buchner.awection.model.core.entity;
 
-import com.buchner.awection.model.core.AuctionType;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "auctions")
@@ -17,8 +16,11 @@ public class Auction {
     private AuctionType auctionType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fkArticle", referencedColumnName = "id")
+    @JoinColumn(name = "fk_article", referencedColumnName = "id")
     private Article article;
+
+    @OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
+    private List<Bidder> bidder;
 
     private long userId;
     private BigDecimal price;
@@ -51,6 +53,24 @@ public class Auction {
     public void setArticle(Article article) {
 
         this.article = article;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public List<Bidder> getBidder() {
+
+        return bidder;
+    }
+
+    public void setBidder(Bidder bidder) {
+
+        this.bidder.add(bidder);
+        if (!this.equals(bidder.getAuction())) {
+            bidder.setAuction(this);
+        }
     }
 
     public long getUserId() {

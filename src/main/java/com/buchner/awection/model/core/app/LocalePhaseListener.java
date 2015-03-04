@@ -1,4 +1,4 @@
-package com.buchner.awection.model.core;
+package com.buchner.awection.model.core.app;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;

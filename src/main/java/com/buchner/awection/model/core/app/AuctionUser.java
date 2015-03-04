@@ -1,4 +1,4 @@
-package com.buchner.awection.model.core;
+package com.buchner.awection.model.core.app;
 
 public class AuctionUser {
 

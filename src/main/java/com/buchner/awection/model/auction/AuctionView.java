@@ -1,6 +1,6 @@
 package com.buchner.awection.model.auction;
 
-import com.buchner.awection.model.core.AuctionType;
+import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Article;
 import com.buchner.awection.model.core.entity.Auction;
@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Named
 @RequestScoped

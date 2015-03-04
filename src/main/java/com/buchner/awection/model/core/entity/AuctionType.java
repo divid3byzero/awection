@@ -1,4 +1,4 @@
-package com.buchner.awection.model.core;
+package com.buchner.awection.model.core.entity;
 
 public enum AuctionType {
 

@@ -1,4 +1,4 @@
-package com.buchner.awection.model.core;
+package com.buchner.awection.model.core.app;
 
 import com.liferay.faces.util.portal.WebKeys;
 import com.liferay.portal.kernel.exception.PortalException;

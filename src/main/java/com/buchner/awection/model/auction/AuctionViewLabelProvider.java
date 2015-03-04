@@ -1,6 +1,6 @@
 package com.buchner.awection.model.auction;
 
-import com.buchner.awection.model.core.AuctionType;
+import com.buchner.awection.model.core.entity.AuctionType;
 
 import javax.inject.Named;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.buchner.awection.model.trade;
 
-import com.buchner.awection.model.core.AuctionType;
+import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
 
 public class SecondPriceTrader extends AbstractTrader {
