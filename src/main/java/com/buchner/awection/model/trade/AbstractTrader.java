@@ -8,9 +8,6 @@ public abstract class AbstractTrader {
     protected AuctionType auctionType;
     protected AbstractTrader abstractTrader;
 
-    public void setNextTrader(AbstractTrader abstractTrader) {
-        this.abstractTrader = abstractTrader;
-    }
 
     public void handleTrade(Auction auction) {
 
