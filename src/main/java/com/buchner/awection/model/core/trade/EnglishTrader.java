@@ -1,19 +1,24 @@
-package com.buchner.awection.model.trade;
+package com.buchner.awection.model.core.trade;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
-@Cda
+@English
 @RequestScoped
-public class CdaTrader extends AbstractTrader {
+public class EnglishTrader extends AbstractTrader {
 
-    public CdaTrader() {
+    @Inject
+    @SecondPrice
+    private AbstractTrader abstractTrader;
+
+    public EnglishTrader() {
 
     }
 
-    public CdaTrader(AuctionType auctionType) {
+    public EnglishTrader(AuctionType auctionType) {
 
         this.auctionType = auctionType;
     }

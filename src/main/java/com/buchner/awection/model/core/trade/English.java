@@ -1,4 +1,4 @@
-package com.buchner.awection.model.trade;
+package com.buchner.awection.model.core.trade;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;

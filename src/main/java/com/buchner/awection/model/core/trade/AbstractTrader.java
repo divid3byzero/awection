@@ -1,4 +1,4 @@
-package com.buchner.awection.model.trade;
+package com.buchner.awection.model.core.trade;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;

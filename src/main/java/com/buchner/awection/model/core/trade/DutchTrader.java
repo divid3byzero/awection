@@ -1,4 +1,4 @@
-package com.buchner.awection.model.trade;
+package com.buchner.awection.model.core.trade;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
@@ -6,19 +6,19 @@ import com.buchner.awection.model.core.entity.Auction;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@English
+@Dutch
 @RequestScoped
-public class EnglishTrader extends AbstractTrader {
+public class DutchTrader extends AbstractTrader {
 
     @Inject
-    @SecondPrice
+    @English
     private AbstractTrader abstractTrader;
 
-    public EnglishTrader() {
+    public DutchTrader() {
 
     }
 
-    public EnglishTrader(AuctionType auctionType) {
+    public DutchTrader(AuctionType auctionType) {
 
         this.auctionType = auctionType;
     }
