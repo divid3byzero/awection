@@ -1,4 +1,4 @@
-package com.buchner.awection.model.auction;
+package com.buchner.awection.model.article;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.database.AuctionFacade;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Named
 @RequestScoped
-public class AuctionView {
+public class AddArticleView {
 
     private AuctionType auctionType;
     private String articleCategory;
@@ -29,7 +29,7 @@ public class AuctionView {
     @Inject
     private User currentUser;
 
-    public AuctionView() {
+    public AddArticleView() {
 
     }
 

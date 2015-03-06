@@ -1,6 +1,7 @@
 package com.buchner.awection.model.core.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,9 +12,11 @@ public class Bidder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auction_fk", referencedColumnName = "id")
-    private Auction auction;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "auction_bidder", joinColumns = {
+        @JoinColumn(name = "auction_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "bidder_id", referencedColumnName = "id")})
+    private List<Auction> auctions;
 
     @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY)
     private List<Bid> bids;
@@ -22,6 +25,7 @@ public class Bidder {
 
     public Bidder() {
 
+        auctions = new ArrayList<>();
     }
 
     public int getId() {
@@ -29,14 +33,17 @@ public class Bidder {
         return id;
     }
 
-    public Auction getAuction() {
+    public List<Auction> getAuctions() {
 
-        return auction;
+        return auctions;
     }
 
-    public void setAuction(Auction auction) {
+    public void setAuctions(Auction auction) {
 
-        this.auction = auction;
+        auctions.add(auction);
+        if (!auction.getBidder().contains(this)) {
+            auction.addBidder(this);
+        }
     }
 
     public List<Bid> getBids() {

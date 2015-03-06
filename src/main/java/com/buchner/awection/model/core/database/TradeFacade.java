@@ -41,7 +41,7 @@ public class TradeFacade {
 
         Auction byArticle = auctionDao.findByArticle(articleId);
         Bidder bidder = new Bidder();
-        bidder.setAuction(byArticle);
+        bidder.setAuctions(byArticle);
         bidder.setUserId(currentUser.getUserId());
         auctionDao.save(byArticle);
         tradeDao.save(bidder);

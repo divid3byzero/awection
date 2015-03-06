@@ -1,7 +1,7 @@
 package com.buchner.awection.model.core.database;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Query {
 
@@ -10,19 +10,33 @@ public class Query {
         private String select;
         private List<String> where;
 
+        public QueryBuilder() {
+
+            this.where = new ArrayList<>();
+        }
+
         public QueryBuilder select(String selectClass) {
-            select = "select from" + selectClass + " " + getRandomIdentifier() + " ";
+
+            select = "select " + getIdentifier(
+                selectClass) + " from " + selectClass + " " + getIdentifier(
+                selectClass);
             return this;
         }
 
         public QueryBuilder select(String selectClass, List<String> properties) {
 
-            String randomIdentifier = getRandomIdentifier();
             String tempSelect = "select ";
-            for (String property : properties) {
-                tempSelect += randomIdentifier + "." + property + " ";
+            for (int i = 0; i < properties.size(); i++) {
+
+                if (i == properties.size() - 1) {
+                    tempSelect += getIdentifier(selectClass) + "." + properties.get(i) + " ";
+                    break;
+                }
+
+                tempSelect += getIdentifier(selectClass) + "." + properties.get(i) + ", ";
             }
-            tempSelect += "from " + selectClass + " " + randomIdentifier;
+
+            tempSelect += "from" + " " +  selectClass + " " + getIdentifier(selectClass);
             this.select = tempSelect;
             return this;
         }
@@ -34,10 +48,19 @@ public class Query {
 
         public QueryBuilder where(List<WhereQuery> whereQueries) {
 
-            for (WhereQuery whereQuery : whereQueries) {
-                String concatenate = whereQuery.isAnd() ? " and " : " false ";
-                this.where.add(whereQuery.getWhereClause() + concatenate);
+            where.add(" where ");
+            for (int i = 0; i < whereQueries.size(); i++) {
+
+                WhereQuery currentWhereQuery = whereQueries.get(i);
+                if (i == whereQueries.size() - 1) {
+                    this.where.add(currentWhereQuery.getWhereClause());
+                    break;
+                }
+
+                String concatenate = currentWhereQuery.isAnd() ? " and " : " or ";
+                this.where.add(currentWhereQuery.getWhereClause() + concatenate);
             }
+
             return this;
         }
 
@@ -46,9 +69,9 @@ public class Query {
             return new Query(this);
         }
 
-        private String getRandomIdentifier() {
+        private String getIdentifier(String selectClass) {
 
-            return UUID.randomUUID().toString().substring(0, 4);
+            return selectClass.substring(0, 2).toLowerCase();
         }
     }
 
@@ -67,8 +90,11 @@ public class Query {
     private String buildQueryString() {
 
         String queryString = queryBuilder.select;
-        for (String whereClaus : queryBuilder.where) {
-            queryString += whereClaus;
+        List<String> where;
+        if (null != (where = queryBuilder.where)) {
+            for (String whereClaus : queryBuilder.where) {
+                queryString += whereClaus;
+            }
         }
         return queryString;
     }

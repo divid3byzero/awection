@@ -1,5 +1,6 @@
-package com.buchner.awection.model.auction;
+package com.buchner.awection.model.article;
 
+import com.buchner.awection.model.core.app.AuctionSession;
 import com.buchner.awection.model.core.bean.ArticleBean;
 import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Auction;
@@ -16,8 +17,10 @@ public class ArticleSearchView {
     @Inject
     private AuctionFacade auctionFacade;
 
+    @Inject
+    private AuctionSession auctionSession;
+
     private String articleName;
-    private List<ArticleBean> articleBeans;
 
     protected ArticleSearchView() {
 
@@ -25,7 +28,9 @@ public class ArticleSearchView {
 
     public void getArticlesByName() {
 
-        articleBeans = auctionFacade.getArticlesByDescription(articleName);
+        List<ArticleBean> articlesByDescription =
+            auctionFacade.getArticlesByDescription(articleName);
+        auctionSession.setArticleSearchResult(articlesByDescription);
     }
 
     public String getArticleName() {
@@ -38,19 +43,8 @@ public class ArticleSearchView {
         this.articleName = articleName;
     }
 
-    public List<ArticleBean> getArticleBeans() {
-
-        return articleBeans;
-    }
-
     public Auction getAuctionFromArticle(int articleId) {
 
-        Auction auctionFromArticle = auctionFacade.getAuctionFromArticle(articleId);
-        return auctionFromArticle;
-    }
-
-    public void setArticleBeans(List<ArticleBean> articleBeans) {
-
-        this.articleBeans = articleBeans;
+        return auctionFacade.getAuctionFromArticle(articleId);
     }
 }

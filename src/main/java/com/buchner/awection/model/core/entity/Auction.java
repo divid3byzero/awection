@@ -19,7 +19,7 @@ public class Auction {
     @JoinColumn(name = "fk_article", referencedColumnName = "id")
     private Article article;
 
-    @OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "auctions", fetch = FetchType.LAZY)
     private List<Bidder> bidder;
 
     private long userId;
@@ -65,11 +65,11 @@ public class Auction {
         return bidder;
     }
 
-    public void setBidder(Bidder bidder) {
+    public void addBidder(Bidder bidder) {
 
         this.bidder.add(bidder);
-        if (!this.equals(bidder.getAuction())) {
-            bidder.setAuction(this);
+        if (!this.equals(bidder.getAuctions())) {
+            bidder.setAuctions(this);
         }
     }
 

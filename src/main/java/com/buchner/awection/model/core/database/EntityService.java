@@ -2,13 +2,12 @@ package com.buchner.awection.model.core.database;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class EntityService {
 
-    // Needed for CDI
     protected EntityService() {
 
     }
@@ -17,7 +16,7 @@ public class EntityService {
     @RequestScoped
     public EntityManager produceEntityManager() {
 
-        return Persistence.createEntityManagerFactory("auction").createEntityManager();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("auction");
+        return entityManagerFactory.createEntityManager();
     }
-
 }

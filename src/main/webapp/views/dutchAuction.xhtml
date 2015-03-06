@@ -5,4 +5,10 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        ></ui:composition>
+        >
+    <p:panel style="border: none; padding: 0;">
+        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.dutchType)}" var="auction">
+            <h:outputText value="#{auction.price}"/>
+        </ui:repeat>
+    </p:panel>
+</ui:composition>

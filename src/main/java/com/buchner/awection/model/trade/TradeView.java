@@ -1,4 +1,4 @@
-package com.buchner.awection.model.auction;
+package com.buchner.awection.model.trade;
 
 import com.buchner.awection.model.core.bean.AuctionBean;
 import com.buchner.awection.model.core.database.TradeFacade;
@@ -12,9 +12,6 @@ import java.util.List;
 @Named
 @RequestScoped
 public class TradeView {
-
-    @Inject
-    private TradeViewState tradeViewState;
 
     @Inject
     private TradeFacade tradeFacade;

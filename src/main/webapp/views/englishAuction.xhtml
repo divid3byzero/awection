@@ -7,9 +7,38 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         >
 
-    <p:panel style="border: none; padding: 0;">
-        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.englishType)}" var="auction">
-            <h:outputText value="#{auction.price}"/>
+    <p:panel styleClass="auction-element-wrapper">
+        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.englishType)}"
+                   var="auction">
+
+            <div class="clearfix">
+                <div class="pull-right">
+                    <p:graphicImage width="250px" value="#{imageStreamerService.imageStream}">
+                        <f:param name="articleId" value="#{auction.articleId}"/>
+                    </p:graphicImage>
+                </div>
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="articleDescriptionEnglish"
+                                   styleClass="font"
+                                   value="#{msg['auction.trade.article.description']}"/>
+                    <h:outputText id="articleDescriptionEnglish" styleClass="font"
+                                  value="#{auction.articleDescription}"/>
+
+                    <p:outputLabel for="auctionPriceEnglish"
+                                   styleClass="font"
+                                   value="#{msg['auction.trade.article.current.price']}"/>
+                    <h:outputText id="auctionPriceEnglish" styleClass="font"
+                                  value="#{auction.price}"/>
+                </p:panelGrid>
+
+                <div>
+                    <p:inputText id="bidAmountEnglish" styleClass="font"/>
+                    <p:commandButton styleClass="font" value="#{msg['auction.trade.bid.button']}"/>
+                    <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
+                                 for="bidAmountEnglish"/>
+                </div>
+
+            </div>
         </ui:repeat>
     </p:panel>
 </ui:composition>

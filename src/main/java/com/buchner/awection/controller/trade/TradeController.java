@@ -1,6 +1,6 @@
 package com.buchner.awection.controller.trade;
 
-import com.buchner.awection.model.auction.TradeView;
+import com.buchner.awection.model.trade.TradeView;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,7 +13,8 @@ public class TradeController {
     @Inject
     private TradeView tradeView;
 
-    protected TradeController() {
+
+    public TradeController() {
 
     }
 

@@ -34,14 +34,12 @@ public class BeanService {
     public List<AuctionBean> buildAuctionBeans(List<Auction> allAuctionsByUserId) {
 
         return allAuctionsByUserId.stream().map(
-            auction -> new AuctionBean(auction.getAuctionType(),
-                auction.getArticle().getShortDesc(),
-                auction.getPrice(), auction.isRunning())).collect(Collectors.toList());
+            this::buildAuctionBean).collect(Collectors.toList());
     }
 
     public AuctionBean buildAuctionBean(Auction auctionEntity) {
 
-        return new AuctionBean(auctionEntity.getAuctionType(),
+        return new AuctionBean(auctionEntity.getId(), auctionEntity.getArticle().getId(), auctionEntity.getAuctionType(),
             auctionEntity.getArticle().getShortDesc(),
             auctionEntity.getPrice(), auctionEntity.isRunning());
     }

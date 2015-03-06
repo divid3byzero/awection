@@ -4,18 +4,20 @@ import com.buchner.awection.model.core.entity.Auction;
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Bidder;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequestScoped
 public class TradeDao {
 
     @Inject
     private EntityManager entityManager;
 
-    public TradeDao() {
+    protected TradeDao() {
 
     }
 
@@ -28,21 +30,13 @@ public class TradeDao {
 
         TypedQuery<Bidder> namedQuery = entityManager
             .createQuery(
-                "select b from Bidder b where b.userId = :userId and b.auction.auctionType = :auctionType",
+                "select b from Bidder b where b.userId = :userId",
                 Bidder.class);
         namedQuery.setParameter("userId", userId);
-        namedQuery.setParameter("auctionType", auctionType);
-        List<Bidder> bidderList = namedQuery.getResultList();
+        Bidder bidder = namedQuery.getSingleResult();
 
-        List<Auction> collect = bidderList.stream()
-            .filter(bidder -> bidder.getAuction().getAuctionType().equals(auctionType))
-            .collect(Collectors.toList())
-            .stream()
-            .filter(filteredBidder -> filteredBidder.getAuction().isRunning())
-            .map(Bidder::getAuction)
+        return bidder.getAuctions().stream()
+            .filter(auction -> auctionType.equals(auction.getAuctionType()) && auction.isRunning())
             .collect(Collectors.toList());
-        return collect;
     }
-
-
 }

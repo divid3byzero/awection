@@ -18,14 +18,13 @@
             <p:commandButton styleClass="font"
                              ajax="true"
                              value="#{msg['auction.search.search.button']}"
-                             action="#{auctionController.searchArticlesByName()}"
-                             update=":form:articleSearchResult"/>
+                             action="#{articleController.searchArticlesByName()}"
+                             update="@form"/>
         </div>
 
         <div class="pull-left">
-            <p:dataTable id="articleSearchResult" styleClass="article-search-result"
-                         value="#{articleSearchView.articleBeans}" var="article"
-                         rowKey="#{article.id}">
+            <p:dataTable rendered="#{auctionSession.articleSearchResult.size() > 0}" id="articleSearchResult" style="text-align: center;" styleClass="article-search-result"
+                         value="#{auctionSession.articleSearchResult}" var="article">
 
                 <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
                     <h:outputText
@@ -47,7 +46,7 @@
                 </p:column>
 
                 <p:column>
-                    <p:commandButton styleClass="font" value="Start" ajax="true"
+                    <p:commandButton styleClass="font" value="#{msg['auction.search.joinauction']}" ajax="true"
                                      action="#{tradeController.startAuction(article.id)}"
                                      update="@form"/>
                 </p:column>

@@ -22,14 +22,14 @@
                         <p:column>
                             <p:inputText id="articleShortDescription"
                                          required="true"
-                                         value="#{auctionView.shortDescription}"/>
+                                         value="#{addArticleView.shortDescription}"/>
                         </p:column>
                         <p:column rowspan="5">
                             <p:outputLabel styleClass="font" for="articleLongDescription"
                                            value="#{msg['article.add.longdesc']}"/>
                             <p:inputTextarea styleClass="font" rows="15" id="articleLongDescription"
                                              required="true"
-                                             value="#{auctionView.longDescription}"/>
+                                             value="#{addArticleView.longDescription}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -39,7 +39,7 @@
                                            value="#{msg['article.add.price']}"/>
                         </p:column>
                         <p:column>
-                            <p:inputText required="true" value="#{auctionView.startPrice}"/>
+                            <p:inputText required="true" value="#{addArticleView.startPrice}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -49,7 +49,7 @@
                         </p:column>
                         <p:column>
                             <p:selectOneMenu styleClass="font" id="articleCategory"
-                                             value="#{auctionView.articleCategory}"
+                                             value="#{addArticleView.articleCategory}"
                                              required="true">
                                 <f:selectItem itemLabel="#{msg['article.add.category']}"
                                               itemValue=""/>
@@ -65,7 +65,7 @@
                         </p:column>
                         <p:column>
                             <p:selectOneMenu styleClass="font" id="auctionType"
-                                             value="#{auctionView.auctionType}"
+                                             value="#{addArticleView.auctionType}"
                                              required="true">
                                 <f:selectItem itemLabel="#{msg['article.add.type']}"
                                               itemValue=""/>
@@ -83,7 +83,7 @@
                         <p:column>
                             <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
                                           id="articleImage"
-                                          value="#{auctionView.uploadedFile}"/>
+                                          value="#{addArticleView.uploadedFile}"/>
                         </p:column>
                     </p:row>
 
@@ -91,7 +91,7 @@
                 <div>
                     <p:commandButton value="#{msg['form.send']}"
                                      ajax="false"
-                                     action="#{auctionController.saveAuction()}"/>
+                                     action="#{articleController.saveArticle()}"/>
                 </div>
             </h:form>
         </div>

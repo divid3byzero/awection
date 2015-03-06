@@ -33,3 +33,20 @@ table, tbody {
     width: 750px;
     margin-left: 150px;
 }
+
+.auction-element-wrapper {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.auction-element-wrapper label {
+    margin-bottom: 0 !important;
+}
+
+.auction-element-wrapper input {
+    margin-right: 5px;
+}
+
+.auction-element-wrapper button {
+    margin-bottom: 10px;
+}
