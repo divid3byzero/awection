@@ -9,6 +9,7 @@ import com.buchner.awection.model.core.entity.Bidder;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

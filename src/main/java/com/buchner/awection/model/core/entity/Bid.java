@@ -2,7 +2,10 @@ package com.buchner.awection.model.core.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "bids")
@@ -18,7 +21,7 @@ public class Bid {
 
     private int auctionId;
 
-    @Column(name = "bid_timestamp", insertable = false)
+    @Column(name = "bid_timestamp", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
@@ -38,7 +41,6 @@ public class Bid {
 
         this.bidder = bidder;
     }
-
 
     public int getAuctionId() {
 
@@ -63,5 +65,16 @@ public class Bid {
     public void setAmount(BigDecimal amount) {
 
         this.amount = amount;
+    }
+
+    @PrePersist
+    public void prePersist() throws ParseException {
+
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
+        TimeZone timeZone = TimeZone.getTimeZone("Europe/Berlin");
+        simpleDateFormat.setTimeZone(timeZone);
+        String format = simpleDateFormat.format(date);
+        timestamp = simpleDateFormat.parse(format);
     }
 }
