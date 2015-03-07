@@ -10,7 +10,8 @@
     <h:body>
         <h:form>
             <p:commandLink id="loginLink" value="#{msg['link.login']}"/>
-            <p:overlayPanel for="loginLink" hideEffect="fade">
+            <p:overlayPanel id="loginPanel" for="loginLink" hideEffect="fade">
+
                 <div>
                     <p:inputText id="firstName" value="#{loginView.userName}"/>
                     <p:watermark value="#{msg['form.mail']}" for="firstName"/>
@@ -22,6 +23,7 @@
                 <p:commandButton value="#{msg['link.login']}" ajax="true"
                                  action="#{loginController.login()}"
                                  oncomplete="handleLoginRequest(xhr, status, args)"/>
+                <p:focus context="loginPanel" for="surname"/>
             </p:overlayPanel>
         </h:form>
 

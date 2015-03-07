@@ -23,4 +23,9 @@ public class TradeController {
         tradeView.joinAuction(articleId);
     }
 
+    public void bid(int auctionId) {
+
+        tradeView.sendBid(auctionId);
+    }
+
 }

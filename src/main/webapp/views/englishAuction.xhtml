@@ -32,12 +32,14 @@
                 </p:panelGrid>
 
                 <div>
-                    <p:inputText id="bidAmountEnglish" styleClass="font"/>
-                    <p:commandButton styleClass="font" value="#{msg['auction.trade.bid.button']}"/>
+                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/>
                     <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
                                  for="bidAmountEnglish"/>
-                </div>
 
+                    <p:commandButton styleClass="font"
+                                     value="#{msg['auction.trade.bid.button']}"
+                                     action="#{tradeController.bid(auction.id)}" update="@form"/>
+                </div>
             </div>
         </ui:repeat>
     </p:panel>

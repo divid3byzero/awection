@@ -2,20 +2,19 @@ package com.buchner.awection.model.core.trade;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
+import com.buchner.awection.model.core.entity.Bidder;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
-@SecondPrice
 @RequestScoped
 public class SecondPriceTrader extends AbstractTrader {
 
-    @Cda
-    @Inject
-    private AbstractTrader abstractTrader;
 
     public SecondPriceTrader() {
 
+        this.auctionType = AuctionType.SECOND_PRICE;
     }
 
     public SecondPriceTrader(AuctionType auctionType) {
@@ -23,7 +22,9 @@ public class SecondPriceTrader extends AbstractTrader {
         this.auctionType = auctionType;
     }
 
-    @Override protected void trade(Auction auction) {
 
+    @Override protected Bidder trade(Auction auction, BigDecimal amount, long userId) {
+
+        return null;
     }
 }

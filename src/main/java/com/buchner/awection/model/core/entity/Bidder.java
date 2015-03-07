@@ -18,7 +18,7 @@ public class Bidder {
         inverseJoinColumns = {@JoinColumn(name = "bidder_id", referencedColumnName = "id")})
     private List<Auction> auctions;
 
-    @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Bid> bids;
 
     private long userId;
@@ -38,7 +38,7 @@ public class Bidder {
         return auctions;
     }
 
-    public void setAuctions(Auction auction) {
+    public void addAuction(Auction auction) {
 
         auctions.add(auction);
         if (!auction.getBidder().contains(this)) {
@@ -51,7 +51,7 @@ public class Bidder {
         return bids;
     }
 
-    public void setBids(Bid bid) {
+    public void addBid(Bid bid) {
 
         bids.add(bid);
         if (!this.equals(bid.getBidder())) {

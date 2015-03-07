@@ -2,6 +2,7 @@ package com.buchner.awection.model.core.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "bids")
@@ -15,8 +16,13 @@ public class Bid {
     @JoinColumn(name = "bidder_fk", referencedColumnName = "id")
     private Bidder bidder;
 
-    private BigDecimal amount;
+    private int auctionId;
 
+    @Column(name = "bid_timestamp", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
+
+    private BigDecimal amount;
 
     public int getId() {
 
@@ -31,6 +37,22 @@ public class Bid {
     public void setBidder(Bidder bidder) {
 
         this.bidder = bidder;
+    }
+
+
+    public int getAuctionId() {
+
+        return auctionId;
+    }
+
+    public void setAuctionId(int auctionId) {
+
+        this.auctionId = auctionId;
+    }
+
+    public Date getTimeStamp() {
+
+        return timestamp;
     }
 
     public BigDecimal getAmount() {

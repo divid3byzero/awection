@@ -69,7 +69,7 @@ public class Auction {
 
         this.bidder.add(bidder);
         if (!this.equals(bidder.getAuctions())) {
-            bidder.setAuctions(this);
+            bidder.addAuction(this);
         }
     }
 

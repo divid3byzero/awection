@@ -2,20 +2,22 @@ package com.buchner.awection.model.core.trade;
 
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
+import com.buchner.awection.model.core.entity.Bidder;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
-@Dutch
 @RequestScoped
 public class DutchTrader extends AbstractTrader {
 
+
     @Inject
-    @English
-    private AbstractTrader abstractTrader;
+    private AuctionManager auctionManager;
 
     public DutchTrader() {
 
+        this.auctionType = AuctionType.DUTCH;
     }
 
     public DutchTrader(AuctionType auctionType) {
@@ -23,7 +25,9 @@ public class DutchTrader extends AbstractTrader {
         this.auctionType = auctionType;
     }
 
-    @Override protected void trade(Auction auction) {
 
+    @Override protected Bidder trade(Auction auction, BigDecimal amount, long userId) {
+
+        return null;
     }
 }

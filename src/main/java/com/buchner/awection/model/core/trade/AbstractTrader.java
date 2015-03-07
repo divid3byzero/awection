@@ -1,24 +1,29 @@
 package com.buchner.awection.model.core.trade;
 
-import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Auction;
+import com.buchner.awection.model.core.entity.AuctionType;
+import com.buchner.awection.model.core.entity.Bidder;
+
+import javax.inject.Inject;
+import java.math.BigDecimal;
 
 public abstract class AbstractTrader {
 
     protected AuctionType auctionType;
-    protected AbstractTrader abstractTrader;
+
+    protected AuctionManager auctionManager;
 
 
-    public void handleTrade(Auction auction) {
+    public Bidder handleTrade(Auction auction, BigDecimal amount, long userId) {
 
-        if (auctionType.equals(auction.getAuctionType())) {
-            trade(auction);
-        }
-
-        if (null != abstractTrader) {
-            abstractTrader.handleTrade(auction);
-        }
+        return trade(auction, amount, userId);
     }
 
-    protected abstract void trade(Auction auction);
+    public AuctionType getAuctionType() {
+
+        return auctionType;
+    }
+
+    protected abstract Bidder trade(Auction auction, BigDecimal amount, long userId);
 }
+
