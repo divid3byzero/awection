@@ -6,8 +6,9 @@ import com.buchner.awection.model.core.entity.Auction;
 import com.buchner.awection.model.core.entity.AuctionType;
 import com.buchner.awection.model.core.entity.Bidder;
 import com.buchner.awection.model.core.trade.AbstractTrader;
-import com.buchner.awection.model.core.trade.AuctionManager;
 import com.liferay.portal.model.User;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
@@ -15,14 +16,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Transaction
 @RequestScoped
 public class TradeFacade {
-
-    @Inject
-    private AuctionManager auctionManager;
 
     @Inject
     private BidderDao bidderDao;
@@ -62,14 +61,23 @@ public class TradeFacade {
     public void createBid(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionDao.findById(auctionId);
-        Bidder bidder = trade(amount, auction);
-        if (null != bidder) {
-            auction.setPrice(amount);
-            bidderDao.save(bidder);
+        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        Date nowDate = now.toDate();
+        if (nowDate.compareTo(auction.getEndTime()) == 0 || nowDate.compareTo(auction.getEndTime()) == 1) {
+
+            auction.setRunning(false);
             auctionDao.save(auction);
+            auctionMessage();
         } else {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Your bid does not meet the requirements."));
+
+            Bidder bidder = trade(amount, auction);
+            if (null != bidder) {
+                auction.setPrice(amount);
+                bidderDao.save(bidder);
+                auctionDao.save(auction);
+            } else {
+                auctionMessage();
+            }
         }
     }
 
@@ -82,6 +90,12 @@ public class TradeFacade {
             }
         }
         return bidder;
+    }
+
+    private void auctionMessage() {
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Bid does not meet requirements or auction is over."));
     }
 
 }

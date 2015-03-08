@@ -5,12 +5,15 @@ import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Article;
 import com.buchner.awection.model.core.entity.Auction;
 import com.liferay.portal.model.User;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.primefaces.model.UploadedFile;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Named
 @RequestScoped
@@ -22,6 +25,7 @@ public class AddArticleView {
     private String longDescription;
     private UploadedFile uploadedFile;
     private String startPrice;
+    private int daysAuctionActive;
 
     @Inject
     private AuctionFacade auctionFacade;
@@ -102,9 +106,15 @@ public class AddArticleView {
         this.startPrice = startPrice;
     }
 
-    public User getCurrenLrayUser() {
 
-        return currentUser;
+    public int getDaysAuctionActive() {
+
+        return daysAuctionActive;
+    }
+
+    public void setDaysAuctionActive(int daysAuctionActive) {
+
+        this.daysAuctionActive = daysAuctionActive;
     }
 
     private Auction createAuction() {
@@ -117,11 +127,13 @@ public class AddArticleView {
         article.setImage(uploadedFile.getContents());
         article.setPrice(new BigDecimal(startPrice));
 
+        DateTime dateTime = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Auction auction = new Auction();
         auction.setUserId(currentUser.getUserId());
         auction.setAuctionType(auctionType);
         auction.setPrice(article.getPrice());
         auction.setRunning(true);
+        auction.setEndTime(dateTime.plusDays(daysAuctionActive).toDate());
 
         auction.setArticle(article);
         article.setAuction(auction);

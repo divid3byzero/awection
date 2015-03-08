@@ -86,6 +86,20 @@
                                           value="#{addArticleView.uploadedFile}"/>
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel styleClass="font" for="endDate"
+                                           value="#{msg['article.add.enddate']}"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="endDate" value="#{addArticleView.daysAuctionActive}">
+                                <f:selectItem itemLabel="1 Day" itemValue="1"/>
+                                <f:selectItem itemLabel="3 Days" itemValue="3"/>
+                                <f:selectItem itemLabel="1 Week" itemValue="7"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+
 
                 </p:panelGrid>
                 <div>

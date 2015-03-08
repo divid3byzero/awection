@@ -50,3 +50,9 @@ table, tbody {
 .auction-element-wrapper button {
     margin-bottom: 10px;
 }
+
+.ui-growl {
+    position: fixed;
+    top: 15% !important;
+    right: 75% !important;
+}

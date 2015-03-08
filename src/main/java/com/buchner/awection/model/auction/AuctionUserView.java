@@ -26,7 +26,7 @@ public class AuctionUserView {
 
     public List<AuctionBean> getUserOwnedAuctions() {
 
-        return auctionFacade.getUserOwnedAuctions(currentUser.getUserId());
+        return auctionFacade.getUserBidderAuctions(currentUser.getUserId());
     }
 
     public List<ArticleBean> getUserArticles() {

@@ -1,5 +1,8 @@
 package com.buchner.awection.model.core.entity;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -70,11 +73,7 @@ public class Bid {
     @PrePersist
     public void prePersist() throws ParseException {
 
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-        TimeZone timeZone = TimeZone.getTimeZone("Europe/Berlin");
-        simpleDateFormat.setTimeZone(timeZone);
-        String format = simpleDateFormat.format(date);
-        timestamp = simpleDateFormat.parse(format);
+        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        timestamp = now.toDate();
     }
 }

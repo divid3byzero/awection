@@ -4,6 +4,7 @@ import com.buchner.awection.model.core.app.AuctionSession;
 import com.buchner.awection.model.core.bean.ArticleBean;
 import com.buchner.awection.model.core.database.AuctionFacade;
 import com.buchner.awection.model.core.entity.Auction;
+import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -20,6 +21,9 @@ public class ArticleSearchView {
     @Inject
     private AuctionSession auctionSession;
 
+    @Inject
+    private User currentUser;
+
     private String articleName;
 
     protected ArticleSearchView() {
@@ -29,7 +33,7 @@ public class ArticleSearchView {
     public void getArticlesByName() {
 
         List<ArticleBean> articlesByDescription =
-            auctionFacade.getArticlesByDescription(articleName);
+            auctionFacade.getArticlesByDescription(articleName, currentUser.getUserId());
         auctionSession.setArticleSearchResult(articlesByDescription);
     }
 

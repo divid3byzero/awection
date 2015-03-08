@@ -1,7 +1,11 @@
 package com.buchner.awection.model.core.entity;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,6 +29,12 @@ public class Auction {
     private long userId;
     private BigDecimal price;
     private boolean isRunning;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startTimestamp;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endTime;
 
     public Auction() {
 
@@ -103,6 +113,21 @@ public class Auction {
         this.isRunning = isRunning;
     }
 
+    public Date getStartTimestamp() {
+
+        return startTimestamp;
+    }
+
+    public Date getEndTime() {
+
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+
+        this.endTime = endTime;
+    }
+
     private AuctionType getAuctionType(String identifier) {
 
         for (AuctionType auctionType : AuctionType.values()) {
@@ -111,5 +136,12 @@ public class Auction {
             }
         }
         return null;
+    }
+
+    @PrePersist
+    private void prePersist() {
+
+        DateTime dateTime = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        startTimestamp = dateTime.toDate();
     }
 }

@@ -11,8 +11,6 @@ public abstract class AbstractTrader {
 
     protected AuctionType auctionType;
 
-    protected AuctionManager auctionManager;
-
 
     public Bidder handleTrade(Auction auction, BigDecimal amount, long userId) {
 

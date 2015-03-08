@@ -5,10 +5,14 @@ import com.buchner.awection.model.core.bean.AuctionBean;
 import com.buchner.awection.model.core.app.BeanService;
 import com.buchner.awection.model.core.entity.Article;
 import com.buchner.awection.model.core.entity.Auction;
+import com.buchner.awection.model.core.entity.Bidder;
+import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transaction
 @RequestScoped
@@ -33,9 +37,9 @@ public class AuctionFacade {
         auctionDao.save(auction);
     }
 
-    public List<AuctionBean> getUserOwnedAuctions(long userId) {
+    public List<AuctionBean> getUserBidderAuctions(long userId) {
 
-        List<Auction> allAuctionsByUserId = auctionDao.findAllAuctionsByUserId(userId);
+        List<Auction> allAuctionsByUserId = auctionDao.findByBidder(userId);
         return beanService.buildAuctionBeans(allAuctionsByUserId);
     }
 
@@ -45,10 +49,23 @@ public class AuctionFacade {
         return beanService.buildArticleBeans(articlesByUserId);
     }
 
-    public List<ArticleBean> getArticlesByDescription(String description) {
+    public List<ArticleBean> getArticlesByDescription(String description, long userId) {
 
         List<Article> articlesByDescription = articleDao.findByName(description);
-        return beanService.buildArticleBeans(articlesByDescription);
+        List<Article> filteredArticles = new ArrayList<>();
+        for (Article article : articlesByDescription) {
+
+            List<Bidder> bidder = article.getAuction().getBidder();
+            if (bidder.size() == 0) {
+                filteredArticles.add(article);
+                continue;
+            }
+
+            filteredArticles.addAll(
+                bidder.stream().filter(bidderElem -> userId != bidderElem.getUserId())
+                    .map(bidderElem -> article).collect(Collectors.toList()));
+        }
+        return beanService.buildArticleBeans(filteredArticles);
     }
 
     public Auction getAuctionFromArticle(int articleId) {
