@@ -39,8 +39,7 @@ public class AuctionDao {
             .createQuery("select au from Auction au where au.article.id = :articleId",
                 Auction.class);
         namedQuery.setParameter("articleId", articleId);
-        Auction singleResult = namedQuery.getSingleResult();
-        return singleResult;
+        return namedQuery.getSingleResult();
     }
 
     public List<Auction> findByBidder(long userId) {
