@@ -90,11 +90,6 @@
             <artifactId>quartz-jobs</artifactId>
             <version>2.2.1</version>
         </dependency>
-        <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.1</version>
-        </dependency>
         <!-- LRay -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -154,16 +149,10 @@
             <artifactId>mail</artifactId>
             <version>1.4.3</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
-            <scope>provided</scope>
-        </dependency-->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

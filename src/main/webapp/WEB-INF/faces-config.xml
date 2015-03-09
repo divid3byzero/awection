@@ -7,7 +7,7 @@
 >
 	<lifecycle>
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
-		<phase-listener>com.buchner.awection.model.core.app.LocalePhaseListener</phase-listener>
+		<phase-listener>com.buchner.auction.model.core.app.LocalePhaseListener</phase-listener>
 	</lifecycle>
 	<application>
 		<locale-config>

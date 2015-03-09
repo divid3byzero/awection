@@ -47,6 +47,9 @@
     <listener>
         <listener-class>com.liferay.cdi.portlet.bridge.CDIContextListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

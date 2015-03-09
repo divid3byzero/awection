@@ -1,7 +1,7 @@
 package com.buchner.auction;
 
-import com.buchner.awection.model.core.database.Query;
-import com.buchner.awection.model.core.database.WhereQuery;
+import com.buchner.auction.model.core.database.Query;
+import com.buchner.auction.model.core.database.WhereQuery;
 import org.junit.Assert;
 import org.junit.Test;
 

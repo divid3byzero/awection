@@ -9,7 +9,7 @@
     <p:panel id="dutchAuctionPanel" style="border: none; padding: 0;">
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.dutchType)}" var="auction">
             <h:outputText value="#{auction.price}"/>
-            <p:poll interval="10" update=":form:dutchAuctionPanel"/>
+            <!--p:poll interval="10" update=":form:dutchAuctionPanel"/-->
         </ui:repeat>
     </p:panel>
 </ui:composition>
