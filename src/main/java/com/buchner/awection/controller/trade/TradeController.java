@@ -28,4 +28,9 @@ public class TradeController {
         tradeView.sendBid(auctionId);
     }
 
+    public void checkDutchPrice(int auctionId) {
+
+
+    }
+
 }

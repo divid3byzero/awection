@@ -42,6 +42,11 @@ public class TradeFacade {
 
     }
 
+    public Auction getByAuctionId(int auctionId) {
+
+        return auctionDao.findById(auctionId);
+    }
+
     public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType) {
 
         return beanService.buildAuctionBeans(
@@ -63,7 +68,8 @@ public class TradeFacade {
         Auction auction = auctionDao.findById(auctionId);
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
-        if (nowDate.compareTo(auction.getEndTime()) == 0 || nowDate.compareTo(auction.getEndTime()) == 1) {
+        if (nowDate.compareTo(auction.getEndTime()) == 0
+            || nowDate.compareTo(auction.getEndTime()) == 1) {
 
             auction.setRunning(false);
             auctionDao.save(auction);
@@ -95,7 +101,8 @@ public class TradeFacade {
     private void auctionMessage() {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Bid does not meet requirements or auction is over."));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
+            "Bid does not meet requirements or auction is over."));
     }
 
 }

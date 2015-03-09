@@ -47,4 +47,5 @@ public class TradeView {
 
         tradeFacade.createBid(auctionId, bidAmount);
     }
+
 }
