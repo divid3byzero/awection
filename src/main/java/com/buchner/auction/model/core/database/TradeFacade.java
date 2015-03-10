@@ -6,6 +6,8 @@ import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.buchner.auction.model.core.trade.AbstractTrader;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -42,11 +44,6 @@ public class TradeFacade {
 
     }
 
-    public Auction getByAuctionId(int auctionId) {
-
-        return auctionDao.findById(auctionId);
-    }
-
     public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType) {
 
         return beanService.buildAuctionBeans(
@@ -66,35 +63,19 @@ public class TradeFacade {
     public void createBid(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionDao.findById(auctionId);
-        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
-        Date nowDate = now.toDate();
-        if (nowDate.compareTo(auction.getEndTime()) == 0
-            || nowDate.compareTo(auction.getEndTime()) == 1) {
-
-            auction.setRunning(false);
-            auctionMessage("Auction is over.");
+        if (auction.isRunning()) {
+            for (AbstractTrader trader : abstractTrader) {
+                if (trader.getAuctionType().equals(auction.getAuctionType())) {
+                    try {
+                        trader.handleTrade(auction, amount, currentUser.getUserId());
+                    } catch (PortalException | SystemException e) {
+                        throw new IllegalArgumentException("Fatal error occurred");
+                    }
+                }
+            }
         } else {
-
-            Bidder bidder = trade(amount, auction);
-            if (null != bidder) {
-                auction.setPrice(amount);
-                bidderDao.save(bidder);
-                auctionDao.save(auction);
-            } else {
-                auctionMessage("Bid does not meet requirements.");
-            }
+            auctionMessage("Auction is over.");
         }
-    }
-
-    private Bidder trade(BigDecimal amount, Auction auction) {
-
-        Bidder bidder = null;
-        for (AbstractTrader trader : abstractTrader) {
-            if (trader.getAuctionType().equals(auction.getAuctionType())) {
-                bidder = trader.handleTrade(auction, amount, currentUser.getUserId());
-            }
-        }
-        return bidder;
     }
 
     private void auctionMessage(String message) {

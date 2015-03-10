@@ -7,6 +7,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
         >
     <p:panel style="border: none; padding: 0;">
+        <h:outputText value="#{msg['auction.trade.seconfprice']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.secondPriceType)}" var="auction">
             <h:outputText value="#{auction.price}"/>
         </ui:repeat>

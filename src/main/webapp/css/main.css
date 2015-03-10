@@ -20,6 +20,11 @@ table, tbody {
     margin-top: 15px;
 }
 
+.auction-result-panel {
+    width: 99.5%;
+    margin-top: 15px;
+}
+
 .auction-panel-last {
     margin-right: 0;
 }

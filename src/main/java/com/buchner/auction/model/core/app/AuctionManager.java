@@ -15,14 +15,24 @@ public class AuctionManager {
     private EntityManager entityManager;
     private BigDecimal dutchAuctionSubtrahent;
 
-    protected AuctionManager() {
+    private static AuctionManager instance;
+
+    private AuctionManager() {
 
         entityManager = Persistence.createEntityManagerFactory("auction").createEntityManager();
         dutchAuctionSubtrahent = new BigDecimal("2");
     }
 
+    public static AuctionManager getInstance() {
+
+        if (null == instance) {
+            instance = new AuctionManager();
+        }
+        return instance;
+    }
+
     @SuppressWarnings("JpaQlInspection")
-    public void checkDutchAuctionPrices() {
+    public synchronized void checkDutchAuctionPrices() {
 
 
         entityManager.getTransaction().begin();

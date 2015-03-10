@@ -1,28 +1,48 @@
 package com.buchner.auction.model.core.trade;
 
-import com.buchner.auction.model.core.database.BidderDao;
-import com.buchner.auction.model.core.entity.AuctionType;
-import com.buchner.auction.model.core.entity.Auction;
-import com.buchner.auction.model.core.entity.Bid;
-import com.buchner.auction.model.core.entity.Bidder;
+import com.buchner.auction.model.core.app.BidComperator;
+import com.buchner.auction.model.core.app.LiferayComponentService;
+import com.buchner.auction.model.core.database.AuctionResultFacade;
+import com.buchner.auction.model.core.entity.*;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @RequestScoped
 public class EnglishTrader extends AbstractTrader {
 
     @Inject
-    private BidderDao bidderDao;
+    private AuctionResultFacade auctionResultFacade;
+
+    @Inject
+    private LiferayComponentService liferayComponentService;
 
     public EnglishTrader() {
 
         this.auctionType = AuctionType.ENGLISH;
     }
 
-    @Override protected Bidder trade(Auction auction, BigDecimal amount, long userId) {
+    @Override protected void trade(Auction auction, BigDecimal amount, long userId)
+        throws SystemException, PortalException {
+
+        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        Date nowDate = now.toDate();
+        if (nowDate.compareTo(auction.getEndTime()) == 0
+            || nowDate.compareTo(auction.getEndTime()) == 1) {
+
+            auction.setRunning(false);
+            findAuctionWinner(auction, userId);
+        }
 
         if (auction.getPrice().compareTo(amount) == -1) {
 
@@ -31,15 +51,36 @@ public class EnglishTrader extends AbstractTrader {
             bid.setAmount(amount);
             bid.setAuctionId(auction.getId());
 
-            Bidder targetBidder = null;
             for (Bidder bidderElem : bidder) {
                 if (userId == bidderElem.getUserId()) {
-                    targetBidder = bidderElem;
-                    targetBidder.addBid(bid);
+                    bidderElem.addBid(bid);
                 }
             }
-            return targetBidder;
+
+        } else {
+            auctionMessage("Bid does not meet requirements");
         }
-        return null;
+    }
+
+    @Override protected void findAuctionWinner(Auction auction, long userId)
+        throws PortalException, SystemException {
+
+        List<Bidder> bidder = auction.getBidder();
+        List<Bid> auctionBids = new ArrayList<>();
+        for (Bidder bidderElem : bidder) {
+            auctionBids.addAll(bidderElem.getBids());
+        }
+
+        auctionBids.sort(new BidComperator());
+        Bid winningBid = auctionBids.get(0);
+
+        long winningUserId = winningBid.getBidder().getUserId();
+        User user = liferayComponentService.findUserById(winningUserId);
+        AuctionResult auctionResult = new AuctionResult();
+        auctionResult.setPrice(winningBid.getAmount());
+        auctionResult.setFirstName(user.getFirstName());
+        auctionResult.setSurname(user.getLastName());
+        auctionResult.setMail(user.getEmailAddress());
+        auctionResultFacade.saveAuctionResult(auctionResult);
     }
 }

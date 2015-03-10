@@ -48,4 +48,8 @@ public class TradeView {
         tradeFacade.createBid(auctionId, bidAmount);
     }
 
+    public void sendBid(int auctionId, String bidAmount) {
+
+        tradeFacade.createBid(auctionId, new BigDecimal(bidAmount));
+    }
 }

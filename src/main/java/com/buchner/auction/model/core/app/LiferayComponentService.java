@@ -45,6 +45,11 @@ public class LiferayComponentService {
         return currentThemeDisplay.getUser();
     }
 
+    public User findUserById(long userId) throws SystemException, PortalException {
+
+        return UserLocalServiceUtil.getUserById(userId);
+    }
+
     public User createLrayUser(AuctionUser auctionUser) {
 
         long companyId = getCurrentThemeDisplay().getCompanyId();

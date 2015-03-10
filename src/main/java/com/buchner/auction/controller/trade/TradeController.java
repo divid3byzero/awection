@@ -5,6 +5,7 @@ import com.buchner.auction.model.trade.TradeView;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
 
 @Named
 @ApplicationScoped
@@ -28,9 +29,9 @@ public class TradeController {
         tradeView.sendBid(auctionId);
     }
 
-    public void checkDutchPrice(int auctionId) {
+    public void bid(int auctionId, String amount) {
 
-
+        tradeView.sendBid(auctionId, amount);
     }
 
 }
