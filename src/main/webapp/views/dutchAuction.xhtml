@@ -6,10 +6,24 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         >
-    <p:panel id="dutchAuctionPanel" style="border: none; padding: 0;">
-        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.dutchType)}" var="auction">
-            <h:outputText value="#{auction.price}"/>
-            <!--p:poll interval="10" update=":form:dutchAuctionPanel"/-->
+    <p:panel id="dutchAuctionPanel" styleClass="auction-element-wrapper" style="border: none; padding: 0;">
+
+        <h:outputText value="#{msg['auction.trade.dutch']}" styleClass="subheadline"/>
+        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.dutchType)}"
+                   var="auction">
+            <div class="clearfix">
+
+                <ui:include src="template/auction_item_temp.xhtml">
+                    <ui:param name="articleId" value="#{auction.articleId}"/>
+                    <ui:param name="articleDescription" value="#{auction.articleDescription}"/>
+                    <ui:param name="price" value="#{auction.price}"/>
+                </ui:include>
+
+                <div>
+                    <p:commandButton styleClass="font" value="#{msg['auction.trade.buy.button']}"/>
+                    <p:poll interval="10" update=":form:dutchAuctionPanel"/>
+                </div>
+            </div>
         </ui:repeat>
     </p:panel>
 </ui:composition>

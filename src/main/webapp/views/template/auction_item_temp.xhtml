@@ -1,0 +1,29 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+
+    <div class="pull-right">
+        <p:graphicImage width="250px" value="#{imageStreamerService.imageStream}">
+            <f:param name="articleId" value="#{articleId}"/>
+        </p:graphicImage>
+    </div>
+    <p:panelGrid columns="2">
+        <p:outputLabel for="articleDescriptionEnglish"
+                       styleClass="font"
+                       value="#{msg['auction.trade.article.description']}"/>
+        <h:outputText id="articleDescriptionEnglish" styleClass="font"
+                      value="#{articleDescription}"/>
+
+        <p:outputLabel for="auctionPriceEnglish"
+                       styleClass="font"
+                       value="#{msg['auction.trade.article.current.price']}"/>
+        <h:outputText id="auctionPriceEnglish" styleClass="font"
+                      value="#{price}"/>
+    </p:panelGrid>
+</ui:composition>

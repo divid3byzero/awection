@@ -72,8 +72,7 @@ public class TradeFacade {
             || nowDate.compareTo(auction.getEndTime()) == 1) {
 
             auction.setRunning(false);
-            auctionDao.save(auction);
-            auctionMessage();
+            auctionMessage("Auction is over.");
         } else {
 
             Bidder bidder = trade(amount, auction);
@@ -82,7 +81,7 @@ public class TradeFacade {
                 bidderDao.save(bidder);
                 auctionDao.save(auction);
             } else {
-                auctionMessage();
+                auctionMessage("Bid does not meet requirements.");
             }
         }
     }
@@ -98,11 +97,11 @@ public class TradeFacade {
         return bidder;
     }
 
-    private void auctionMessage() {
+    private void auctionMessage(String message) {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
-            "Bid does not meet requirements or auction is over."));
+            message));
     }
 
 }
