@@ -8,13 +8,20 @@
         >
 
     <div class="clearfix">
-        <p:dataTable styleClass="pull-left auction-panel">
+        <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.dutchType)}" var="auction" styleClass="pull-left auction-panel">
             <f:facet name="header">
                 <h:outputText styleClass="font" value="#{msg['auction.trade.dutch']}"/>
             </f:facet>
+            <ui:include src="template/result_columns.xhtml">
+                <ui:param name="desc" value="#{auction.description}"/>
+                <ui:param name="price" value="#{auction.price}"/>
+                <ui:param name="firstName" value="#{auction.firstName}"/>
+                <ui:param name="firstName" value="#{auction.surname}"/>
+                <ui:param name="firstName" value="#{auction.mail}"/>
+            </ui:include>
         </p:dataTable>
 
-        <p:dataTable value="" styleClass="pull-left auction-panel auction-panel-last">
+        <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.englishType)}" styleClass="pull-left auction-panel auction-panel-last">
             <f:facet name="header">
                 <h:outputText styleClass="font" value="#{msg['auction.trade.english']}"/>
             </f:facet>

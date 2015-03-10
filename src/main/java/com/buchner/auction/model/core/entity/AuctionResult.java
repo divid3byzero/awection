@@ -1,22 +1,24 @@
 package com.buchner.auction.model.core.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "auction_results")
 public class AuctionResult {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Enumerated(EnumType.STRING)
+    private AuctionType auctionType;
 
     private BigDecimal price;
     private String firstName;
     private String surname;
     private String mail;
+    private String description;
 
     public AuctionResult() {
 
@@ -65,5 +67,25 @@ public class AuctionResult {
     public void setMail(String mail) {
 
         this.mail = mail;
+    }
+
+    public AuctionType getAuctionType() {
+
+        return auctionType;
+    }
+
+    public void setAuctionType(AuctionType auctionType) {
+
+        this.auctionType = auctionType;
+    }
+
+    public String getDescription() {
+
+        return description;
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
     }
 }

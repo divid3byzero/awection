@@ -81,6 +81,8 @@ public class EnglishTrader extends AbstractTrader {
         auctionResult.setFirstName(user.getFirstName());
         auctionResult.setSurname(user.getLastName());
         auctionResult.setMail(user.getEmailAddress());
+        auctionResult.setAuctionType(auction.getAuctionType());
+        auctionResult.setDescription(auction.getArticle().getShortDesc());
         auctionResultFacade.saveAuctionResult(auctionResult);
     }
 }

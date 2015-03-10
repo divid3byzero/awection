@@ -5,6 +5,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 @Transaction
 @Interceptor
