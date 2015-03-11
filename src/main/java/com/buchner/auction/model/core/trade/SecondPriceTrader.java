@@ -1,5 +1,6 @@
 package com.buchner.auction.model.core.trade;
 
+import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.Bidder;
@@ -24,12 +25,13 @@ public class SecondPriceTrader extends AbstractTrader {
     }
 
 
-    @Override protected void trade(Auction auction, BigDecimal amount, long userId) {
+    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId) {
 
+        return null;
     }
 
-    @Override protected void findAuctionWinner(Auction auction, long userId)
+    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
-
+        return null;
     }
 }

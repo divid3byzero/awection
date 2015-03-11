@@ -1,6 +1,7 @@
 package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.entity.Auction;
+import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -16,10 +17,10 @@ public abstract class AbstractTrader {
     protected AuctionType auctionType;
 
 
-    public void handleTrade(Auction auction, BigDecimal amount, long userId)
+    public AuctionResult handleTrade(Auction auction, BigDecimal amount, long userId)
         throws PortalException, SystemException {
 
-        trade(auction, amount, userId);
+        return trade(auction, amount, userId);
     }
 
     public AuctionType getAuctionType() {
@@ -27,10 +28,10 @@ public abstract class AbstractTrader {
         return auctionType;
     }
 
-    protected abstract void trade(Auction auction, BigDecimal amount, long userId)
+    protected abstract AuctionResult trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException;
 
-    protected abstract void findAuctionWinner(Auction auction, long userId)
+    protected abstract AuctionResult findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException;
 
     protected void auctionMessage(String message) {

@@ -3,6 +3,7 @@ package com.buchner.auction.model.core.database;
 import com.buchner.auction.model.core.app.BeanService;
 import com.buchner.auction.model.core.bean.AuctionBean;
 import com.buchner.auction.model.core.entity.Auction;
+import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.buchner.auction.model.core.trade.AbstractTrader;
@@ -29,6 +30,9 @@ public class TradeFacade {
 
     @Inject
     private AuctionDao auctionDao;
+
+    @Inject
+    private AuctionResultDao auctionResultDao;
 
     @Inject
     private BeanService beanService;
@@ -59,14 +63,18 @@ public class TradeFacade {
         bidderDao.save(bidder);
     }
 
-    public void createBid(int auctionId, BigDecimal amount) {
+    public void fireTrader(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionDao.findById(auctionId);
         if (auction.isRunning()) {
             for (AbstractTrader trader : abstractTrader) {
                 if (trader.getAuctionType().equals(auction.getAuctionType())) {
                     try {
-                        trader.handleTrade(auction, amount, currentUser.getUserId());
+                        AuctionResult auctionResult =
+                            trader.handleTrade(auction, amount, currentUser.getUserId());
+                        if (null != auctionResult) {
+                            auctionResultDao.save(auctionResult);
+                        }
                     } catch (PortalException | SystemException e) {
                         throw new IllegalArgumentException("Fatal error occurred");
                     }

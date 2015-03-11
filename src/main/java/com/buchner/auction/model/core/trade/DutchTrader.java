@@ -21,9 +21,6 @@ import java.util.stream.Stream;
 public class DutchTrader extends AbstractTrader {
 
     @Inject
-    private AuctionResultFacade auctionResultFacade;
-
-    @Inject
     private LiferayComponentService liferayComponentService;
 
     protected DutchTrader() {
@@ -31,9 +28,8 @@ public class DutchTrader extends AbstractTrader {
         this.auctionType = AuctionType.DUTCH;
     }
 
-    @Override protected void trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
-
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
@@ -53,12 +49,13 @@ public class DutchTrader extends AbstractTrader {
 
             if (null != targetBidder) {
                 targetBidder.addBid(bid);
-                findAuctionWinner(auction, userId);
+                return findAuctionWinner(auction, userId);
             }
         }
+        return null;
     }
 
-    @Override protected void findAuctionWinner(Auction auction, long userId)
+    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
 
         Bidder bidder = getBidder(userId, auction.getBidder());
@@ -74,7 +71,7 @@ public class DutchTrader extends AbstractTrader {
         auctionResult.setMail(user.getEmailAddress());
         auctionResult.setAuctionType(auction.getAuctionType());
         auctionResult.setDescription(auction.getArticle().getShortDesc());
-        auctionResultFacade.saveAuctionResult(auctionResult);
+        return auctionResult;
     }
 
     private Bidder getBidder(long userId, List<Bidder> bidderList) {

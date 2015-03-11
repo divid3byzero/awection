@@ -45,11 +45,11 @@ public class TradeView {
 
     public void sendBid(int auctionId) {
 
-        tradeFacade.createBid(auctionId, bidAmount);
+        tradeFacade.fireTrader(auctionId, bidAmount);
     }
 
     public void sendBid(int auctionId, String bidAmount) {
 
-        tradeFacade.createBid(auctionId, new BigDecimal(bidAmount));
+        tradeFacade.fireTrader(auctionId, new BigDecimal(bidAmount));
     }
 }

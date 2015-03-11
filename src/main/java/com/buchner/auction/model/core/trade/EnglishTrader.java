@@ -32,7 +32,7 @@ public class EnglishTrader extends AbstractTrader {
         this.auctionType = AuctionType.ENGLISH;
     }
 
-    @Override protected void trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
@@ -41,7 +41,7 @@ public class EnglishTrader extends AbstractTrader {
             || nowDate.compareTo(auction.getEndTime()) == 1) {
 
             auction.setRunning(false);
-            findAuctionWinner(auction, userId);
+            return findAuctionWinner(auction, userId);
         }
 
         if (auction.getPrice().compareTo(amount) == -1) {
@@ -60,9 +60,10 @@ public class EnglishTrader extends AbstractTrader {
         } else {
             auctionMessage("Bid does not meet requirements");
         }
+        return null;
     }
 
-    @Override protected void findAuctionWinner(Auction auction, long userId)
+    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
 
         List<Bidder> bidder = auction.getBidder();
@@ -83,6 +84,6 @@ public class EnglishTrader extends AbstractTrader {
         auctionResult.setMail(user.getEmailAddress());
         auctionResult.setAuctionType(auction.getAuctionType());
         auctionResult.setDescription(auction.getArticle().getShortDesc());
-        auctionResultFacade.saveAuctionResult(auctionResult);
+        return auctionResult;
     }
 }

@@ -11,7 +11,6 @@ public class AuctionResult {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Enumerated(EnumType.STRING)
     private AuctionType auctionType;
 
     private BigDecimal price;
