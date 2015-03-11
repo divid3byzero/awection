@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 
     <interceptors>
-        <class>com.buchner.awection.model.core.database.TransactionInterceptor</class>
+        <class>com.buchner.auction.model.core.database.TransactionInterceptor</class>
     </interceptors>
 </beans>

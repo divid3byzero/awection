@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head/>
+
+    <h:body>
+        <div class="content">
+            <h:form id="form">
+
+                <p:growl id="auctionGrowl" life="5000" showDetail="true"/>
+                <p:panel styleClass="auction-search-panel">
+                    <ui:include src="auctionSearch.xhtml"/>
+                </p:panel>
+                <div class="clearfix">
+                    <p:panel styleClass="pull-left auction-panel">
+                        <ui:include src="dutchAuction.xhtml"/>
+                    </p:panel>
+                    <p:panel styleClass="pull-left auction-panel auction-panel-last">
+                        <ui:include src="englishAuction.xhtml"/>
+                    </p:panel>
+                </div>
+                <div class="clearfix">
+                    <p:panel styleClass="pull-left auction-panel">
+                        <ui:include src="secondPriceAuction.xhtml"/>
+                    </p:panel>
+                    <p:panel styleClass="pull-left auction-panel auction-panel-last">
+                        <ui:include src="cdAuction.xhtml"/>
+                    </p:panel>
+                </div>
+
+                <p:panel styleClass="auction-result-panel" id="tradingResults">
+                    <h:outputText value="#{msg['auction.trade.result']}" styleClass="subheadline"/>
+                    <ui:include src="tradingResults.xhtml"/>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>

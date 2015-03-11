@@ -1,0 +1,50 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+    <div class="clearfix">
+        <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.dutchType)}" var="auction" styleClass="pull-left auction-panel">
+            <f:facet name="header">
+                <h:outputText styleClass="font" value="#{msg['auction.trade.dutch']}"/>
+            </f:facet>
+            <ui:include src="template/result_columns.xhtml">
+                <ui:param name="desc" value="#{auction.description}"/>
+                <ui:param name="price" value="#{auction.price}"/>
+                <ui:param name="firstName" value="#{auction.firstName}"/>
+                <ui:param name="surname" value="#{auction.surname}"/>
+                <ui:param name="mail" value="#{auction.mail}"/>
+            </ui:include>
+        </p:dataTable>
+
+        <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.englishType)}" var="auction" styleClass="pull-left auction-panel auction-panel-last">
+            <f:facet name="header">
+                <h:outputText styleClass="font" value="#{msg['auction.trade.english']}"/>
+            </f:facet>
+            <ui:include src="template/result_columns.xhtml">
+                <ui:param name="desc" value="#{auction.description}"/>
+                <ui:param name="price" value="#{auction.price}"/>
+                <ui:param name="firstName" value="#{auction.firstName}"/>
+                <ui:param name="surname" value="#{auction.surname}"/>
+                <ui:param name="mail" value="#{auction.mail}"/>
+            </ui:include>
+        </p:dataTable>
+    </div>
+
+    <div class="clearfix">
+        <p:dataTable styleClass="pull-left auction-panel">
+            <f:facet name="header">
+                <h:outputText styleClass="font" value="#{msg['auction.trade.seconfprice']}"/>
+            </f:facet>
+        </p:dataTable>
+        <p:dataTable styleClass="pull-left auction-panel auction-panel-last">
+            <f:facet name="header">
+                <h:outputText styleClass="font" value="#{msg['auction.trade.cda']}"/>
+            </f:facet>
+        </p:dataTable>
+    </div>
+</ui:composition>

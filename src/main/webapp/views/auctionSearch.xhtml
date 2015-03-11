@@ -1,17 +1,56 @@
-<?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head/>
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
 
-    <h:body>
-        <div class="content">
-            <h:form>
+    <div class="clearfix">
 
-            </h:form>
+        <div class="pull-left search">
+            <h:outputText styleClass="subheadline"
+                          value="#{msg['auction.search.title']}"/>
+            <p:inputText id="auctionSearchInput" styleClass="font"
+                         value="#{articleSearchView.articleName}"/>
+            <p:watermark for="auctionSearchInput" value="#{msg['auction.search.search.hint']}"/>
+            <p:commandButton styleClass="font"
+                             ajax="true"
+                             value="#{msg['auction.search.search.button']}"
+                             action="#{articleController.searchArticlesByName()}"
+                             update="@form"/>
         </div>
-    </h:body>
-</f:view>
+
+        <div class="pull-left">
+            <p:dataTable rendered="#{auctionSession.articleSearchResult.size() > 0}" id="articleSearchResult" style="text-align: center;" styleClass="article-search-result"
+                         value="#{auctionSession.articleSearchResult}" var="article">
+
+                <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
+                    <h:outputText
+                            styleClass="font"
+                            value="#{articleSearchView.getAuctionFromArticle(article.id).auctionType}"/>
+                </p:column>
+                <p:column styleClass="font" headerText="#{msg['auction.search.shortdesc']}">
+                    <h:outputText styleClass="font" value="#{article.shorDesc}"/>
+                </p:column>
+                <p:column styleClass="font" headerText="#{msg['auction.search.currentprice']}">
+                    <h:outputText
+                            styleClass="font"
+                            value="#{articleSearchView.getAuctionFromArticle(article.id).price}"/>
+                </p:column>
+                <p:column styleClass="font" headerText="#{msg['auction.search.image']}">
+                    <p:graphicImage width="50px" value="#{imageStreamerService.imageStream}">
+                        <f:param name="articleId" value="#{article.id}"/>
+                    </p:graphicImage>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton styleClass="font" value="#{msg['auction.search.joinauction']}" ajax="true"
+                                     action="#{tradeController.startAuction(article.id)}"
+                                     update="@form"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+    </div>
+</ui:composition>

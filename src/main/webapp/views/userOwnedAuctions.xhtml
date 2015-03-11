@@ -13,7 +13,7 @@
             <h:form>
                 <p:dataTable value="#{auctionUserView.userOwnedAuctions}" var="auction">
                     <p:column styleClass="font" headerText="#{msg['userowned.auction.shortdesc']}">
-                        <h:outputText styleClass="font" value="#{auction.article.shortDesc}"/>
+                        <h:outputText styleClass="font" value="#{auction.articleDescription}"/>
                     </p:column>
                     <p:column styleClass="font" headerText="#{msg['userowned.auction.auctiontype']}">
                         <h:outputText styleClass="font" value="#{auction.auctionType.name}"/>
@@ -25,10 +25,10 @@
                         <h:outputText styleClass="font" value="#{auction.price}"/>
                     </p:column>
                     <p:column styleClass="font" rendered="#{auction.running}" headerText="#{msg['userowned.auction.runningauction']}">
-                        <h:outputText styleClass="font" value="#{msg['userowned.auction.running']}"/>
+                        <h:outputText styleClass="font" value="#{msg['userowned.auction.running']}" escape="false"/>
                     </p:column>
                     <p:column styleClass="font" rendered="#{!auction.running}" headerText="#{msg['userowned.auction.runningauction']}">
-                        <h:outputText styleClass="font" value="#{msg['userowned.auction.notrunning']}"/>
+                        <h:outputText styleClass="font" value="#{msg['userowned.auction.notrunning']}" escape="false"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

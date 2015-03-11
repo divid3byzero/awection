@@ -9,3 +9,55 @@ table, tbody {
 .aui input[type="file"] {
     line-height: normal !important;
 }
+
+.auction-search-panel {
+    width: 99.5%;
+}
+
+.auction-panel {
+    width: 48.92%;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.auction-result-panel {
+    width: 99.5%;
+    margin-top: 15px;
+}
+
+.auction-panel-last {
+    margin-right: 0;
+}
+
+.search > .subheadline, .search > input {
+    margin-right: 10px;
+    margin-bottom: 0 !important;
+}
+
+.article-search-result {
+    width: 750px;
+    margin-left: 150px;
+}
+
+.auction-element-wrapper {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.auction-element-wrapper label {
+    margin-bottom: 0 !important;
+}
+
+.auction-element-wrapper input {
+    margin-right: 5px;
+}
+
+.auction-element-wrapper button {
+    margin-bottom: 10px;
+}
+
+.ui-growl {
+    position: fixed;
+    top: 15% !important;
+    right: 75% !important;
+}

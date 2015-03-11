@@ -1,0 +1,25 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+    <p:column styleClass="font" headerText="#{msg['userowned.auction.shortdesc']}">
+        <h:outputText value="#{desc}" styleClass="font"/>
+    </p:column>
+    <p:column styleClass="font" headerText="#{msg['userowned.auction.price']}">
+        <h:outputText value="#{price}" styleClass="font"/>
+    </p:column>
+    <p:column styleClass="font" headerText="#{msg['form.firstname']}">
+        <h:outputText value="#{firstName}" styleClass="font"/>
+    </p:column>
+    <p:column styleClass="font" headerText="#{msg['form.surname']}">
+        <h:outputText value="#{surname}" styleClass="font"/>
+    </p:column>
+    <p:column styleClass="font" headerText="#{msg['form.mail']}">
+        <h:outputText value="#{mail}" styleClass="font"/>
+    </p:column>
+</ui:composition>
