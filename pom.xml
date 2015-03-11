@@ -7,7 +7,7 @@
     <artifactId>auction</artifactId>
     <packaging>war</packaging>
     <name>auction</name>
-    <version>1.11-SNAPSHOT</version>
+    <version>1.11</version>
 
     <build>
         <plugins>
