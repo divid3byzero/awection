@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestScoped
 public class AuctionResultDao {
@@ -29,10 +28,9 @@ public class AuctionResultDao {
     public List<AuctionResult> findAuctionResultsByType(AuctionType auctionType) {
 
         TypedQuery<AuctionResult> query = entityManager
-            .createQuery("select ar from AuctionResult ar",
+            .createQuery("select ar from AuctionResult ar where ar.auctionType = :auctionType",
                 AuctionResult.class);
-        List<AuctionResult> resultList = query.getResultList();
-        return resultList.stream().filter(a -> a.getAuctionType().ordinal() == auctionType.ordinal()).collect(
-            Collectors.toList());
+        query.setParameter("auctionType", auctionType);
+        return query.getResultList();
     }
 }
