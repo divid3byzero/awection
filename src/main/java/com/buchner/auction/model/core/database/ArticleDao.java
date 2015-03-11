@@ -2,49 +2,50 @@ package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.entity.Article;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @RequestScoped
-public class ArticleDao {
+public class ArticleDao extends GenericDao<Article> {
+
+    public ArticleDao() {
+
+    }
 
     @Inject
-    private EntityManager entityManager;
+    protected ArticleDao(EntityManager entityManager) {
 
-    protected ArticleDao() {
-
-    }
-
-    public void save(Article article) {
-
-        entityManager.persist(article);
-    }
-
-    public Article findById(int id) {
-
-        TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.id = :id", Article.class);
-        namedQuery.setParameter("id", id);
-        return namedQuery.getSingleResult();
+        super(entityManager, Article.class);
     }
 
     public List<Article> findByName(String description) {
 
-        TypedQuery<Article> namedQuery = entityManager
-            .createQuery(
-                "select a from Article a where a.shortDesc like :description or a.longDesc like :description",
-                Article.class);
-        namedQuery.setParameter("description", "%" + description + "%");
-        return namedQuery.getResultList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Article> query = cb.createQuery(entityClass);
+        Root<Article> article = query.from(entityClass);
+
+        ParameterExpression<String> descParam =
+            cb.parameter(String.class, "description");
+
+        Predicate or = cb.or(cb.like(article.get("shortDesc"), descParam),
+            cb.like(article.get("longDesc"), descParam));
+        query.select(article).where(or);
+
+        TypedQuery<Article> typedQuery = entityManager.createQuery(query);
+        typedQuery.setParameter("description", "%" + description + "%");
+
+        return typedQuery.getResultList();
     }
 
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.userId = :userId", Article.class);
+            .createQuery("select a from Article a where a.userId = :userId", entityClass);
         namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();
     }

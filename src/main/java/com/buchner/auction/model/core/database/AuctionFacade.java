@@ -24,6 +24,9 @@ public class AuctionFacade {
     private ArticleDao articleDao;
 
     @Inject
+    private BidderDao bidderDao;
+
+    @Inject
     private BeanService beanService;
 
     public AuctionFacade() {
@@ -38,7 +41,7 @@ public class AuctionFacade {
 
     public List<AuctionBean> getUserBidderAuctions(long userId) {
 
-        List<Auction> allAuctionsByUserId = auctionDao.findByBidder(userId);
+        List<Auction> allAuctionsByUserId = bidderDao.findByBidder(userId);
         return beanService.buildAuctionBeans(allAuctionsByUserId);
     }
 

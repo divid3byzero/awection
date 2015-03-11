@@ -50,7 +50,7 @@ public class TradeFacade {
     public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType) {
 
         return beanService.buildAuctionBeans(
-            auctionDao.findAuctionFromBidderAndType(currentUser.getUserId(), auctionType));
+            bidderDao.findAuctionFromBidderAndType(currentUser.getUserId(), auctionType));
     }
 
     public void addBidderToAuction(int articleId) {
