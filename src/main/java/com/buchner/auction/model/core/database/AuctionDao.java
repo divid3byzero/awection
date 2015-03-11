@@ -18,7 +18,6 @@ public class AuctionDao {
     @Inject
     private EntityManager entityManager;
 
-    // Needed for CDI
     protected AuctionDao() {
 
     }
