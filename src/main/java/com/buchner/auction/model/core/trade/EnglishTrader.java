@@ -22,9 +22,6 @@ import java.util.List;
 public class EnglishTrader extends AbstractTrader {
 
     @Inject
-    private AuctionResultFacade auctionResultFacade;
-
-    @Inject
     private LiferayComponentService liferayComponentService;
 
     public EnglishTrader() {

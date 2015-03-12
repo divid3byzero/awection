@@ -21,6 +21,7 @@ public class BidderDao extends GenericDao<Bidder> {
 
     @Inject
     protected BidderDao(EntityManager entityManager) {
+
         super(entityManager, Bidder.class);
     }
 
@@ -40,21 +41,12 @@ public class BidderDao extends GenericDao<Bidder> {
 
     public List<Auction> findAuctionFromBidderAndType(long userId, AuctionType auctionType) {
 
-        TypedQuery<Bidder> namedQuery = entityManager
+        TypedQuery<Auction> namedQuery = entityManager
             .createQuery(
-                "select b from Bidder b where b.userId = :userId",
-                entityClass);
+                "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and aub.userId = :userId",
+                Auction.class);
+        namedQuery.setParameter("auctionType", auctionType);
         namedQuery.setParameter("userId", userId);
-        List<Bidder> resultList = namedQuery.getResultList();
-
-        List<Auction> auctionList = new ArrayList<>();
-        for (Bidder bidder : resultList) {
-
-            auctionList.addAll(bidder.getAuctions().stream().filter(
-                auction -> auctionType.equals(auction.getAuctionType()) && auction.isRunning())
-                .collect(Collectors.toList()));
-        }
-
-        return auctionList;
+        return namedQuery.getResultList();
     }
 }

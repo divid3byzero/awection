@@ -58,8 +58,8 @@ public class TradeFacade {
         Auction auction = auctionDao.findByArticle(articleId);
         Bidder bidder = new Bidder();
         bidder.addAuction(auction);
+        auction.addBidder(bidder);
         bidder.setUserId(currentUser.getUserId());
-        auctionDao.save(auction);
         bidderDao.save(bidder);
     }
 

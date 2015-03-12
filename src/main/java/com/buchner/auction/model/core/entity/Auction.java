@@ -78,9 +78,6 @@ public class Auction {
     public void addBidder(Bidder bidder) {
 
         this.bidder.add(bidder);
-        if (!this.equals(bidder.getAuctions())) {
-            bidder.addAuction(this);
-        }
     }
 
     public long getUserId() {

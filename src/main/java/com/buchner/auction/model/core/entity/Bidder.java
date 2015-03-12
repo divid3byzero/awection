@@ -41,9 +41,6 @@ public class Bidder {
     public void addAuction(Auction auction) {
 
         auctions.add(auction);
-        if (!auction.getBidder().contains(this)) {
-            auction.addBidder(this);
-        }
     }
 
     public List<Bid> getBids() {
