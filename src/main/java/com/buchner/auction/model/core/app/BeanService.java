@@ -59,6 +59,7 @@ public class BeanService {
         TradeResultBean tradeResultBean = new TradeResultBean();
         tradeResultBean.setDescription(auctionResult.getDescription());
         tradeResultBean.setPrice(auctionResult.getPrice());
+        tradeResultBean.setFirstName(auctionResult.getFirstName());
         tradeResultBean.setSurname(auctionResult.getSurname());
         tradeResultBean.setMail(auctionResult.getMail());
         return tradeResultBean;

@@ -5,7 +5,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         >
 
-    <p:panel styleClass="auction-element-wrapper">
+    <p:panel id="englishAuctionPanel" styleClass="auction-element-wrapper">
         <h:outputText value="#{msg['auction.trade.english']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.englishType)}"
                    var="auction">
@@ -25,7 +25,7 @@
 
                     <p:commandButton styleClass="font"
                                      value="#{msg['auction.trade.bid.button']}"
-                                     action="#{tradeController.bid(auction.id)}" update="@form"/>
+                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
                 </div>
             </div>
         </ui:repeat>

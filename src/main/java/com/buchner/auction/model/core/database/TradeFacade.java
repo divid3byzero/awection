@@ -96,11 +96,12 @@ public class TradeFacade {
 
                 if (!tradeResultBean.isAuctionRunning()) {
                     auctionResultDao.save(tradeResultBean.buildAuctionResult());
+                    auctionMessage("Auction is over.");
                 } else {
                     bidderDao.save(tradeResultBean.getBidder());
                 }
             } else {
-                auctionMessage("Auction is over.");
+                auctionMessage("Auction has timed out.");
             }
         }
     }
