@@ -13,26 +13,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequestScoped
-public class AuctionDao extends GenericDao<Auction> {
+public class AuctionDao {
+
+    @Inject
+    private EntityManager entityManager;
 
     protected AuctionDao() {
 
     }
 
-    @Inject
-    protected AuctionDao(EntityManager entityManager) {
+    public void save(Auction auction) {
 
-        super(entityManager, Auction.class);
+        entityManager.persist(auction);
     }
 
+    public Auction findById(int id) {
+
+        return entityManager.find(Auction.class, id);
+    }
 
     public Auction findByArticle(int articleId) {
 
         TypedQuery<Auction> namedQuery = entityManager
             .createQuery("select au from Auction au where au.article.id = :articleId",
-                entityClass);
+                Auction.class);
         namedQuery.setParameter("articleId", articleId);
         return namedQuery.getSingleResult();
+    }
+
+    public List<Auction> findAuctionFromBidderAndType(long userId, AuctionType auctionType) {
+
+        TypedQuery<Auction> namedQuery = entityManager
+            .createQuery(
+                "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and au.isRunning = 1 and aub.userId = :userId",
+                Auction.class);
+        namedQuery.setParameter("auctionType", auctionType);
+        namedQuery.setParameter("userId", userId);
+        return namedQuery.getResultList();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.buchner.auction.model.core.trade;
 
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
@@ -24,13 +25,13 @@ public class CdaTrader extends AbstractTrader {
 
 
 
-    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
         return null;
     }
 
-    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
+    @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
 
         return null;

@@ -17,13 +17,17 @@ public class TransactionInterceptor {
     @AroundInvoke
     public Object handleTransaction(InvocationContext invocationContext) {
 
-        entityManager.getTransaction().begin();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
         try {
+
             Object proceed = invocationContext.proceed();
-            entityManager.getTransaction().commit();
+            transaction.commit();
+
             return proceed;
+
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            transaction.rollback();
         }
         return null;
     }

@@ -10,16 +10,23 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @RequestScoped
-public class AuctionResultDao extends GenericDao<AuctionResult> {
+public class AuctionResultDao {
+
+    @Inject
+    private EntityManager entityManager;
 
     protected AuctionResultDao() {
 
     }
 
-    @Inject
-    public AuctionResultDao(EntityManager entityManager) {
+    public void save(AuctionResult auctionResult) {
 
-        super(entityManager, AuctionResult.class);
+        entityManager.persist(auctionResult);
+    }
+
+    public AuctionResult findById(int id) {
+
+        return entityManager.find(AuctionResult.class, id);
     }
 
     @SuppressWarnings("JpaQlInspection")

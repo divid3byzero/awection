@@ -1,6 +1,7 @@
 package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.app.LiferayComponentService;
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.database.AuctionResultFacade;
 import com.buchner.auction.model.core.entity.*;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -23,12 +24,15 @@ public class DutchTrader extends AbstractTrader {
     @Inject
     private LiferayComponentService liferayComponentService;
 
+    private TradeResultBean tradeResultBean;
+
     protected DutchTrader() {
 
         this.auctionType = AuctionType.DUTCH;
+        tradeResultBean = new TradeResultBean();
     }
 
-    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
@@ -36,7 +40,6 @@ public class DutchTrader extends AbstractTrader {
         if (nowDate.compareTo(auction.getEndTime()) == 0
             || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning()) {
 
-            findAuctionWinner(auction, userId);
             auctionMessage("Auction is over.");
         } else {
 
@@ -49,13 +52,13 @@ public class DutchTrader extends AbstractTrader {
 
             if (null != targetBidder) {
                 targetBidder.addBid(bid);
-                return findAuctionWinner(auction, userId);
+                tradeResultBean = findAuctionWinner(auction, userId);
             }
         }
-        return null;
+        return tradeResultBean;
     }
 
-    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
+    @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
 
         Bidder bidder = getBidder(userId, auction.getBidder());
@@ -64,14 +67,14 @@ public class DutchTrader extends AbstractTrader {
             .collect(Collectors.toList());
 
         User user = liferayComponentService.findUserById(bidder.getUserId());
-        AuctionResult auctionResult = new AuctionResult();
-        auctionResult.setPrice(winningBid.get(0).getAmount());
-        auctionResult.setFirstName(user.getFirstName());
-        auctionResult.setSurname(user.getLastName());
-        auctionResult.setMail(user.getEmailAddress());
-        auctionResult.setAuctionType(auction.getAuctionType());
-        auctionResult.setDescription(auction.getArticle().getShortDesc());
-        return auctionResult;
+        tradeResultBean.setAuctionRunning(false);
+        tradeResultBean.setPrice(winningBid.get(0).getAmount());
+        tradeResultBean.setFirstName(user.getFirstName());
+        tradeResultBean.setSurname(user.getLastName());
+        tradeResultBean.setMail(user.getEmailAddress());
+        tradeResultBean.setAuctionType(auction.getAuctionType());
+        tradeResultBean.setDescription(auction.getArticle().getShortDesc());
+        return tradeResultBean;
     }
 
     private Bidder getBidder(long userId, List<Bidder> bidderList) {

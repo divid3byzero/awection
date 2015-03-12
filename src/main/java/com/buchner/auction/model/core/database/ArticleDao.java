@@ -1,6 +1,7 @@
 package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.entity.Article;
+import com.buchner.auction.model.core.entity.Auction;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -11,23 +12,30 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @RequestScoped
-public class ArticleDao extends GenericDao<Article> {
+public class ArticleDao {
 
-    public ArticleDao() {
+    @Inject
+    private EntityManager entityManager;
+
+    protected ArticleDao() {
 
     }
 
-    @Inject
-    protected ArticleDao(EntityManager entityManager) {
+    public void save(Article article) {
 
-        super(entityManager, Article.class);
+        entityManager.persist(article);
+    }
+
+    public Article findById(int id) {
+
+        return entityManager.find(Article.class, id);
     }
 
     public List<Article> findByName(String description) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Article> query = cb.createQuery(entityClass);
-        Root<Article> article = query.from(entityClass);
+        CriteriaQuery<Article> query = cb.createQuery(Article.class);
+        Root<Article> article = query.from(Article.class);
 
         ParameterExpression<String> descParam =
             cb.parameter(String.class, "description");
@@ -45,7 +53,7 @@ public class ArticleDao extends GenericDao<Article> {
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.userId = :userId", entityClass);
+            .createQuery("select a from Article a where a.userId = :userId", Article.class);
         namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();
     }

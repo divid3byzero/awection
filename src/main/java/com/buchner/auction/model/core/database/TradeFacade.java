@@ -2,6 +2,7 @@ package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.app.BeanService;
 import com.buchner.auction.model.core.bean.AuctionBean;
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Transaction
 @RequestScoped
 public class TradeFacade {
 
@@ -50,7 +52,7 @@ public class TradeFacade {
     public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType) {
 
         return beanService.buildAuctionBeans(
-            bidderDao.findAuctionFromBidderAndType(currentUser.getUserId(), auctionType));
+            auctionDao.findAuctionFromBidderAndType(currentUser.getUserId(), auctionType));
     }
 
     public void addBidderToAuction(int articleId) {
@@ -60,6 +62,7 @@ public class TradeFacade {
         bidder.addAuction(auction);
         auction.addBidder(bidder);
         bidder.setUserId(currentUser.getUserId());
+        auctionDao.save(auction);
         bidderDao.save(bidder);
     }
 
@@ -70,11 +73,11 @@ public class TradeFacade {
             for (AbstractTrader trader : abstractTrader) {
                 if (trader.getAuctionType().equals(auction.getAuctionType())) {
                     try {
-                        AuctionResult auctionResult =
+
+                        TradeResultBean tradeResultBean =
                             trader.handleTrade(auction, amount, currentUser.getUserId());
-                        if (null != auctionResult) {
-                            auctionResultDao.save(auctionResult);
-                        }
+                        handleTradeResult(tradeResultBean);
+
                     } catch (PortalException | SystemException e) {
                         throw new IllegalArgumentException("Fatal error occurred");
                     }
@@ -82,6 +85,17 @@ public class TradeFacade {
             }
         } else {
             auctionMessage("Auction is over.");
+        }
+    }
+
+    private void handleTradeResult(TradeResultBean tradeResultBean) {
+        if (null != tradeResultBean) {
+
+            if (!tradeResultBean.isAuctionRunning()) {
+                auctionResultDao.save(tradeResultBean.buildAuctionResult());
+            } else {
+                bidderDao.save(tradeResultBean.getBidder());
+            }
         }
     }
 

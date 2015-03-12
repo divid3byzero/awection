@@ -1,5 +1,6 @@
 package com.buchner.auction.model.core.trade;
 
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
@@ -17,7 +18,7 @@ public abstract class AbstractTrader {
     protected AuctionType auctionType;
 
 
-    public AuctionResult handleTrade(Auction auction, BigDecimal amount, long userId)
+    public TradeResultBean handleTrade(Auction auction, BigDecimal amount, long userId)
         throws PortalException, SystemException {
 
         return trade(auction, amount, userId);
@@ -28,10 +29,10 @@ public abstract class AbstractTrader {
         return auctionType;
     }
 
-    protected abstract AuctionResult trade(Auction auction, BigDecimal amount, long userId)
+    protected abstract TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException;
 
-    protected abstract AuctionResult findAuctionWinner(Auction auction, long userId)
+    protected abstract TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException;
 
     protected void auctionMessage(String message) {

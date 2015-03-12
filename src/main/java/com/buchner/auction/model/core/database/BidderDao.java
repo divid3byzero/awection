@@ -2,6 +2,7 @@ package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
+import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,22 +14,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequestScoped
-public class BidderDao extends GenericDao<Bidder> {
+public class BidderDao {
 
-    public BidderDao() {
+    @Inject
+    private EntityManager entityManager;
+
+    protected BidderDao() {
 
     }
 
-    @Inject
-    protected BidderDao(EntityManager entityManager) {
+    public void save(Bidder entity) {
 
-        super(entityManager, Bidder.class);
+        entityManager.persist(entity);
+    }
+
+    public Bidder findById(int id) {
+
+        return entityManager.find(Bidder.class, id);
     }
 
     public List<Auction> findByBidder(long userId) {
 
         TypedQuery<Bidder> namedQuery = entityManager
-            .createQuery("select b from Bidder b where b.userId = :userId", entityClass);
+            .createQuery("select b from Bidder b where b.userId = :userId", Bidder.class);
         namedQuery.setParameter("userId", userId);
         List<Bidder> resultList = namedQuery.getResultList();
 
@@ -37,16 +45,5 @@ public class BidderDao extends GenericDao<Bidder> {
             userAuctions.addAll(bidder.getAuctions().stream().collect(Collectors.toList()));
         }
         return userAuctions;
-    }
-
-    public List<Auction> findAuctionFromBidderAndType(long userId, AuctionType auctionType) {
-
-        TypedQuery<Auction> namedQuery = entityManager
-            .createQuery(
-                "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and aub.userId = :userId",
-                Auction.class);
-        namedQuery.setParameter("auctionType", auctionType);
-        namedQuery.setParameter("userId", userId);
-        return namedQuery.getResultList();
     }
 }

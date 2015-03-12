@@ -2,7 +2,7 @@ package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.bean.ArticleBean;
 import com.buchner.auction.model.core.bean.AuctionBean;
-import com.buchner.auction.model.core.bean.AuctionResultBean;
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.entity.Article;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
@@ -40,7 +40,7 @@ public class BeanService {
             this::buildAuctionBean).collect(Collectors.toList());
     }
 
-    public List<AuctionResultBean> buildAuctionResultBeans(List<AuctionResult> auctionResults) {
+    public List<TradeResultBean> buildAuctionResultBeans(List<AuctionResult> auctionResults) {
 
         return auctionResults.stream().map(
             this::buildAuctionResultBean).collect(Collectors.toList());
@@ -54,10 +54,14 @@ public class BeanService {
             auctionEntity.getPrice(), auctionEntity.isRunning());
     }
 
-    public AuctionResultBean buildAuctionResultBean(AuctionResult auctionResult) {
+    public TradeResultBean buildAuctionResultBean(AuctionResult auctionResult) {
 
-        return new AuctionResultBean(auctionResult.getDescription(), auctionResult.getPrice(),
-            auctionResult.getFirstName(), auctionResult.getSurname(), auctionResult.getMail());
+        TradeResultBean tradeResultBean = new TradeResultBean();
+        tradeResultBean.setDescription(auctionResult.getDescription());
+        tradeResultBean.setPrice(auctionResult.getPrice());
+        tradeResultBean.setSurname(auctionResult.getSurname());
+        tradeResultBean.setMail(auctionResult.getMail());
+        return tradeResultBean;
     }
 
 }

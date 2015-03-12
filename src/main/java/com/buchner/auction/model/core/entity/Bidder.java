@@ -14,8 +14,8 @@ public class Bidder {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "auction_bidder", joinColumns = {
-        @JoinColumn(name = "auction_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "bidder_id", referencedColumnName = "id")})
+        @JoinColumn(name = "bidder_id")},
+        inverseJoinColumns = {@JoinColumn(name = "auction_id")})
     private List<Auction> auctions;
 
     @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

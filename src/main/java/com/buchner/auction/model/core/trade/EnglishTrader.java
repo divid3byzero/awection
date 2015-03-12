@@ -2,6 +2,7 @@ package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.app.BidComperator;
 import com.buchner.auction.model.core.app.LiferayComponentService;
+import com.buchner.auction.model.core.bean.TradeResultBean;
 import com.buchner.auction.model.core.database.AuctionResultFacade;
 import com.buchner.auction.model.core.entity.*;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -24,12 +25,15 @@ public class EnglishTrader extends AbstractTrader {
     @Inject
     private LiferayComponentService liferayComponentService;
 
+    private TradeResultBean tradeResultBean;
+
     public EnglishTrader() {
 
         this.auctionType = AuctionType.ENGLISH;
+        tradeResultBean = new TradeResultBean();
     }
 
-    @Override protected AuctionResult trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
@@ -43,14 +47,18 @@ public class EnglishTrader extends AbstractTrader {
 
         if (auction.getPrice().compareTo(amount) == -1) {
 
+            tradeResultBean.setAuctionRunning(true);
             List<Bidder> bidder = auction.getBidder();
             Bid bid = new Bid();
             bid.setAmount(amount);
             bid.setAuctionId(auction.getId());
+            auction.setPrice(amount);
 
             for (Bidder bidderElem : bidder) {
                 if (userId == bidderElem.getUserId()) {
                     bidderElem.addBid(bid);
+                    tradeResultBean.setBidder(bidderElem);
+                    return tradeResultBean;
                 }
             }
 
@@ -60,7 +68,7 @@ public class EnglishTrader extends AbstractTrader {
         return null;
     }
 
-    @Override protected AuctionResult findAuctionWinner(Auction auction, long userId)
+    @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
 
         List<Bidder> bidder = auction.getBidder();
@@ -74,13 +82,13 @@ public class EnglishTrader extends AbstractTrader {
 
         long winningUserId = winningBid.getBidder().getUserId();
         User user = liferayComponentService.findUserById(winningUserId);
-        AuctionResult auctionResult = new AuctionResult();
-        auctionResult.setPrice(winningBid.getAmount());
-        auctionResult.setFirstName(user.getFirstName());
-        auctionResult.setSurname(user.getLastName());
-        auctionResult.setMail(user.getEmailAddress());
-        auctionResult.setAuctionType(auction.getAuctionType());
-        auctionResult.setDescription(auction.getArticle().getShortDesc());
-        return auctionResult;
+        tradeResultBean.setAuctionRunning(false);
+        tradeResultBean.setPrice(winningBid.getAmount());
+        tradeResultBean.setFirstName(user.getFirstName());
+        tradeResultBean.setSurname(user.getLastName());
+        tradeResultBean.setMail(user.getEmailAddress());
+        tradeResultBean.setAuctionType(auction.getAuctionType());
+        tradeResultBean.setDescription(auction.getArticle().getShortDesc());
+        return tradeResultBean;
     }
 }
