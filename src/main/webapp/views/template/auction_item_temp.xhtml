@@ -20,10 +20,11 @@
         <h:outputText id="articleDescriptionEnglish" styleClass="font"
                       value="#{articleDescription}"/>
 
-        <p:outputLabel for="auctionPriceEnglish"
+        <p:outputLabel rendered="#{price != ''}" for="auctionPriceEnglish"
                        styleClass="font"
                        value="#{msg['auction.trade.article.current.price']}"/>
-        <h:outputText id="auctionPriceEnglish" styleClass="font"
+        <h:outputText rendered="#{price != ''}" id="auctionPriceEnglish" styleClass="font"
                       value="#{price}"/>
+
     </p:panelGrid>
 </ui:composition>

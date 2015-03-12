@@ -23,6 +23,9 @@ public class Bidder {
 
     private long userId;
 
+    @Enumerated(EnumType.STRING)
+    private CdaType cdaType;
+
     public Bidder() {
 
         auctions = new ArrayList<>();
@@ -64,5 +67,15 @@ public class Bidder {
     public void setUserId(long userId) {
 
         this.userId = userId;
+    }
+
+    public CdaType getCdaType() {
+
+        return cdaType;
+    }
+
+    public void setCdaType(CdaType cdaType) {
+
+        this.cdaType = cdaType;
     }
 }

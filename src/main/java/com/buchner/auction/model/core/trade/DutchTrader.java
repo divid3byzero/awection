@@ -33,24 +33,25 @@ public class DutchTrader extends AbstractTrader {
     @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
-        if (auctionTimeout(auction)) {
+        auction.setRunning(false);
+        Bid bid = new Bid();
+        bid.setAmount(amount);
+        bid.setAuctionId(auction.getId());
+        List<Bidder> bidderList = auction.getBidder();
+        Bidder targetBidder = getBidder(userId, bidderList);
 
-            auction.setRunning(false);
-            tradeResultBean.setAuctionTimeout();
-        } else {
-
-            auction.setRunning(false);
-            Bid bid = new Bid();
-            bid.setAmount(amount);
-            bid.setAuctionId(auction.getId());
-            List<Bidder> bidderList = auction.getBidder();
-            Bidder targetBidder = getBidder(userId, bidderList);
-
-            if (null != targetBidder) {
-                targetBidder.addBid(bid);
-                tradeResultBean = findAuctionWinner(auction, userId);
-            }
+        if (null != targetBidder) {
+            targetBidder.addBid(bid);
+            tradeResultBean = findAuctionWinner(auction, userId);
         }
+        return tradeResultBean;
+    }
+
+    @Override protected TradeResultBean handleTimeOut(Auction auction, long userId)
+        throws SystemException, PortalException {
+
+        auction.setRunning(false);
+        tradeResultBean.setAuctionTimeout();
         return tradeResultBean;
     }
 
@@ -72,6 +73,7 @@ public class DutchTrader extends AbstractTrader {
         tradeResultBean.setDescription(auction.getArticle().getShortDesc());
         return tradeResultBean;
     }
+
 
     private Bidder getBidder(long userId, List<Bidder> bidderList) {
 

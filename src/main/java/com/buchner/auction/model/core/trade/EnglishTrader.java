@@ -36,12 +36,6 @@ public class EnglishTrader extends AbstractTrader {
     @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
-        if (auctionTimeout(auction)) {
-
-            auction.setRunning(false);
-            return findAuctionWinner(auction, userId);
-        }
-
         if (auction.getPrice().compareTo(amount) == -1) {
 
             tradeResultBean.setAuctionRunning(true);
@@ -63,6 +57,13 @@ public class EnglishTrader extends AbstractTrader {
             auctionMessage("Bid does not meet requirements");
         }
         return null;
+    }
+
+    @Override protected TradeResultBean handleTimeOut(Auction auction, long userId)
+        throws SystemException, PortalException {
+
+        auction.setRunning(false);
+        return findAuctionWinner(auction, userId);
     }
 
     @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)

@@ -9,7 +9,23 @@
     <p:panel style="border: none; padding: 0;">
         <h:outputText value="#{msg['auction.trade.seconfprice']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.secondPriceType)}" var="auction">
-            <h:outputText value="#{auction.price}"/>
+            <div class="clearfix">
+
+                <ui:include src="template/auction_item_temp.xhtml">
+                    <ui:param name="articleId" value="#{auction.articleId}"/>
+                    <ui:param name="articleDescription" value="#{auction.articleDescription}"/>
+                </ui:include>
+
+                <div>
+                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/>
+                    <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
+                                 for="bidAmountEnglish"/>
+
+                    <p:commandButton styleClass="font"
+                                     value="#{msg['auction.trade.bid.button']}"
+                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
+                </div>
+            </div>
         </ui:repeat>
     </p:panel>
 </ui:composition>

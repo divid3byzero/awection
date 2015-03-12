@@ -23,8 +23,6 @@ public class CdaTrader extends AbstractTrader {
         this.auctionType = auctionType;
     }
 
-
-
     @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
@@ -33,6 +31,12 @@ public class CdaTrader extends AbstractTrader {
 
     @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException {
+
+        return null;
+    }
+
+    @Override protected TradeResultBean handleTimeOut(Auction auction, long userId)
+        throws SystemException, PortalException {
 
         return null;
     }

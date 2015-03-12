@@ -24,6 +24,9 @@ public abstract class AbstractTrader {
     public TradeResultBean handleTrade(Auction auction, BigDecimal amount, long userId)
         throws PortalException, SystemException {
 
+        if (auctionTimeout(auction)) {
+            return handleTimeOut(auction, userId);
+        }
         return trade(auction, amount, userId);
     }
 
@@ -53,6 +56,9 @@ public abstract class AbstractTrader {
 
     protected abstract TradeResultBean findAuctionWinner(Auction auction, long userId)
         throws PortalException, SystemException;
+
+    protected abstract TradeResultBean handleTimeOut(Auction auction, long userId)
+        throws SystemException, PortalException;
 
 }
 
