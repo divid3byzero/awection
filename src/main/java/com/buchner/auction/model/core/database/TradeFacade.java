@@ -89,12 +89,18 @@ public class TradeFacade {
     }
 
     private void handleTradeResult(TradeResultBean tradeResultBean) {
+
         if (null != tradeResultBean) {
 
-            if (!tradeResultBean.isAuctionRunning()) {
-                auctionResultDao.save(tradeResultBean.buildAuctionResult());
+            if (!tradeResultBean.isAuctionTimeout()) {
+
+                if (!tradeResultBean.isAuctionRunning()) {
+                    auctionResultDao.save(tradeResultBean.buildAuctionResult());
+                } else {
+                    bidderDao.save(tradeResultBean.getBidder());
+                }
             } else {
-                bidderDao.save(tradeResultBean.getBidder());
+                auctionMessage("Auction is over.");
             }
         }
     }

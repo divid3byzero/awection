@@ -36,10 +36,7 @@ public class EnglishTrader extends AbstractTrader {
     @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
-        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
-        Date nowDate = now.toDate();
-        if (nowDate.compareTo(auction.getEndTime()) == 0
-            || nowDate.compareTo(auction.getEndTime()) == 1) {
+        if (auctionTimeout(auction)) {
 
             auction.setRunning(false);
             return findAuctionWinner(auction, userId);

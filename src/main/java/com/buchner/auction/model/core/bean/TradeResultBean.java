@@ -17,6 +17,7 @@ public class TradeResultBean {
     private AuctionType auctionType;
 
     private boolean auctionRunning;
+    private boolean auctionTimeout;
     private Bidder bidder;
     private Bid bid;
 
@@ -104,6 +105,16 @@ public class TradeResultBean {
     public void setAuctionRunning(boolean auctionRunning) {
 
         this.auctionRunning = auctionRunning;
+    }
+
+    public boolean isAuctionTimeout() {
+
+        return auctionTimeout;
+    }
+
+    public void setAuctionTimeout() {
+
+        this.auctionTimeout = true;
     }
 
     public Bidder getBidder() {

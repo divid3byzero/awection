@@ -2,7 +2,6 @@ package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.app.LiferayComponentService;
 import com.buchner.auction.model.core.bean.TradeResultBean;
-import com.buchner.auction.model.core.database.AuctionResultFacade;
 import com.buchner.auction.model.core.entity.*;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -16,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequestScoped
 public class DutchTrader extends AbstractTrader {
@@ -35,12 +33,10 @@ public class DutchTrader extends AbstractTrader {
     @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
         throws SystemException, PortalException {
 
-        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
-        Date nowDate = now.toDate();
-        if (nowDate.compareTo(auction.getEndTime()) == 0
-            || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning()) {
+        if (auctionTimeout(auction)) {
 
-            auctionMessage("Auction is over.");
+            auction.setRunning(false);
+            tradeResultBean.setAuctionTimeout();
         } else {
 
             auction.setRunning(false);

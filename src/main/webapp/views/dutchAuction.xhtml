@@ -23,7 +23,7 @@
                     <p:commandButton
                             ajax="true"
                             action="#{tradeController.bid(auction.id, auction.price)}"
-                            update=":form:tradingResults :form:dutchAuctionPanel"
+                            update=":form:tradingResults :form:dutchAuctionPanel :form:auctionGrowl"
                             styleClass="font"
                             value="#{msg['auction.trade.buy.button']}"/>
                     <p:poll interval="10" update=":form:dutchAuctionPanel"/>
