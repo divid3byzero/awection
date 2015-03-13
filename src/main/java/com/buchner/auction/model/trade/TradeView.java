@@ -49,38 +49,37 @@ public class TradeView {
         return bidAmount;
     }
 
-    public void setBidAmount(BigDecimal bidAmount) {
+    public void setBidAmount(BigDecimal amount) {
 
-        this.bidAmount = bidAmount;
+        this.bidAmount = amount;
     }
 
     public void sendBid(int auctionId) {
 
-        TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, bidAmount, currentUser.getUserId(), null);
+        TradeRequest tradeRequest = buildTradeRequest(auctionId, bidAmount, null);
         tradeFacade.fireTrader(tradeRequest);
     }
 
     public void sendBid(int auctionId, String bidAmount) {
 
         TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, new BigDecimal(bidAmount), currentUser.getUserId(), null);
+            buildTradeRequest(auctionId, new BigDecimal(bidAmount), null);
         tradeFacade.fireTrader(tradeRequest);
     }
 
     public void sendBid(int auctionId, CdaType cdaType) {
 
         TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, bidAmount, currentUser.getUserId(), cdaType);
+            buildTradeRequest(auctionId, bidAmount, cdaType);
         tradeFacade.fireTrader(tradeRequest);
     }
 
-    private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount, long userId, CdaType cdaType) {
+    private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount, CdaType cdaType) {
 
         Auction auction = auctionFacade.findById(auctionId);
         TradeRequest tradeRequest = new TradeRequest();
         tradeRequest.setAuction(auction);
-        tradeRequest.setAmount(bidAmount);
+        tradeRequest.setAmount(amount);
         tradeRequest.setUserId(currentUser.getUserId());
 
         if (null != cdaType) {

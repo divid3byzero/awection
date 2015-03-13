@@ -32,7 +32,7 @@ public class TradeController {
 
     public void bid(int auctionId, CdaType cdaType) {
 
-        tradeView.sendBid(auctionId);
+        tradeView.sendBid(auctionId, cdaType);
     }
 
     public void bid(int auctionId, String amount) {
