@@ -39,6 +39,11 @@ public class AuctionFacade {
         auctionDao.save(auction);
     }
 
+    public Auction findById(int auctionId) {
+
+        return auctionDao.findById(auctionId);
+    }
+
     public List<AuctionBean> getUserBidderAuctions(long userId) {
 
         List<Auction> allAuctionsByUserId = bidderDao.findByBidder(userId);

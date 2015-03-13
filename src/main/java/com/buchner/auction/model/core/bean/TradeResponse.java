@@ -7,7 +7,7 @@ import com.buchner.auction.model.core.entity.Bidder;
 
 import java.math.BigDecimal;
 
-public class TradeResultBean {
+public class TradeResponse {
 
     private String description;
     private BigDecimal price;
@@ -21,7 +21,7 @@ public class TradeResultBean {
     private Bidder bidder;
     private Bid bid;
 
-    public TradeResultBean() {
+    public TradeResponse() {
 
     }
 
