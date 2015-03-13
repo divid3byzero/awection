@@ -19,13 +19,15 @@
                 </ui:include>
 
                 <div>
-                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/>
+                    <!--p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/-->
+                    <p:inputText id="bidAmountEnglish" styleClass="font" binding="#{bidAmount}"/>
                     <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
                                  for="bidAmountEnglish"/>
 
                     <p:commandButton styleClass="font"
                                      value="#{msg['auction.trade.bid.button']}"
-                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
+                                     ajax="true"
+                                     action="#{tradeController.bid(auction.id, bidAmount.value)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
                 </div>
             </div>
         </ui:repeat>

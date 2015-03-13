@@ -2,21 +2,17 @@ package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.app.BidComperator;
 import com.buchner.auction.model.core.app.LiferayComponentService;
-import com.buchner.auction.model.core.bean.TradeResultBean;
-import com.buchner.auction.model.core.database.AuctionResultFacade;
+import com.buchner.auction.model.core.app.TradeRequest;
+import com.buchner.auction.model.core.bean.TradeResponse;
 import com.buchner.auction.model.core.entity.*;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @RequestScoped
@@ -25,31 +21,31 @@ public class EnglishTrader extends AbstractTrader {
     @Inject
     private LiferayComponentService liferayComponentService;
 
-    private TradeResultBean tradeResultBean;
+    private TradeResponse tradeResponse;
 
-    public EnglishTrader() {
+    protected EnglishTrader() {
 
         this.auctionType = AuctionType.ENGLISH;
-        tradeResultBean = new TradeResultBean();
+        tradeResponse = new TradeResponse();
     }
 
-    @Override protected TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
+    @Override protected TradeResponse trade(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
-        if (auction.getPrice().compareTo(amount) == -1) {
+        if (tradeRequest.getAuction().getPrice().compareTo(tradeRequest.getAmount()) == -1) {
 
-            tradeResultBean.setAuctionRunning(true);
-            List<Bidder> bidder = auction.getBidder();
+            tradeResponse.setAuctionRunning(true);
+            List<Bidder> bidder = tradeRequest.getAuction().getBidder();
             Bid bid = new Bid();
-            bid.setAmount(amount);
-            bid.setAuctionId(auction.getId());
-            auction.setPrice(amount);
+            bid.setAmount(tradeRequest.getAmount());
+            bid.setAuctionId(tradeRequest.getAuction().getId());
+            tradeRequest.getAuction().setPrice(tradeRequest.getAmount());
 
             for (Bidder bidderElem : bidder) {
-                if (userId == bidderElem.getUserId()) {
+                if (tradeRequest.getUserId() == bidderElem.getUserId()) {
                     bidderElem.addBid(bid);
-                    tradeResultBean.setBidder(bidderElem);
-                    return tradeResultBean;
+                    tradeResponse.setBidder(bidderElem);
+                    return tradeResponse;
                 }
             }
 
@@ -59,17 +55,17 @@ public class EnglishTrader extends AbstractTrader {
         return null;
     }
 
-    @Override protected TradeResultBean handleTimeOut(Auction auction, long userId)
+    @Override protected TradeResponse handleTimeOut(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
-        auction.setRunning(false);
-        return findAuctionWinner(auction, userId);
+        tradeRequest.getAuction().setRunning(false);
+        return findAuctionWinner(tradeRequest);
     }
 
-    @Override protected TradeResultBean findAuctionWinner(Auction auction, long userId)
+    @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        List<Bidder> bidder = auction.getBidder();
+        List<Bidder> bidder = tradeRequest.getAuction().getBidder();
         List<Bid> auctionBids = new ArrayList<>();
         for (Bidder bidderElem : bidder) {
             auctionBids.addAll(bidderElem.getBids());
@@ -80,13 +76,13 @@ public class EnglishTrader extends AbstractTrader {
 
         long winningUserId = winningBid.getBidder().getUserId();
         User user = liferayComponentService.findUserById(winningUserId);
-        tradeResultBean.setAuctionRunning(false);
-        tradeResultBean.setPrice(winningBid.getAmount());
-        tradeResultBean.setFirstName(user.getFirstName());
-        tradeResultBean.setSurname(user.getLastName());
-        tradeResultBean.setMail(user.getEmailAddress());
-        tradeResultBean.setAuctionType(auction.getAuctionType());
-        tradeResultBean.setDescription(auction.getArticle().getShortDesc());
-        return tradeResultBean;
+        tradeResponse.setAuctionRunning(false);
+        tradeResponse.setPrice(winningBid.getAmount());
+        tradeResponse.setFirstName(user.getFirstName());
+        tradeResponse.setSurname(user.getLastName());
+        tradeResponse.setMail(user.getEmailAddress());
+        tradeResponse.setAuctionType(tradeRequest.getAuction().getAuctionType());
+        tradeResponse.setDescription(tradeRequest.getAuction().getArticle().getShortDesc());
+        return tradeResponse;
     }
 }

@@ -1,13 +1,11 @@
 package com.buchner.auction.model.core.trade;
 
-import com.buchner.auction.model.core.bean.TradeResultBean;
+import com.buchner.auction.model.core.app.TradeRequest;
+import com.buchner.auction.model.core.bean.TradeResponse;
 import com.buchner.auction.model.core.entity.Auction;
-import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
-import com.buchner.auction.model.core.entity.Bidder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -21,13 +19,14 @@ public abstract class AbstractTrader {
     protected AuctionType auctionType;
 
 
-    public TradeResultBean handleTrade(Auction auction, BigDecimal amount, long userId)
+    public TradeResponse handleTrade(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        if (auctionTimeout(auction)) {
-            return handleTimeOut(auction, userId);
+
+        if (auctionTimeout(tradeRequest.getAuction())) {
+            return handleTimeOut(tradeRequest);
         }
-        return trade(auction, amount, userId);
+        return trade(tradeRequest);
     }
 
     public AuctionType getAuctionType() {
@@ -51,13 +50,13 @@ public abstract class AbstractTrader {
     }
 
 
-    protected abstract TradeResultBean trade(Auction auction, BigDecimal amount, long userId)
+    protected abstract TradeResponse trade(TradeRequest tradeRequest)
         throws SystemException, PortalException;
 
-    protected abstract TradeResultBean findAuctionWinner(Auction auction, long userId)
+    protected abstract TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException;
 
-    protected abstract TradeResultBean handleTimeOut(Auction auction, long userId)
+    protected abstract TradeResponse handleTimeOut(TradeRequest tradeRequest)
         throws SystemException, PortalException;
 
 }

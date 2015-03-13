@@ -1,7 +1,7 @@
 package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.app.BeanService;
-import com.buchner.auction.model.core.bean.TradeResultBean;
+import com.buchner.auction.model.core.bean.TradeResponse;
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 
@@ -28,7 +28,7 @@ public class AuctionResultFacade {
         auctionResultDao.save(auctionResult);
     }
 
-    public List<TradeResultBean> getAuctionResult(AuctionType auctionType) {
+    public List<TradeResponse> getAuctionResult(AuctionType auctionType) {
 
         List<AuctionResult> auctionResultsByType =
             auctionResultDao.findAuctionResultsByType(auctionType);

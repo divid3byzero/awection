@@ -1,26 +1,21 @@
 package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.app.BeanService;
+import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.bean.AuctionBean;
-import com.buchner.auction.model.core.bean.TradeResultBean;
+import com.buchner.auction.model.core.bean.TradeResponse;
 import com.buchner.auction.model.core.entity.Auction;
-import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.buchner.auction.model.core.trade.AbstractTrader;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Transaction
@@ -40,43 +35,40 @@ public class TradeFacade {
     private BeanService beanService;
 
     @Inject
-    private User currentUser;
-
-    @Inject
     private Instance<AbstractTrader> abstractTrader;
 
     protected TradeFacade() {
 
     }
 
-    public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType) {
+    public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType, long userId) {
 
         return beanService.buildAuctionBeans(
-            auctionDao.findAuctionFromBidderAndType(currentUser.getUserId(), auctionType));
+            auctionDao.findAuctionFromBidderAndType(userId, auctionType));
     }
 
-    public void addBidderToAuction(int articleId) {
+    public void addBidderToAuction(int articleId, long userId) {
 
         Auction auction = auctionDao.findByArticle(articleId);
         Bidder bidder = new Bidder();
         bidder.addAuction(auction);
         auction.addBidder(bidder);
-        bidder.setUserId(currentUser.getUserId());
+        bidder.setUserId(userId);
         auctionDao.save(auction);
         bidderDao.save(bidder);
     }
 
-    public void fireTrader(int auctionId, BigDecimal amount) {
+    public void fireTrader(TradeRequest tradeRequest) {
 
-        Auction auction = auctionDao.findById(auctionId);
+        Auction auction = tradeRequest.getAuction();
         if (auction.isRunning()) {
             for (AbstractTrader trader : abstractTrader) {
                 if (trader.getAuctionType().equals(auction.getAuctionType())) {
                     try {
 
-                        TradeResultBean tradeResultBean =
-                            trader.handleTrade(auction, amount, currentUser.getUserId());
-                        handleTradeResult(tradeResultBean);
+                        TradeResponse tradeResponse =
+                            trader.handleTrade(tradeRequest);
+                        handleTradeResponse(tradeResponse);
 
                     } catch (PortalException | SystemException e) {
                         throw new IllegalArgumentException("Fatal error occurred");
@@ -88,17 +80,17 @@ public class TradeFacade {
         }
     }
 
-    private void handleTradeResult(TradeResultBean tradeResultBean) {
+    private void handleTradeResponse(TradeResponse tradeResponse) {
 
-        if (null != tradeResultBean) {
+        if (null != tradeResponse) {
 
-            if (!tradeResultBean.isAuctionTimeout()) {
+            if (!tradeResponse.isAuctionTimeout()) {
 
-                if (!tradeResultBean.isAuctionRunning()) {
-                    auctionResultDao.save(tradeResultBean.buildAuctionResult());
+                if (!tradeResponse.isAuctionRunning()) {
+                    auctionResultDao.save(tradeResponse.buildAuctionResult());
                     auctionMessage("Auction is over.");
                 } else {
-                    bidderDao.save(tradeResultBean.getBidder());
+                    bidderDao.save(tradeResponse.getBidder());
                 }
             } else {
                 auctionMessage("Auction has timed out.");
