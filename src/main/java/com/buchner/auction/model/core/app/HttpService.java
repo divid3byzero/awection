@@ -1,12 +1,13 @@
 package com.buchner.auction.model.core.app;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceRequest;
 
-@RequestScoped
+@ApplicationScoped
 public class HttpService {
 
     public HttpService() {
