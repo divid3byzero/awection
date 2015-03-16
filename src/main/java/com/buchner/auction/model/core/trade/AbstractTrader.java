@@ -1,7 +1,7 @@
 package com.buchner.auction.model.core.trade;
 
 import com.buchner.auction.model.core.app.TradeRequest;
-import com.buchner.auction.model.core.bean.TradeResponse;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -11,7 +11,6 @@ import org.joda.time.DateTimeZone;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public abstract class AbstractTrader {

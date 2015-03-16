@@ -3,7 +3,7 @@ package com.buchner.auction.model.core.database;
 import com.buchner.auction.model.core.app.BeanService;
 import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.bean.AuctionBean;
-import com.buchner.auction.model.core.bean.TradeResponse;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bidder;

@@ -3,8 +3,7 @@ package com.buchner.auction.model.core.trade;
 import com.buchner.auction.model.core.app.BidComperator;
 import com.buchner.auction.model.core.app.LiferayComponentService;
 import com.buchner.auction.model.core.app.TradeRequest;
-import com.buchner.auction.model.core.bean.TradeResponse;
-import com.buchner.auction.model.core.entity.Auction;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
@@ -14,7 +13,6 @@ import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

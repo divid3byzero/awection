@@ -20,7 +20,7 @@ public class LocalePhaseListener implements PhaseListener {
             FacesContext context = phaseEvent.getFacesContext();
             UIViewRoot viewRoot = context.getViewRoot();
             ExternalContext externalContext = context.getExternalContext();
-            viewRoot.setLocale(new Locale("de"));
+            viewRoot.setLocale(new Locale("en"));
         }
 
     }

@@ -1,4 +1,4 @@
-package com.buchner.auction.model.core.bean;
+package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;

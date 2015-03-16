@@ -32,7 +32,7 @@ public class AuctionManager {
     }
 
     @SuppressWarnings("JpaQlInspection")
-    public synchronized void checkDutchAuctionPrices() {
+    public void checkDutchAuctionPrices() {
 
 
         entityManager.getTransaction().begin();
@@ -49,7 +49,6 @@ public class AuctionManager {
                 auction.setPrice(
                     new BigDecimal(String.valueOf(auction.getPrice().subtract(dutchAuctionSubtrahent))));
                 entityManager.getTransaction().commit();
-                entityManager.flush();
             }
         }
         entityManager.close();

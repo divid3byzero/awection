@@ -1,7 +1,6 @@
 package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.entity.Auction;
-import com.buchner.auction.model.core.entity.CdaType;
 
 import java.math.BigDecimal;
 
@@ -10,7 +9,6 @@ public class TradeRequest {
     private Auction auction;
     private BigDecimal amount;
     private long userId;
-    private CdaType cdaType;
 
     public TradeRequest() {
 
@@ -44,15 +42,5 @@ public class TradeRequest {
     public void setUserId(long userId) {
 
         this.userId = userId;
-    }
-
-    public CdaType getCdaType() {
-
-        return cdaType;
-    }
-
-    public void setCdaType(CdaType cdaType) {
-
-        this.cdaType = cdaType;
     }
 }

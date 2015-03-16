@@ -35,7 +35,7 @@ public class AuctionDao {
     public Auction findByArticle(int articleId) {
 
         TypedQuery<Auction> namedQuery = entityManager
-            .createQuery("select au from Auction au where au.article.id = :articleId",
+            .createNamedQuery("Auction.findByArticle",
                 Auction.class);
         namedQuery.setParameter("articleId", articleId);
         return namedQuery.getSingleResult();
@@ -44,9 +44,7 @@ public class AuctionDao {
     public List<Auction> findAuctionFromBidderAndType(long userId, AuctionType auctionType) {
 
         TypedQuery<Auction> namedQuery = entityManager
-            .createQuery(
-                "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and au.isRunning = 1 and aub.userId = :userId",
-                Auction.class);
+            .createNamedQuery("Auction.fromBidderAndType", Auction.class);
         namedQuery.setParameter("auctionType", auctionType);
         namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();

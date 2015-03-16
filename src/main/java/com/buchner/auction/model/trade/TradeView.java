@@ -6,7 +6,6 @@ import com.buchner.auction.model.core.database.AuctionFacade;
 import com.buchner.auction.model.core.database.TradeFacade;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
-import com.buchner.auction.model.core.entity.CdaType;
 import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
@@ -56,25 +55,18 @@ public class TradeView {
 
     public void sendBid(int auctionId) {
 
-        TradeRequest tradeRequest = buildTradeRequest(auctionId, bidAmount, null);
+        TradeRequest tradeRequest = buildTradeRequest(auctionId, bidAmount);
         tradeFacade.fireTrader(tradeRequest);
     }
 
     public void sendBid(int auctionId, String bidAmount) {
 
         TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, new BigDecimal(bidAmount), null);
+            buildTradeRequest(auctionId, new BigDecimal(bidAmount));
         tradeFacade.fireTrader(tradeRequest);
     }
 
-    public void sendBid(int auctionId, CdaType cdaType) {
-
-        TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, bidAmount, cdaType);
-        tradeFacade.fireTrader(tradeRequest);
-    }
-
-    private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount, CdaType cdaType) {
+    private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionFacade.findById(auctionId);
         TradeRequest tradeRequest = new TradeRequest();
@@ -82,9 +74,6 @@ public class TradeView {
         tradeRequest.setAmount(amount);
         tradeRequest.setUserId(currentUser.getUserId());
 
-        if (null != cdaType) {
-            tradeRequest.setCdaType(cdaType);
-        }
         return tradeRequest;
     }
 }

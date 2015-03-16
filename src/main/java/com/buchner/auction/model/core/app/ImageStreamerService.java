@@ -30,9 +30,10 @@ public class ImageStreamerService {
             return new DefaultStreamedContent();
         } else {
             String articleId =
-                (String) facesContext.getExternalContext().getRequestParameterMap().get("articleId");
+                facesContext.getExternalContext().getRequestParameterMap().get("articleId");
             Article singleArticle = auctionFacade.getSingleArticle(Integer.parseInt(articleId));
-            return new DefaultStreamedContent(new ByteArrayInputStream(singleArticle.getImage()), "image/png");
+            return new DefaultStreamedContent(new ByteArrayInputStream(singleArticle.getImage()),
+                "image/png");
         }
     }
 }

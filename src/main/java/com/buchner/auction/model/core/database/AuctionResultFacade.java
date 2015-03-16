@@ -1,7 +1,7 @@
 package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.app.BeanService;
-import com.buchner.auction.model.core.bean.TradeResponse;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
 
