@@ -33,27 +33,16 @@ public class ArticleDao {
 
     public List<Article> findByName(String description) {
 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Article> query = cb.createQuery(Article.class);
-        Root<Article> article = query.from(Article.class);
-
-        ParameterExpression<String> descParam =
-            cb.parameter(String.class, "description");
-
-        Predicate or = cb.or(cb.like(article.get("shortDesc"), descParam),
-            cb.like(article.get("longDesc"), descParam));
-        query.select(article).where(or);
-
-        TypedQuery<Article> typedQuery = entityManager.createQuery(query);
-        typedQuery.setParameter("description", "%" + description + "%");
-
-        return typedQuery.getResultList();
+        TypedQuery<Article> namedQuery =
+            entityManager.createNamedQuery("Article.byDescription", Article.class);
+        namedQuery.setParameter("description", description);
+        return namedQuery.getResultList();
     }
 
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.userId = :userId", Article.class);
+            .createNamedQuery("Article.byUserId", Article.class);
         namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();
     }

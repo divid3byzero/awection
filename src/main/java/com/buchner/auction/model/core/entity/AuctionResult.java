@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "auction_results")
+@NamedQueries({
+    @NamedQuery(name = "AuctionResult.byType", query = "select ar from AuctionResult ar where ar.auctionType = :auctionType")
+})
 public class AuctionResult {
 
     @Id

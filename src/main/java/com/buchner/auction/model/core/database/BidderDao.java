@@ -35,15 +35,9 @@ public class BidderDao {
 
     public List<Auction> findByBidder(long userId) {
 
-        TypedQuery<Bidder> namedQuery = entityManager
-            .createQuery("select b from Bidder b where b.userId = :userId", Bidder.class);
+        TypedQuery<Auction> namedQuery = entityManager
+            .createNamedQuery("Auction.byBidder", Auction.class);
         namedQuery.setParameter("userId", userId);
-        List<Bidder> resultList = namedQuery.getResultList();
-
-        List<Auction> userAuctions = new ArrayList<>();
-        for (Bidder bidder : resultList) {
-            userAuctions.addAll(bidder.getAuctions().stream().collect(Collectors.toList()));
-        }
-        return userAuctions;
+        return namedQuery.getResultList();
     }
 }

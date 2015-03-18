@@ -33,8 +33,7 @@ public class AuctionResultDao {
     public List<AuctionResult> findAuctionResultsByType(AuctionType auctionType) {
 
         TypedQuery<AuctionResult> query = entityManager
-            .createQuery("select ar from AuctionResult ar where ar.auctionType = :auctionType",
-                AuctionResult.class);
+            .createNamedQuery("AuctionResult.byType", AuctionResult.class);
         query.setParameter("auctionType", auctionType);
         return query.getResultList();
     }
