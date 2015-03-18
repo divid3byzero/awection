@@ -15,7 +15,10 @@
             <cron>
                 <name>DutchAuctionPriceJob</name>
                 <job-name>DutchAuctionPriceJob</job-name>
-                <cron-expression>0 0/1 * 1/1 * ? *</cron-expression>
+                <cron-expression>0 0 0/1 1/1 * ? *</cron-expression>
+
+                <!-- Minutely call for testing purposes -->
+                <!--cron-expression>0 0/1 * 1/1 * ? *</cron-expression-->
             </cron>
         </trigger>
     </schedule>
