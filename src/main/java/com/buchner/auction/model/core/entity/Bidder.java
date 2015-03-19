@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "bidder")
+@NamedQuery(name = "Bidder.findBidByBidder", query = "select b from Bidder b join b.bids bb where b.userId = :userId")
 public class Bidder {
 
     @Id

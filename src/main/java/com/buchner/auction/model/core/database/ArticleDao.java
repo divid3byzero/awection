@@ -35,7 +35,7 @@ public class ArticleDao {
 
         TypedQuery<Article> namedQuery =
             entityManager.createNamedQuery("Article.byDescription", Article.class);
-        namedQuery.setParameter("description", description);
+        namedQuery.setParameter("description", "%" + description + "%");
         return namedQuery.getResultList();
     }
 

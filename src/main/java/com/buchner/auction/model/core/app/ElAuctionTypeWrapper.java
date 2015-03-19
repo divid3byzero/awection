@@ -12,14 +12,12 @@ public class ElAuctionTypeWrapper {
     AuctionType dutchType;
     AuctionType englishType;
     AuctionType secondPriceType;
-    AuctionType cdaType;
 
     protected ElAuctionTypeWrapper() {
 
         dutchType = AuctionType.DUTCH;
         englishType = AuctionType.ENGLISH;
         secondPriceType = AuctionType.SECOND_PRICE;
-        cdaType = AuctionType.CDA;
     }
 
     public AuctionType getDutchType() {
@@ -37,8 +35,4 @@ public class ElAuctionTypeWrapper {
         return secondPriceType;
     }
 
-    public AuctionType getCdaType() {
-
-        return cdaType;
-    }
 }

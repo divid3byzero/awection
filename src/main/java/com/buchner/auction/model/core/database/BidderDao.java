@@ -8,6 +8,7 @@ import com.buchner.auction.model.core.entity.Bidder;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,21 @@ public class BidderDao {
     public Bidder findById(int id) {
 
         return entityManager.find(Bidder.class, id);
+    }
+
+    public Bidder findByUserId(long userId) {
+
+        TypedQuery<Bidder> namedQuery =
+            entityManager.createNamedQuery("Bidder.findBidByBidder", Bidder.class);
+        namedQuery.setParameter("userId", userId);
+
+        try {
+
+            return namedQuery.getSingleResult();
+        } catch (NoResultException e) {
+
+            return null;
+        }
     }
 
     public List<Auction> findByBidder(long userId) {

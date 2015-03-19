@@ -66,6 +66,11 @@ public class TradeView {
         tradeFacade.fireTrader(tradeRequest);
     }
 
+    public boolean isRegisteredBidder() {
+
+        return tradeFacade.hasBidden();
+    }
+
     private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionFacade.findById(auctionId);

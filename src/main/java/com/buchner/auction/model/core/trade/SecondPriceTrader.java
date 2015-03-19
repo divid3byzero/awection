@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
-public class SecondPriceTrader extends EnglishTrader {
+public class SecondPriceTrader extends AbstractTrader {
 
     @Inject
     private LiferayComponentService liferayComponentService;
@@ -34,7 +34,34 @@ public class SecondPriceTrader extends EnglishTrader {
     @Override protected TradeResponse trade(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        return super.trade(tradeRequest);
+        if (tradeRequest.getAuction().getPrice().compareTo(tradeRequest.getAmount()) == -1) {
+
+            tradeResponse.setAuctionRunning(true);
+            List<Bidder> bidder = tradeRequest.getAuction().getBidder();
+            Bid bid = new Bid();
+            bid.setAmount(tradeRequest.getAmount());
+            bid.setAuctionId(tradeRequest.getAuction().getId());
+            tradeRequest.getAuction().setPrice(tradeRequest.getAmount());
+
+            for (Bidder bidderElem : bidder) {
+                if (tradeRequest.getUserId() == bidderElem.getUserId()) {
+                    bidderElem.addBid(bid);
+                    tradeResponse.setBidder(bidderElem);
+                    return tradeResponse;
+                }
+            }
+
+        } else {
+            auctionMessage("Bid does not meet requirements");
+        }
+        return null;
+    }
+
+    @Override protected TradeResponse handleTimeOut(TradeRequest tradeRequest)
+        throws SystemException, PortalException {
+
+        tradeRequest.getAuction().setRunning(false);
+        return findAuctionWinner(tradeRequest);
     }
 
     @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
