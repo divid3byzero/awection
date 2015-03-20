@@ -11,6 +11,5 @@ public class AuctionManagerJob implements Job {
 
         AuctionManager auctionManager = AuctionManager.getInstance();
         auctionManager.checkAuctions();
-        auctionManager.checkSecondPriceTimeout();
     }
 }
