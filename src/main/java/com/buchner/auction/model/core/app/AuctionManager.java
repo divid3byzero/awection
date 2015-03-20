@@ -68,46 +68,41 @@ public class AuctionManager {
                 .collect(Collectors.toList());
 
         if (timeoutSecondPriceAuctions.size() > 0) {
-            findSecondPriceWinner(timeoutSecondPriceAuctions);
+
+            for (Auction auction : timeoutSecondPriceAuctions) {
+
+                auction.setRunning(false);
+                List<Bid> auctionBids = new ArrayList<>();
+
+                List<Bidder> bidder = auction.getBidder();
+                for (Bidder bidderElem : bidder) {
+                    auctionBids.addAll(bidderElem.getBids());
+                }
+
+                auctionBids.sort(new BidComperator());
+                Bid winningBid = auctionBids.get(1);
+
+                long winningUserId = winningBid.getBidder().getUserId();
+                try {
+
+                    User userById = UserLocalServiceUtil.getUserById(winningUserId);
+                    AuctionResult auctionResult = new AuctionResult();
+                    auctionResult.setDescription(auction.getArticle().getShortDesc());
+                    auctionResult.setPrice(auction.getPrice());
+                    auctionResult.setFirstName(userById.getFirstName());
+                    auctionResult.setSurname(userById.getLastName());
+                    auctionResult.setMail(userById.getEmailAddress());
+                    auctionResult.setAuctionType(auction.getAuctionType());
+                    entityManager.persist(auctionResult);
+                } catch (Exception e) {
+
+                    entityManager.getTransaction().rollback();
+                }
+            }
         }
 
         commitTransaction();
         closeTransaction();
-    }
-
-
-    private void findSecondPriceWinner(List<Auction> auctions) {
-
-        for (Auction auction : auctions) {
-
-            auction.setRunning(false);
-            List<Bid> auctionBids = new ArrayList<>();
-
-            List<Bidder> bidder = auction.getBidder();
-            for (Bidder bidderElem : bidder) {
-                auctionBids.addAll(bidderElem.getBids());
-            }
-
-            auctionBids.sort(new BidComperator());
-            Bid winningBid = auctionBids.get(1);
-
-            long winningUserId = winningBid.getBidder().getUserId();
-            try {
-
-                User userById = UserLocalServiceUtil.getUserById(winningUserId);
-                AuctionResult auctionResult = new AuctionResult();
-                auctionResult.setDescription(auction.getArticle().getShortDesc());
-                auctionResult.setPrice(auction.getPrice());
-                auctionResult.setFirstName(userById.getFirstName());
-                auctionResult.setSurname(userById.getLastName());
-                auctionResult.setMail(userById.getEmailAddress());
-                auctionResult.setAuctionType(auction.getAuctionType());
-                entityManager.persist(auctionResult);
-            } catch (PortalException | SystemException e) {
-
-                entityManager.getTransaction().rollback();
-            }
-        }
     }
 
     private void startTransaction() {
