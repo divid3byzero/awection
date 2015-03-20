@@ -26,7 +26,7 @@
                     <p:commandButton styleClass="font"
                                      rendered="#{!tradeView.registeredBidder}"
                                      value="#{msg['auction.trade.bid.button']}"
-                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
+                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:secondPricePanel :form:auctionGrowl"/>
                 </div>
             </div>
         </ui:repeat>
