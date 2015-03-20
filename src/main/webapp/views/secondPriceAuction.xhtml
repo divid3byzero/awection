@@ -20,6 +20,9 @@
                     <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}" rendered="#{!tradeView.registeredBidder}"/>
                     <h:outputText rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{msg['auction.secondprice.isbidder']}"/>
 
+                    <p:outputLabel for="secondPriceUserAmount" styleClass="font" rendered="#{tradeView.registeredBidder}" value="#{msg['auction.secondprice.yourprice']}"/>
+                    <h:outputText id="secondPriceUserAmount" rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{tradeView.secondPriceBidAmount}"/>
+
                     <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
                                  for="bidAmountEnglish"/>
 

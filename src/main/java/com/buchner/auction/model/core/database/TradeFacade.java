@@ -4,8 +4,10 @@ import com.buchner.auction.model.core.app.BeanService;
 import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.bean.AuctionBean;
+import com.buchner.auction.model.core.bean.BidBean;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
+import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.buchner.auction.model.core.trade.AbstractTrader;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -25,6 +27,9 @@ public class TradeFacade {
 
     @Inject
     private BidderDao bidderDao;
+
+    @Inject
+    private BidDao bidDao;
 
     @Inject
     private AuctionDao auctionDao;
@@ -103,6 +108,11 @@ public class TradeFacade {
                 auctionMessage("Auction has timed out.");
             }
         }
+    }
+
+    public BidBean getBidByUserId() {
+
+        return beanService.buildBidBean(bidDao.getbyUserId(currentUser.getUserId()));
     }
 
     private void auctionMessage(String message) {

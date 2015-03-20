@@ -2,9 +2,11 @@ package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.bean.ArticleBean;
 import com.buchner.auction.model.core.bean.AuctionBean;
+import com.buchner.auction.model.core.bean.BidBean;
 import com.buchner.auction.model.core.entity.Article;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
+import com.buchner.auction.model.core.entity.Bid;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -62,6 +64,11 @@ public class BeanService {
         tradeResponse.setSurname(auctionResult.getSurname());
         tradeResponse.setMail(auctionResult.getMail());
         return tradeResponse;
+    }
+
+    public BidBean buildBidBean(Bid bid) {
+
+        return new BidBean(bid.getId(), bid.getAuctionId(), bid.getAmount());
     }
 
 }

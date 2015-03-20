@@ -71,6 +71,11 @@ public class TradeView {
         return tradeFacade.hasBidden();
     }
 
+    public BigDecimal getSecondPriceBidAmount() {
+
+        return tradeFacade.getBidByUserId().getBidAmount();
+    }
+
     private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount) {
 
         Auction auction = auctionFacade.findById(auctionId);
