@@ -10,7 +10,7 @@ public class AuctionManagerJob implements Job {
         throws JobExecutionException {
 
         AuctionManager auctionManager = AuctionManager.getInstance();
-        auctionManager.checkDutchAuctionPrices();
+        auctionManager.checkAuctions();
         auctionManager.checkSecondPriceTimeout();
     }
 }

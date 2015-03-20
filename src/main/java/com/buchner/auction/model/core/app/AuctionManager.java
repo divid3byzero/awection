@@ -38,7 +38,7 @@ public class AuctionManager {
         return instance;
     }
 
-    public void checkDutchAuctionPrices() {
+    public void checkAuctions() {
 
         startTransaction();
         TypedQuery<Auction> namedQuery = getAuctionByTypeQuery(AuctionType.DUTCH);
@@ -54,22 +54,16 @@ public class AuctionManager {
                         String.valueOf(auction.getPrice().subtract(dutchAuctionSubtrahent))));
             }
         }
-        commitTransaction();
-        closeTransaction();
-    }
 
 
-    public void checkSecondPriceTimeout() {
-
-        startTransaction();
         TypedQuery<Auction> auctionByTypeQuery = getAuctionByTypeQuery(AuctionType.SECOND_PRICE);
-        List<Auction> resultList = auctionByTypeQuery.getResultList();
+        List<Auction> secondPriceResultList = auctionByTypeQuery.getResultList();
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
 
         List<Auction> timeoutSecondPriceAuctions =
-            resultList.stream().filter(auction -> nowDate.compareTo(auction.getEndTime()) == 0
+            secondPriceResultList.stream().filter(auction -> nowDate.compareTo(auction.getEndTime()) == 0
                 || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning())
                 .collect(Collectors.toList());
 
@@ -80,6 +74,7 @@ public class AuctionManager {
         commitTransaction();
         closeTransaction();
     }
+
 
     private void findSecondPriceWinner(List<Auction> auctions) {
 
@@ -111,7 +106,6 @@ public class AuctionManager {
             } catch (PortalException | SystemException e) {
 
                 entityManager.getTransaction().rollback();
-                closeTransaction();
             }
         }
     }
