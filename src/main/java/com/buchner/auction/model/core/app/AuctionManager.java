@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -53,9 +52,9 @@ public class AuctionManager {
                 auction.setPrice(
                     new BigDecimal(
                         String.valueOf(auction.getPrice().subtract(dutchAuctionSubtrahent))));
-                commitTransaction();
             }
         }
+        commitTransaction();
         closeTransaction();
     }
 
