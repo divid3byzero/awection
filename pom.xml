@@ -31,7 +31,7 @@
 
     <properties>
         <liferay.version>6.2.1</liferay.version>
-        <liferay.auto.deploy.dir>${env.LRAY_PRA_HOME}/deploy</liferay.auto.deploy.dir>
+        <liferay.auto.deploy.dir>${env.LRAY_HOME}/deploy</liferay.auto.deploy.dir>
     </properties>
 
     <dependencies>

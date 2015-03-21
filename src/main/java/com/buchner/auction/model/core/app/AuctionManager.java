@@ -22,25 +22,20 @@ public class AuctionManager {
     private EntityManager entityManager;
     private BigDecimal dutchAuctionSubtrahent;
 
-    private static AuctionManager instance;
+    public AuctionManager(EntityManager entityManager) {
 
-    private AuctionManager() {
-
-        entityManager = Persistence.createEntityManagerFactory("auction").createEntityManager();
+        this.entityManager = entityManager;
         dutchAuctionSubtrahent = new BigDecimal("2");
     }
 
-    public static AuctionManager getInstance() {
-
-        if (null == instance) {
-            instance = new AuctionManager();
-        }
-        return instance;
-    }
 
     public void checkAuctions() {
 
-        startTransaction();
+        checkDutchAuctions();
+        checkSecondPriceAuctions();
+    }
+
+    private void checkDutchAuctions() {
         TypedQuery<Auction> namedQuery = getAuctionByTypeQuery(AuctionType.DUTCH);
 
         List<Auction> resultList = namedQuery.getResultList();
@@ -48,13 +43,15 @@ public class AuctionManager {
 
             List<Bidder> bidder = auction.getBidder();
             if (bidder.size() > 1
-                && auction.getPrice().subtract(dutchAuctionSubtrahent).intValue() > 0) {
+                    && auction.getPrice().subtract(dutchAuctionSubtrahent).intValue() > 0) {
                 auction.setPrice(
-                    new BigDecimal(
-                        String.valueOf(auction.getPrice().subtract(dutchAuctionSubtrahent))));
+                        new BigDecimal(
+                                String.valueOf(auction.getPrice().subtract(dutchAuctionSubtrahent))));
             }
         }
+    }
 
+    private void checkSecondPriceAuctions() {
 
         TypedQuery<Auction> auctionByTypeQuery = getAuctionByTypeQuery(AuctionType.SECOND_PRICE);
         List<Auction> secondPriceResultList = auctionByTypeQuery.getResultList();
@@ -62,10 +59,9 @@ public class AuctionManager {
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
 
-        List<Auction> timeoutSecondPriceAuctions =
-            secondPriceResultList.stream().filter(auction -> nowDate.compareTo(auction.getEndTime()) == 0
-                || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning())
-                .collect(Collectors.toList());
+        List<Auction> timeoutSecondPriceAuctions = secondPriceResultList
+                .stream()
+                .filter(auction -> nowDate.compareTo(auction.getEndTime()) == 1 && auction.isRunning()).collect(Collectors.toList());
 
         if (timeoutSecondPriceAuctions.size() > 0) {
 
@@ -80,7 +76,7 @@ public class AuctionManager {
                 }
 
                 auctionBids.sort(new BidComperator());
-                Bid winningBid = auctionBids.get(1);
+                Bid winningBid = auctionBids.size() > 1 ? auctionBids.get(1) : auctionBids.get(0);
 
                 long winningUserId = winningBid.getBidder().getUserId();
                 try {
@@ -100,31 +96,13 @@ public class AuctionManager {
                 }
             }
         }
-
-        commitTransaction();
-        closeTransaction();
-    }
-
-    private void startTransaction() {
-
-        entityManager.getTransaction().begin();
-    }
-
-    private void commitTransaction() {
-
-        entityManager.getTransaction().commit();
-    }
-
-    private void closeTransaction() {
-
-        entityManager.close();
     }
 
     private TypedQuery<Auction> getAuctionByTypeQuery(AuctionType auctionType) {
 
         TypedQuery<Auction> namedQuery = entityManager
-            .createNamedQuery("Auction.getByType",
-                Auction.class);
+                .createNamedQuery("Auction.getByType",
+                        Auction.class);
         namedQuery.setParameter("auctionType", auctionType);
         return namedQuery;
     }
