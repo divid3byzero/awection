@@ -15,16 +15,16 @@ table, tbody {
 }
 
 .auction-panel {
-    width: 48.92%;
+    width: 35%;
     margin-right: 15px;
     margin-top: 15px;
+    min-height: 250px;
 }
 
-.auction-panel-center {
-    margin-right: auto;
-    margin-left: auto;
+.auction-result {
+    width: 48%;
+    margin-right: 15px;
     margin-top: 15px;
-    float: none;
 }
 
 .auction-result-panel {
@@ -32,7 +32,7 @@ table, tbody {
     margin-top: 15px;
 }
 
-.auction-panel-last {
+.auction-panel-last, .auction-result-last {
     margin-right: 0;
 }
 
