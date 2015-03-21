@@ -9,12 +9,15 @@
     <schedule>
         <job>
             <name>DutchAuctionPriceJob</name>
-            <job-class>com.buchner.auction.model.core.app.DutchAuctionPriceJob</job-class>
+            <job-class>com.buchner.auction.model.core.app.AuctionManagerJob</job-class>
         </job>
         <trigger>
             <cron>
                 <name>DutchAuctionPriceJob</name>
                 <job-name>DutchAuctionPriceJob</job-name>
+                <!-- Hourly -->
+                <!--cron-expression>0 0 0/1 1/1 * ? *</cron-expression-->
+                <!-- Minutely -->
                 <cron-expression>0 0/1 * 1/1 * ? *</cron-expression>
             </cron>
         </trigger>

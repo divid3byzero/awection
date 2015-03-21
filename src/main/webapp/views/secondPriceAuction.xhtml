@@ -6,10 +6,32 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
         >
-    <p:panel style="border: none; padding: 0;">
+    <p:panel id="secondPricePanel" styleClass="auction-element-wrapper" style="border: none; padding: 0;">
         <h:outputText value="#{msg['auction.trade.seconfprice']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.secondPriceType)}" var="auction">
-            <h:outputText value="#{auction.price}"/>
+            <div class="clearfix">
+
+                <ui:include src="template/auction_item_temp.xhtml">
+                    <ui:param name="articleId" value="#{auction.articleId}"/>
+                    <ui:param name="articleDescription" value="#{auction.articleDescription}"/>
+                </ui:include>
+
+                <div>
+                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}" rendered="#{!tradeView.registeredBidder}"/>
+                    <h:outputText rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{msg['auction.secondprice.isbidder']}"/>
+
+                    <p:outputLabel for="secondPriceUserAmount" styleClass="font" rendered="#{tradeView.registeredBidder}" value="#{msg['auction.secondprice.yourprice']}"/>
+                    <h:outputText id="secondPriceUserAmount" rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{tradeView.secondPriceBidAmount}"/>
+
+                    <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
+                                 for="bidAmountEnglish"/>
+
+                    <p:commandButton styleClass="font"
+                                     rendered="#{!tradeView.registeredBidder}"
+                                     value="#{msg['auction.trade.bid.button']}"
+                                     action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:secondPricePanel :form:auctionGrowl"/>
+                </div>
+            </div>
         </ui:repeat>
     </p:panel>
 </ui:composition>

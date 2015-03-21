@@ -1,11 +1,14 @@
 package com.buchner.auction.model.core.database;
 
 import com.buchner.auction.model.core.entity.Article;
+import com.buchner.auction.model.core.entity.Auction;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @RequestScoped
@@ -25,18 +28,13 @@ public class ArticleDao {
 
     public Article findById(int id) {
 
-        TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.id = :id", Article.class);
-        namedQuery.setParameter("id", id);
-        return namedQuery.getSingleResult();
+        return entityManager.find(Article.class, id);
     }
 
     public List<Article> findByName(String description) {
 
-        TypedQuery<Article> namedQuery = entityManager
-            .createQuery(
-                "select a from Article a where a.shortDesc like :description or a.longDesc like :description",
-                Article.class);
+        TypedQuery<Article> namedQuery =
+            entityManager.createNamedQuery("Article.byDescription", Article.class);
         namedQuery.setParameter("description", "%" + description + "%");
         return namedQuery.getResultList();
     }
@@ -44,7 +42,7 @@ public class ArticleDao {
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager
-            .createQuery("select a from Article a where a.userId = :userId", Article.class);
+            .createNamedQuery("Article.byUserId", Article.class);
         namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();
     }

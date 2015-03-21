@@ -1,8 +1,12 @@
 package com.buchner.auction.model.trade;
 
+import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.bean.AuctionBean;
+import com.buchner.auction.model.core.database.AuctionFacade;
 import com.buchner.auction.model.core.database.TradeFacade;
+import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
+import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,6 +21,12 @@ public class TradeView {
     @Inject
     private TradeFacade tradeFacade;
 
+    @Inject
+    private AuctionFacade auctionFacade;
+
+    @Inject
+    private User currentUser;
+
     private BigDecimal bidAmount;
 
     protected TradeView() {
@@ -25,12 +35,12 @@ public class TradeView {
 
     public List<AuctionBean> getRunningUserAuctions(AuctionType auctionType) {
 
-        return tradeFacade.getAuctionByBidderAndType(auctionType);
+        return tradeFacade.getAuctionByBidderAndType(auctionType, currentUser.getUserId());
     }
 
     public void joinAuction(int articleId) {
 
-        tradeFacade.addBidderToAuction(articleId);
+        tradeFacade.addBidderToAuction(articleId, currentUser.getUserId());
     }
 
     public BigDecimal getBidAmount() {
@@ -38,18 +48,42 @@ public class TradeView {
         return bidAmount;
     }
 
-    public void setBidAmount(BigDecimal bidAmount) {
+    public void setBidAmount(BigDecimal amount) {
 
-        this.bidAmount = bidAmount;
+        this.bidAmount = amount;
     }
 
     public void sendBid(int auctionId) {
 
-        tradeFacade.fireTrader(auctionId, bidAmount);
+        TradeRequest tradeRequest = buildTradeRequest(auctionId, bidAmount);
+        tradeFacade.fireTrader(tradeRequest);
     }
 
     public void sendBid(int auctionId, String bidAmount) {
 
-        tradeFacade.fireTrader(auctionId, new BigDecimal(bidAmount));
+        TradeRequest tradeRequest =
+            buildTradeRequest(auctionId, new BigDecimal(bidAmount));
+        tradeFacade.fireTrader(tradeRequest);
+    }
+
+    public boolean isRegisteredBidder() {
+
+        return tradeFacade.hasBidden();
+    }
+
+    public BigDecimal getSecondPriceBidAmount() {
+
+        return tradeFacade.getBidByUserId().getBidAmount();
+    }
+
+    private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount) {
+
+        Auction auction = auctionFacade.findById(auctionId);
+        TradeRequest tradeRequest = new TradeRequest();
+        tradeRequest.setAuction(auction);
+        tradeRequest.setAmount(amount);
+        tradeRequest.setUserId(currentUser.getUserId());
+
+        return tradeRequest;
     }
 }

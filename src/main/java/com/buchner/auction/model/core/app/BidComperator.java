@@ -8,6 +8,6 @@ public class BidComperator implements Comparator<Bid> {
 
     @Override public int compare(Bid o1, Bid o2) {
 
-        return o1.getAmount().compareTo(o2.getAmount());
+        return o2.getAmount().compareTo(o1.getAmount());
     }
 }

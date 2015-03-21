@@ -24,12 +24,16 @@ public class AuctionResultDao {
         entityManager.persist(auctionResult);
     }
 
+    public AuctionResult findById(int id) {
+
+        return entityManager.find(AuctionResult.class, id);
+    }
+
     @SuppressWarnings("JpaQlInspection")
     public List<AuctionResult> findAuctionResultsByType(AuctionType auctionType) {
 
         TypedQuery<AuctionResult> query = entityManager
-            .createQuery("select ar from AuctionResult ar where ar.auctionType = :auctionType",
-                AuctionResult.class);
+            .createNamedQuery("AuctionResult.byType", AuctionResult.class);
         query.setParameter("auctionType", auctionType);
         return query.getResultList();
     }

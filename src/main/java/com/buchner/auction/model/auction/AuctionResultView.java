@@ -1,6 +1,6 @@
 package com.buchner.auction.model.auction;
 
-import com.buchner.auction.model.core.bean.AuctionResultBean;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.database.AuctionResultFacade;
 import com.buchner.auction.model.core.entity.AuctionType;
 
@@ -20,7 +20,7 @@ public class AuctionResultView {
 
     }
 
-    public List<AuctionResultBean> auctionResultsByType(AuctionType auctionType) {
+    public List<TradeResponse> auctionResultsByType(AuctionType auctionType) {
 
         return auctionResultFacade.getAuctionResult(auctionType);
     }

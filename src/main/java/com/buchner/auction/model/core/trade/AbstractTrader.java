@@ -1,26 +1,31 @@
 package com.buchner.auction.model.core.trade;
 
+import com.buchner.auction.model.core.app.TradeRequest;
+import com.buchner.auction.model.core.app.TradeResponse;
 import com.buchner.auction.model.core.entity.Auction;
-import com.buchner.auction.model.core.entity.AuctionResult;
 import com.buchner.auction.model.core.entity.AuctionType;
-import com.buchner.auction.model.core.entity.Bidder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.math.BigDecimal;
+import java.util.Date;
 
 public abstract class AbstractTrader {
 
     protected AuctionType auctionType;
 
 
-    public AuctionResult handleTrade(Auction auction, BigDecimal amount, long userId)
+    public TradeResponse handleTrade(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        return trade(auction, amount, userId);
+
+        if (auctionTimeout(tradeRequest.getAuction())) {
+            return handleTimeOut(tradeRequest);
+        }
+        return trade(tradeRequest);
     }
 
     public AuctionType getAuctionType() {
@@ -28,17 +33,30 @@ public abstract class AbstractTrader {
         return auctionType;
     }
 
-    protected abstract AuctionResult trade(Auction auction, BigDecimal amount, long userId)
-        throws SystemException, PortalException;
-
-    protected abstract AuctionResult findAuctionWinner(Auction auction, long userId)
-        throws PortalException, SystemException;
-
     protected void auctionMessage(String message) {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
             message));
     }
+
+    protected boolean auctionTimeout(Auction auction) {
+
+        DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        Date nowDate = now.toDate();
+        return nowDate.compareTo(auction.getEndTime()) == 0
+            || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning();
+    }
+
+
+    protected abstract TradeResponse trade(TradeRequest tradeRequest)
+        throws SystemException, PortalException;
+
+    protected abstract TradeResponse findAuctionWinner(TradeRequest tradeRequest)
+        throws PortalException, SystemException;
+
+    protected abstract TradeResponse handleTimeOut(TradeRequest tradeRequest)
+        throws SystemException, PortalException;
+
 }
 

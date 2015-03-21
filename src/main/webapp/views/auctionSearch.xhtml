@@ -23,7 +23,9 @@
         </div>
 
         <div class="pull-left">
-            <p:dataTable rendered="#{auctionSession.articleSearchResult.size() > 0}" id="articleSearchResult" style="text-align: center;" styleClass="article-search-result"
+            <p:dataTable rendered="#{auctionSession.articleSearchResult.size() > 0}"
+                         id="articleSearchResult" style="text-align: center;"
+                         styleClass="article-search-result"
                          value="#{auctionSession.articleSearchResult}" var="article">
 
                 <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
@@ -46,7 +48,8 @@
                 </p:column>
 
                 <p:column>
-                    <p:commandButton styleClass="font" value="#{msg['auction.search.joinauction']}" ajax="true"
+                    <p:commandButton styleClass="font" value="#{msg['auction.search.joinauction']}"
+                                     ajax="true"
                                      action="#{tradeController.startAuction(article.id)}"
                                      update="@form"/>
                 </p:column>

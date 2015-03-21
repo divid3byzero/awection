@@ -5,7 +5,6 @@ import com.buchner.auction.model.trade.TradeView;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.math.BigDecimal;
 
 @Named
 @ApplicationScoped

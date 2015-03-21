@@ -2,10 +2,11 @@ package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.bean.ArticleBean;
 import com.buchner.auction.model.core.bean.AuctionBean;
-import com.buchner.auction.model.core.bean.AuctionResultBean;
+import com.buchner.auction.model.core.bean.BidBean;
 import com.buchner.auction.model.core.entity.Article;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionResult;
+import com.buchner.auction.model.core.entity.Bid;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -40,7 +41,7 @@ public class BeanService {
             this::buildAuctionBean).collect(Collectors.toList());
     }
 
-    public List<AuctionResultBean> buildAuctionResultBeans(List<AuctionResult> auctionResults) {
+    public List<TradeResponse> buildAuctionResultBeans(List<AuctionResult> auctionResults) {
 
         return auctionResults.stream().map(
             this::buildAuctionResultBean).collect(Collectors.toList());
@@ -54,10 +55,20 @@ public class BeanService {
             auctionEntity.getPrice(), auctionEntity.isRunning());
     }
 
-    public AuctionResultBean buildAuctionResultBean(AuctionResult auctionResult) {
+    public TradeResponse buildAuctionResultBean(AuctionResult auctionResult) {
 
-        return new AuctionResultBean(auctionResult.getDescription(), auctionResult.getPrice(),
-            auctionResult.getFirstName(), auctionResult.getSurname(), auctionResult.getMail());
+        TradeResponse tradeResponse = new TradeResponse();
+        tradeResponse.setDescription(auctionResult.getDescription());
+        tradeResponse.setPrice(auctionResult.getPrice());
+        tradeResponse.setFirstName(auctionResult.getFirstName());
+        tradeResponse.setSurname(auctionResult.getSurname());
+        tradeResponse.setMail(auctionResult.getMail());
+        return tradeResponse;
+    }
+
+    public BidBean buildBidBean(Bid bid) {
+
+        return new BidBean(bid.getId(), bid.getAuctionId(), bid.getAmount());
     }
 
 }

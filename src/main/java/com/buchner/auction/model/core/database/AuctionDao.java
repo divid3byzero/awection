@@ -35,44 +35,19 @@ public class AuctionDao {
     public Auction findByArticle(int articleId) {
 
         TypedQuery<Auction> namedQuery = entityManager
-            .createQuery("select au from Auction au where au.article.id = :articleId",
+            .createNamedQuery("Auction.findByArticle",
                 Auction.class);
         namedQuery.setParameter("articleId", articleId);
         return namedQuery.getSingleResult();
     }
 
-    public List<Auction> findByBidder(long userId) {
-
-        TypedQuery<Bidder> namedQuery = entityManager
-            .createQuery("select b from Bidder b where b.userId = :userId", Bidder.class);
-        namedQuery.setParameter("userId", userId);
-        List<Bidder> resultList = namedQuery.getResultList();
-
-        List<Auction> userAuctions = new ArrayList<>();
-        for (Bidder bidder : resultList) {
-            userAuctions.addAll(bidder.getAuctions().stream().collect(Collectors.toList()));
-        }
-        return userAuctions;
-    }
-
     public List<Auction> findAuctionFromBidderAndType(long userId, AuctionType auctionType) {
 
-        TypedQuery<Bidder> namedQuery = entityManager
-            .createQuery(
-                "select b from Bidder b where b.userId = :userId",
-                Bidder.class);
+        TypedQuery<Auction> namedQuery = entityManager
+            .createNamedQuery("Auction.fromBidderAndType", Auction.class);
+        namedQuery.setParameter("auctionType", auctionType);
         namedQuery.setParameter("userId", userId);
-        List<Bidder> resultList = namedQuery.getResultList();
-
-        List<Auction> auctionList = new ArrayList<>();
-        for (Bidder bidder : resultList) {
-
-            auctionList.addAll(bidder.getAuctions().stream().filter(
-                auction -> auctionType.equals(auction.getAuctionType()) && auction.isRunning())
-                .collect(Collectors.toList()));
-        }
-
-        return auctionList;
+        return namedQuery.getResultList();
     }
 
 }

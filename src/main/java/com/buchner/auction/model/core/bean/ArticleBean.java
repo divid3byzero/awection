@@ -1,8 +1,9 @@
 package com.buchner.auction.model.core.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ArticleBean {
+public class ArticleBean implements Serializable {
 
     private int id;
     private String shorDesc;

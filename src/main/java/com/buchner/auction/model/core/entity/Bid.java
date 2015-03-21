@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "bids")
+@NamedQuery(name = "Bid.getByUserId", query = "select b from Bid b join b.bidder bb where bb.userId = :userId")
 public class Bid {
 
     @Id

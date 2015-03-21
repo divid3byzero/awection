@@ -36,15 +36,17 @@
     </div>
 
     <div class="clearfix">
-        <p:dataTable styleClass="pull-left auction-panel">
+        <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.secondPriceType)}" var="auction" styleClass="pull-left auction-panel">
             <f:facet name="header">
                 <h:outputText styleClass="font" value="#{msg['auction.trade.seconfprice']}"/>
             </f:facet>
-        </p:dataTable>
-        <p:dataTable styleClass="pull-left auction-panel auction-panel-last">
-            <f:facet name="header">
-                <h:outputText styleClass="font" value="#{msg['auction.trade.cda']}"/>
-            </f:facet>
+            <ui:include src="template/result_columns.xhtml">
+                <ui:param name="desc" value="#{auction.description}"/>
+                <ui:param name="price" value="#{auction.price}"/>
+                <ui:param name="firstName" value="#{auction.firstName}"/>
+                <ui:param name="surname" value="#{auction.surname}"/>
+                <ui:param name="mail" value="#{auction.mail}"/>
+            </ui:include>
         </p:dataTable>
     </div>
 </ui:composition>

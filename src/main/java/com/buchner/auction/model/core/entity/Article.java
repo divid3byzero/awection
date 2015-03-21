@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "articles")
+@NamedQueries({
+    @NamedQuery(name = "Article.byUserId", query = "select a from Article a where a.userId = :userId"),
+    @NamedQuery(name = "Article.byDescription", query = "select a from Article a where a.shortDesc like :description or a.longDesc like :description")
+})
 public class Article {
 
     @Id

@@ -5,7 +5,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         >
 
-    <p:panel styleClass="auction-element-wrapper">
+    <p:panel id="englishAuctionPanel" styleClass="auction-element-wrapper">
         <h:outputText value="#{msg['auction.trade.english']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.englishType)}"
                    var="auction">
@@ -19,13 +19,15 @@
                 </ui:include>
 
                 <div>
-                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/>
+                    <!--p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}"/-->
+                    <p:inputText id="bidAmountEnglish" styleClass="font" binding="#{bidAmount}"/>
                     <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
                                  for="bidAmountEnglish"/>
 
                     <p:commandButton styleClass="font"
                                      value="#{msg['auction.trade.bid.button']}"
-                                     action="#{tradeController.bid(auction.id)}" update="@form"/>
+                                     ajax="true"
+                                     action="#{tradeController.bid(auction.id, bidAmount.value)}" update=":form:tradingResults :form:englishAuctionPanel :form:auctionGrowl"/>
                 </div>
             </div>
         </ui:repeat>

@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "bidder")
+@NamedQuery(name = "Bidder.findBidByBidder", query = "select b from Bidder b join b.bids bb where b.userId = :userId")
 public class Bidder {
 
     @Id
@@ -14,8 +15,8 @@ public class Bidder {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "auction_bidder", joinColumns = {
-        @JoinColumn(name = "auction_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "bidder_id", referencedColumnName = "id")})
+        @JoinColumn(name = "bidder_id")},
+        inverseJoinColumns = {@JoinColumn(name = "auction_id")})
     private List<Auction> auctions;
 
     @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -41,9 +42,6 @@ public class Bidder {
     public void addAuction(Auction auction) {
 
         auctions.add(auction);
-        if (!auction.getBidder().contains(this)) {
-            auction.addBidder(this);
-        }
     }
 
     public List<Bid> getBids() {
