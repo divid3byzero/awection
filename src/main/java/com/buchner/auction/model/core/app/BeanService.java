@@ -22,37 +22,37 @@ public class BeanService {
     public List<ArticleBean> buildArticleBeans(List<Article> articleEntities) {
 
         return articleEntities.stream().map(
-            article -> new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(),
-                article.getCategory(),
-                article.getPrice())).collect(Collectors.toList());
+                article -> new ArticleBean(article.getId(), article.getImage(), article.getShortDesc(),
+                        article.getCategory(),
+                        article.getPrice())).collect(Collectors.toList());
     }
 
     public ArticleBean buildAricleBean(Article articleEntity) {
 
         return new ArticleBean(articleEntity.getId(), articleEntity.getImage(),
-            articleEntity.getShortDesc(),
-            articleEntity.getCategory(),
-            articleEntity.getPrice());
+                articleEntity.getShortDesc(),
+                articleEntity.getCategory(),
+                articleEntity.getPrice());
     }
 
     public List<AuctionBean> buildAuctionBeans(List<Auction> allAuctionsByUserId) {
 
         return allAuctionsByUserId.stream().map(
-            this::buildAuctionBean).collect(Collectors.toList());
+                this::buildAuctionBean).collect(Collectors.toList());
     }
 
     public List<TradeResponse> buildAuctionResultBeans(List<AuctionResult> auctionResults) {
 
         return auctionResults.stream().map(
-            this::buildAuctionResultBean).collect(Collectors.toList());
+                this::buildAuctionResultBean).collect(Collectors.toList());
     }
 
     public AuctionBean buildAuctionBean(Auction auctionEntity) {
 
         return new AuctionBean(auctionEntity.getId(), auctionEntity.getArticle().getId(),
-            auctionEntity.getAuctionType(),
-            auctionEntity.getArticle().getShortDesc(),
-            auctionEntity.getPrice(), auctionEntity.isRunning());
+                auctionEntity.getAuctionType(),
+                auctionEntity.getArticle().getShortDesc(),
+                auctionEntity.getPrice(), auctionEntity.isRunning());
     }
 
     public TradeResponse buildAuctionResultBean(AuctionResult auctionResult) {
@@ -64,6 +64,11 @@ public class BeanService {
         tradeResponse.setSurname(auctionResult.getSurname());
         tradeResponse.setMail(auctionResult.getMail());
         return tradeResponse;
+    }
+
+    public List<BidBean> buildBidBeans(List<Bid> bids) {
+
+        return bids.stream().map(this::buildBidBean).collect(Collectors.toList());
     }
 
     public BidBean buildBidBean(Bid bid) {

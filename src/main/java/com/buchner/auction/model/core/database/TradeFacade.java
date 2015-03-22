@@ -7,7 +7,6 @@ import com.buchner.auction.model.core.bean.AuctionBean;
 import com.buchner.auction.model.core.bean.BidBean;
 import com.buchner.auction.model.core.entity.Auction;
 import com.buchner.auction.model.core.entity.AuctionType;
-import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.buchner.auction.model.core.trade.AbstractTrader;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -110,9 +109,9 @@ public class TradeFacade {
         }
     }
 
-    public BidBean getBidByUserId() {
+    public List<BidBean> getBidsByUserId(int auctionId) {
 
-        return beanService.buildBidBean(bidDao.getbyUserId(currentUser.getUserId()));
+        return beanService.buildBidBeans(bidDao.getByBidderAndAuction(currentUser.getUserId(), auctionId));
     }
 
     private void auctionMessage(String message) {
@@ -122,9 +121,9 @@ public class TradeFacade {
             message));
     }
 
-    public boolean hasBidden() {
+    public boolean hasBidden(int auctionId) {
 
-        return null != bidderDao.findByUserId(currentUser.getUserId());
+        return bidderDao.getBidByAuction(currentUser.getUserId(), auctionId).size() > 0;
     }
 
 }

@@ -11,10 +11,10 @@ import java.util.List;
 @Entity
 @Table(name = "auctions")
 @NamedQueries({
-    @NamedQuery(name = "Auction.getByType", query = "select au from Auction au where au.auctionType = :auctionType"),
-    @NamedQuery(name = "Auction.fromBidderAndType", query = "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and au.isRunning = 1 and aub.userId = :userId"),
-    @NamedQuery(name = "Auction.byBidder", query = "select au from Auction au inner join au.bidder aub where aub.userId = :userId"),
-    @NamedQuery(name = "Auction.findByArticle", query = "select au from Auction au where au.article.id = :articleId")
+        @NamedQuery(name = "Auction.getByType", query = "select au from Auction au where au.auctionType = :auctionType"),
+        @NamedQuery(name = "Auction.fromBidderAndType", query = "select au from Auction au inner join au.bidder aub where au.auctionType = :auctionType and au.isRunning = 1 and aub.userId = :userId"),
+        @NamedQuery(name = "Auction.byBidder", query = "select au from Auction au inner join au.bidder aub where aub.userId = :userId"),
+        @NamedQuery(name = "Auction.findByArticle", query = "select au from Auction au where au.article.id = :articleId"),
 })
 public class Auction {
 
