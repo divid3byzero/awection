@@ -44,8 +44,7 @@ public abstract class AbstractTrader {
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
-        return nowDate.compareTo(auction.getEndTime()) == 0
-            || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning();
+        return nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning();
     }
 
 
