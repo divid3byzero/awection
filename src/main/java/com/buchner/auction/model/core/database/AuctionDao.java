@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DAO to access and persist auctions in a database.
+ */
 @RequestScoped
 public class AuctionDao {
 

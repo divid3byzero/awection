@@ -9,6 +9,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Offers transactional services concerning auction results.
+ * For further explanation @see AuctionFacade
+ */
 @Transaction
 @RequestScoped
 public class AuctionResultFacade {

@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * DAO to access and persist auction results in a database.
+ */
 @RequestScoped
 public class AuctionResultDao {
 

@@ -11,6 +11,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
+/**
+ * DAO to access and persist articles in a database.
+ */
 @RequestScoped
 public class ArticleDao {
 
@@ -31,6 +34,7 @@ public class ArticleDao {
         return entityManager.find(Article.class, id);
     }
 
+    @SuppressWarnings("JpaQueryApiInspection")
     public List<Article> findByName(String description) {
 
         TypedQuery<Article> namedQuery =
@@ -39,6 +43,7 @@ public class ArticleDao {
         return namedQuery.getResultList();
     }
 
+    @SuppressWarnings("JpaQueryApiInspection")
     public List<Article> getArticelsByUserId(long userId) {
 
         TypedQuery<Article> namedQuery = entityManager

@@ -10,6 +10,9 @@ import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * DAO to access and persist bids in a database.
+ */
 @RequestScoped
 public class BidDao {
 

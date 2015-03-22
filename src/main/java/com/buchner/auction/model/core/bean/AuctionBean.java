@@ -4,6 +4,9 @@ import com.buchner.auction.model.core.entity.AuctionType;
 
 import java.math.BigDecimal;
 
+/**
+ * Model class representing an auction.
+ */
 public class AuctionBean {
 
     private int id;
