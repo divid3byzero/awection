@@ -11,18 +11,18 @@
     <ui:define name="content">
         <div class="content">
             <h:outputText styleClass="subheadline" value="#{msg['register.title']}"/>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="2" styleClass="user-reg">
                 <p:outputLabel styleClass="font" for="firstName"
                                value="#{msg['form.firstname']}"/>
-                <p:inputText id="firstName" styleClass="pull-left" required="true"
+                <p:inputText id="firstName" styleClass="pull-left font" required="true"
                              value="#{userController.userRegisterView.firstName}"/>
 
                 <p:outputLabel styleClass="font" for="surname" value="#{msg['form.surname']}"/>
-                <p:inputText styleClass="pull-left" id="surname" required="true"
+                <p:inputText styleClass="pull-left font" id="surname" required="true"
                              value="#{userController.userRegisterView.surName}"/>
 
                 <p:outputLabel styleClass="font" for="mail" value="#{msg['form.mail']}"/>
-                <p:inputText id="mail" required="true"
+                <p:inputText id="mail" required="true" styleClass="font"
                              value="#{userController.userRegisterView.mail}">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
