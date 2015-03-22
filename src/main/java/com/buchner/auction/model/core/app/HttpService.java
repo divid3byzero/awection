@@ -7,6 +7,10 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceRequest;
 
+/**
+ * Basic HTTP related service class. Can be injected anywhere where
+ * those services are needed.
+ */
 @ApplicationScoped
 public class HttpService {
 

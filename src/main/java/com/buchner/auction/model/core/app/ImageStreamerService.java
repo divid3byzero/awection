@@ -12,6 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.ByteArrayInputStream;
 
+/**
+ * The image streamer is responsible for rendering an img-tag if JSF is in the
+ * render response phase, or send the bytes of an image in any other phase. This
+ * enables the possibilty of loading images from DB.
+ */
 @Named
 @ApplicationScoped
 public class ImageStreamerService {
@@ -27,8 +32,12 @@ public class ImageStreamerService {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+
+            // Will render an empty img tag during render response phase
             return new DefaultStreamedContent();
         } else {
+
+            // Send bytes in any other phase.
             String articleId =
                 facesContext.getExternalContext().getRequestParameterMap().get("articleId");
             Article singleArticle = auctionFacade.getSingleArticle(Integer.parseInt(articleId));

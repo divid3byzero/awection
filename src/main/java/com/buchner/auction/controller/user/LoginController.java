@@ -11,6 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Optional;
 
+/**
+ * Handles user login attempts
+ */
 @Named
 @ApplicationScoped
 public class LoginController {
@@ -43,6 +46,8 @@ public class LoginController {
             e.printStackTrace();
         } finally {
 
+            // Pass variables to Facelets view to redirect user to dashboard page.
+            // Variable "loggedIn" is used to communicate an invalid login attempt. See JavaScript part in /auction/src/main/webapp/views/login.xhtml
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.addCallbackParam("loggedIn", loggedIn);
             requestContext.addCallbackParam("redirectUrl", Optional.ofNullable(redirectUrl).orElse(""));

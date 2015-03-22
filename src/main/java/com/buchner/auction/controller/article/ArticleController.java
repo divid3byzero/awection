@@ -7,6 +7,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
+/**
+ * Controller class to save articles and find them per name
+ */
 @Named
 @ApplicationScoped
 public class ArticleController {

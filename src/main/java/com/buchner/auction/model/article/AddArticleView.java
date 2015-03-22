@@ -14,6 +14,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
 
+/**
+ * View model for the add article portlet
+ */
 @Named
 @RequestScoped
 public class AddArticleView {
@@ -116,6 +119,11 @@ public class AddArticleView {
         this.daysAuctionActive = daysAuctionActive;
     }
 
+    /**
+     * Creates an article with corresponding auction.
+     *
+     * @return Auction class object ready for persistence.
+     */
     private Auction createAuction() {
 
         Article article = new Article();

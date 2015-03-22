@@ -7,6 +7,10 @@ import org.quartz.JobExecutionException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+/**
+ * Quartz scheduler job that reduces prices of Dutch auctions
+ * and checks for timeouts of second price auctions
+ */
 public class AuctionManagerJob implements Job {
 
     @Override public void execute(JobExecutionContext jobExecutionContext)

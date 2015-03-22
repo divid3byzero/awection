@@ -12,6 +12,10 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service to create according beans instances from entity classes.
+ * Does nothing more that mapping work.
+ */
 @ApplicationScoped
 public class BeanService {
 

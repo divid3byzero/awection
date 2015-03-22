@@ -8,6 +8,10 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import java.util.Locale;
 
+/**
+ * Phase listener that gives complete control of the locale should be
+ * displayed.
+ */
 public class LocalePhaseListener implements PhaseListener {
 
     @Override public void afterPhase(PhaseEvent event) {

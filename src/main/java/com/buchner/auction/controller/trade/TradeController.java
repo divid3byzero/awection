@@ -6,6 +6,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+/**
+ * Controller class that controls trading.
+ * Add a user to an auction and sends bids.
+ */
 @Named
 @ApplicationScoped
 public class TradeController {

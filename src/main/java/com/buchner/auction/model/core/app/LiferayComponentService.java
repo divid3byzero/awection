@@ -24,10 +24,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
+/**
+ * Accessor class to Liferay service utilities. Liferay has it's own set of
+ * methods that present an API to have access to important Liferay data.
+ */
 @ApplicationScoped
 public class LiferayComponentService {
 
+    /* Class name that holds Liferay login functionality */
     public static final String FQCN_LOGIN_UTIL = "com.liferay.portlet.login.util.LoginUtil";
+
+    /* Liferay login method */
     public static final String LOGIN_METHOD = "login";
 
     @Inject
@@ -37,6 +44,12 @@ public class LiferayComponentService {
 
     }
 
+    /**
+     * Producer method to get an injectable instance of
+     * the currently logged in user.
+
+     * @return Liferay user object.
+     */
     @Produces
     @RequestScoped
     public User produceCurrentUser() {
@@ -50,6 +63,9 @@ public class LiferayComponentService {
         return UserLocalServiceUtil.getUserById(userId);
     }
 
+    /**
+     * This creates and saves an user according to the Liferays API.
+     */
     public User createLrayUser(AuctionUser auctionUser) {
 
         long companyId = getCurrentThemeDisplay().getCompanyId();
@@ -78,8 +94,12 @@ public class LiferayComponentService {
         return lrayUser;
     }
 
+    /**
+     * Calls Liferay internal login method via a reflection mechanism. Using this is necessary since
+     * the user management is done by Liferay. That means that it makes sense to use Liferays funtionality
+     * to check the validity of user credentials.
+     */
     public void invokeLogin(AwectionCredentials awectionCredentials) throws Exception {
-
 
         Class<?> loginUtilClass = ClassResolverUtil
             .resolveByPortalClassLoader(FQCN_LOGIN_UTIL);

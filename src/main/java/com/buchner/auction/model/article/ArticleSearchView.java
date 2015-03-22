@@ -11,6 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
+/**
+ * View model for the article search in the trade portlet.
+ */
 @Named
 @RequestScoped
 public class ArticleSearchView {
