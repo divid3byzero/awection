@@ -1,6 +1,5 @@
 package com.buchner.auction.model.core.trade;
 
-import com.buchner.auction.model.core.app.BidComperator;
 import com.buchner.auction.model.core.app.LiferayComponentService;
 import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.app.TradeResponse;
@@ -9,11 +8,9 @@ import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -41,7 +38,6 @@ public class SecondPriceTrader extends AbstractTrader {
             Bid bid = new Bid();
             bid.setAmount(tradeRequest.getAmount());
             bid.setAuctionId(tradeRequest.getAuction().getId());
-            tradeRequest.getAuction().setPrice(tradeRequest.getAmount());
 
             for (Bidder bidderElem : bidder) {
                 if (tradeRequest.getUserId() == bidderElem.getUserId()) {
@@ -61,30 +57,14 @@ public class SecondPriceTrader extends AbstractTrader {
         throws SystemException, PortalException {
 
         tradeRequest.getAuction().setRunning(false);
-        return findAuctionWinner(tradeRequest);
+        tradeResponse.setAuctionTimeout();
+        return tradeResponse;
     }
 
     @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        List<Bidder> bidder = tradeRequest.getAuction().getBidder();
-        List<Bid> auctionBids = new ArrayList<>();
-        for (Bidder bidderElem : bidder) {
-            auctionBids.addAll(bidderElem.getBids());
-        }
-
-        auctionBids.sort(new BidComperator());
-        Bid winningBid = auctionBids.get(1);
-
-        long winningUserId = winningBid.getBidder().getUserId();
-        User user = liferayComponentService.findUserById(winningUserId);
-        tradeResponse.setAuctionRunning(false);
-        tradeResponse.setPrice(winningBid.getAmount());
-        tradeResponse.setFirstName(user.getFirstName());
-        tradeResponse.setSurname(user.getLastName());
-        tradeResponse.setMail(user.getEmailAddress());
-        tradeResponse.setAuctionType(tradeRequest.getAuction().getAuctionType());
-        tradeResponse.setDescription(tradeRequest.getAuction().getArticle().getShortDesc());
-        return tradeResponse;
+        // This method is not needed for this type of auction. Winners are found via AuctionManager class.
+        return null;
     }
 }

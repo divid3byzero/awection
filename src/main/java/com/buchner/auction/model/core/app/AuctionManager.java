@@ -71,28 +71,44 @@ public class AuctionManager {
                 List<Bid> auctionBids = new ArrayList<>();
 
                 List<Bidder> bidder = auction.getBidder();
-                for (Bidder bidderElem : bidder) {
-                    auctionBids.addAll(bidderElem.getBids());
-                }
 
-                auctionBids.sort(new BidComperator());
-                Bid winningBid = auctionBids.size() > 1 ? auctionBids.get(1) : auctionBids.get(0);
+                if (bidder.size() > 0) {
 
-                long winningUserId = winningBid.getBidder().getUserId();
-                try {
+                    for (Bidder bidderElem : bidder) {
+                        auctionBids.addAll(bidderElem.getBids());
+                    }
 
-                    User userById = UserLocalServiceUtil.getUserById(winningUserId);
-                    AuctionResult auctionResult = new AuctionResult();
-                    auctionResult.setDescription(auction.getArticle().getShortDesc());
-                    auctionResult.setPrice(auction.getPrice());
-                    auctionResult.setFirstName(userById.getFirstName());
-                    auctionResult.setSurname(userById.getLastName());
-                    auctionResult.setMail(userById.getEmailAddress());
-                    auctionResult.setAuctionType(auction.getAuctionType());
-                    entityManager.persist(auctionResult);
-                } catch (Exception e) {
+                    if (auctionBids.size() > 0) {
 
-                    entityManager.getTransaction().rollback();
+                        auctionBids.sort(new BidComperator());
+                        Bid winningBid = auctionBids.get(0);
+
+                        BigDecimal priceToPay = null;
+                        if (auctionBids.size() == 1) {
+
+                            priceToPay = auction.getPrice();
+                        } else {
+
+                            priceToPay = auctionBids.get(1).getAmount();
+                        }
+
+                        long winningUserId = winningBid.getBidder().getUserId();
+                        try {
+
+                            User userById = UserLocalServiceUtil.getUserById(winningUserId);
+                            AuctionResult auctionResult = new AuctionResult();
+                            auctionResult.setDescription(auction.getArticle().getShortDesc());
+                            auctionResult.setPrice(priceToPay);
+                            auctionResult.setFirstName(userById.getFirstName());
+                            auctionResult.setSurname(userById.getLastName());
+                            auctionResult.setMail(userById.getEmailAddress());
+                            auctionResult.setAuctionType(auction.getAuctionType());
+                            entityManager.persist(auctionResult);
+                        } catch (Exception e) {
+
+                            entityManager.getTransaction().rollback();
+                        }
+                    }
                 }
             }
         }
