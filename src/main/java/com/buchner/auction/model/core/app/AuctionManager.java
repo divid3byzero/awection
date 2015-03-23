@@ -1,15 +1,12 @@
 package com.buchner.auction.model.core.app;
 
 import com.buchner.auction.model.core.entity.*;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -147,7 +144,7 @@ public class AuctionManager {
 
         TypedQuery<Auction> namedQuery = entityManager
                 .createNamedQuery("Auction.getByType",
-                        Auction.class);
+                    Auction.class);
         namedQuery.setParameter("auctionType", auctionType);
         return namedQuery;
     }
