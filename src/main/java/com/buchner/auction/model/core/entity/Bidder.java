@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bidder entity with definition of named queries for
+ * better performance.
+ */
 @Entity
 @Table(name = "bidder")
 @NamedQueries({

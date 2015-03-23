@@ -13,6 +13,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.Date;
 
+/**
+ * Abstract base trader defining base functionality and declaring
+ * implementation specific methods.
+ */
 public abstract class AbstractTrader {
 
     protected AuctionType auctionType;

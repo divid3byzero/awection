@@ -3,6 +3,10 @@ package com.buchner.auction.model.core.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+/**
+ * Article entity with definition of named queries for
+ * better performance.
+ */
 @Entity
 @Table(name = "articles")
 @NamedQueries({

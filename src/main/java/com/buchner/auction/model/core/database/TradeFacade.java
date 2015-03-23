@@ -86,23 +86,34 @@ public class TradeFacade {
     }
 
     /**
-     * This is basically the core method of the trading mechanism.
-     * 
-     *
-     * @param tradeRequest
+     * This is the core method of the trading mechanism. It accepts a trade request
+     * which is the representation of a bid enriched with additional information
+     * needed to process the bid. After checking if the auction is still running,
+     * (there is a possibilitiy that the auction has bees ended by another bidder. This is
+     * especially relevant for Dutch auctions.) it iterates over all available trader instances
+     * and tries to find the fitting one. If there is a trader that is responsible for handling
+     * the auction, the trade request is passed to that trader instance. The trader processes
+     * the request according to its implementation and returns a trade response object. This trade response
+     * is then processed in this facade. The trade response holds all information that has been
+     * produced during the trading procedure. This information can e.g. be a flag that the auctiion
+     * has timed out, information concerning the new bid etc. If the auction is already over at this point
+     * a message is created for the user telling him so.
      */
     public void fireTrader(TradeRequest tradeRequest) {
 
+        // Get auction from request and check if it is running.
         Auction auction = tradeRequest.getAuction();
-
         if (auction.isRunning()) {
 
+            // Look for appropriate trader instance.
             for (AbstractTrader trader : abstractTrader) {
                 if (trader.getAuctionType().equals(auction.getAuctionType())) {
                     try {
 
+                        // Handle trade request
                         TradeResponse tradeResponse =
                             trader.handleTrade(tradeRequest);
+                        // Process trade response
                         handleTradeResponse(tradeResponse);
 
                     } catch (PortalException | SystemException e) {
@@ -112,23 +123,36 @@ public class TradeFacade {
             }
 
         } else {
+            // Inform user that auction is over.
             auctionMessage("Auction is over.");
         }
     }
 
+    /**
+     * There are a number of things that might have to be done with the trade response.
+     * 1. There is the possibility of a time out, meaning that the current date/time is
+     * after the set end time of an auction.
+     * 2. There auction is over because there is a winner.
+     * 3. It is a regular bid which has to be saved.
+     * @param tradeResponse
+     */
     private void handleTradeResponse(TradeResponse tradeResponse) {
 
         if (null != tradeResponse) {
 
+            // Check for timeout.
             if (!tradeResponse.isAuctionTimeout()) {
 
+                // Save winner
                 if (!tradeResponse.isAuctionRunning()) {
                     auctionResultDao.save(tradeResponse.buildAuctionResult());
                     auctionMessage("Auction is over.");
                 } else {
+                    // Create bid.
                     bidderDao.save(tradeResponse.getBidder());
                 }
             } else {
+                // In case of time out show message.
                 auctionMessage("Auction has timed out.");
             }
         }

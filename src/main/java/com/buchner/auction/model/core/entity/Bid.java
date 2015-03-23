@@ -8,6 +8,10 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
+/**
+ * Bid entity with definition of named queries for
+ * better performance.
+ */
 @Entity
 @Table(name = "bids")
 @NamedQueries({

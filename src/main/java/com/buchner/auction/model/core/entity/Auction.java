@@ -8,6 +8,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Auction entity with definition of named queries for
+ * better performance.
+ */
 @Entity
 @Table(name = "auctions")
 @NamedQueries({

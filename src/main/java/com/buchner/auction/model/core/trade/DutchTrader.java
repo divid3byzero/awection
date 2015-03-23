@@ -13,6 +13,12 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Trader implementation for Dutch auctions. Traders
+ * are created per request. This allows for automatic thread safety as
+ * each request is processed in a single thread that is distributed
+ * from the Tomcat thread pool.
+ */
 @RequestScoped
 public class DutchTrader extends AbstractTrader {
 
@@ -27,6 +33,12 @@ public class DutchTrader extends AbstractTrader {
         tradeResponse = new TradeResponse();
     }
 
+    /**
+     * The Dutch auction ends as soon as a bidder sends a bid. So the first thing this method does is
+     * end the auction. After that the bid is created and the bidder from whom that bid came has to be found.
+     * The bidder gets that bid which is at the same time the winning bid. As the auction is over the findAuctionWinner()
+     * method is called and the according trade response can be built.
+     */
     @Override protected TradeResponse trade(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
@@ -44,6 +56,9 @@ public class DutchTrader extends AbstractTrader {
         return tradeResponse;
     }
 
+    /**
+     * Stops auction from running and sets time out flag in trade response.
+     */
     @Override protected TradeResponse handleTimeOut(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
@@ -52,6 +67,10 @@ public class DutchTrader extends AbstractTrader {
         return tradeResponse;
     }
 
+    /**
+     * Find winner of the auction. In this type of auction the winner corresponds to that bidder that has
+     * a bid. There can be only one bidder with a bid.
+     */
     @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
