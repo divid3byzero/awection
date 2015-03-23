@@ -5,6 +5,9 @@ import com.buchner.auction.model.core.app.AwectionCredentials;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+/**
+ * View model for login portlet.
+ */
 @Named
 @RequestScoped
 public class LoginView {
@@ -14,7 +17,6 @@ public class LoginView {
 
     public LoginView() {
 
-        userName = "benebuchner@gmail.com";
     }
 
     public String getUserName() {

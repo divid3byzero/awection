@@ -4,6 +4,9 @@ import com.buchner.auction.model.core.app.AuctionUser;
 
 import javax.enterprise.context.RequestScoped;
 
+/**
+ * View model for user registration.
+ */
 @RequestScoped
 public class UserRegisterView {
 
