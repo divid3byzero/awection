@@ -16,8 +16,9 @@ import java.util.stream.Collectors;
 /**
  * Facade class that represents a "border" between view code
  * and domain logic. Due to its @Transaction annotation it is
- * able to behave almost like an EJB class. This class deals with all
- * requests concerning the retrieval and creation of auctions. It also converts entity classes
+ * able to behave almost like an EJB class. This annotation activates an interceptor
+ * that will open and close transactions before respectively close them after method
+ * calls. This class deals with all requests concerning the retrieval and creation of auctions. It also converts entity classes
  * to bean classes. It holds references via @Inject of all domain classes that offer services that have to
  * be executed in a transaction.
  */

@@ -20,10 +20,16 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Facade class responsible for all transactional trading and bidding related
+ * actions. @see AuctionFacade for further information concerning the application
+ * of transactions. All needed dependencies are injected using the CDI framework.
+ */
 @Transaction
 @RequestScoped
 public class TradeFacade {
 
+    /* DAO classes for database access */
     @Inject
     private BidderDao bidderDao;
 
@@ -36,12 +42,17 @@ public class TradeFacade {
     @Inject
     private AuctionResultDao auctionResultDao;
 
+    /* Service class for creating beans from entities. */
     @Inject
     private BeanService beanService;
 
+    /* Currently logged on user. */
     @Inject
     private User currentUser;
 
+    /* All implementations of the abstract trader class.
+     * Instance<...> acts like a list and holds all available implementations
+     * that have been found using class path discovery.*/
     @Inject
     private Instance<AbstractTrader> abstractTrader;
 
@@ -49,12 +60,20 @@ public class TradeFacade {
 
     }
 
+    /**
+     * Used to get all auctions to which the current user is registered as bidder
+     * and are equal to a certain type.
+     */
     public List<AuctionBean> getAuctionByBidderAndType(AuctionType auctionType, long userId) {
 
         return beanService.buildAuctionBeans(
             auctionDao.findAuctionFromBidderAndType(userId, auctionType));
     }
 
+    /**
+     * This adds a bidder to an auction. The method is called when a user
+     * decides to participate in an auction after search for articles.
+     */
     public void addBidderToAuction(int articleId, long userId) {
 
         Auction auction = auctionDao.findByArticle(articleId);
@@ -66,6 +85,12 @@ public class TradeFacade {
         bidderDao.save(bidder);
     }
 
+    /**
+     * This is basically the core method of the trading mechanism.
+     * 
+     *
+     * @param tradeRequest
+     */
     public void fireTrader(TradeRequest tradeRequest) {
 
         Auction auction = tradeRequest.getAuction();
