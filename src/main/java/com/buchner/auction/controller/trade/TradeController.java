@@ -1,5 +1,6 @@
 package com.buchner.auction.controller.trade;
 
+import com.buchner.auction.model.core.app.AuctionSession;
 import com.buchner.auction.model.trade.TradeView;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +18,8 @@ public class TradeController {
     @Inject
     private TradeView tradeView;
 
+    @Inject
+    private AuctionSession auctionSession;
 
     public TradeController() {
 
@@ -25,6 +28,7 @@ public class TradeController {
     public void startAuction(int articleId) {
 
         tradeView.joinAuction(articleId);
+        auctionSession.clearSearchResults();
     }
 
     public void bid(int auctionId) {

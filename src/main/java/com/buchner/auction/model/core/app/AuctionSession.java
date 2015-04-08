@@ -30,4 +30,9 @@ public class AuctionSession implements Serializable {
 
         this.articleSearchResult = articleSearchResult;
     }
+
+    public void clearSearchResults() {
+
+        articleSearchResult.clear();
+    }
 }

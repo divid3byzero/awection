@@ -9,8 +9,8 @@
         <properties>
             <property name='javax.persistence.jdbc.driver' value='com.mysql.jdbc.Driver'/>
             <!-- Database connection for Mac 2 -->
-            <property name='javax.persistence.jdbc.url' value='jdbc:mysql://10.211.55.14:3306/awection_data'/>
-            <!--property name='javax.persistence.jdbc.url' value='jdbc:mysql://10.211.55.8:3306/awection_data'/-->
+            <!--property name='javax.persistence.jdbc.url' value='jdbc:mysql://10.211.55.14:3306/awection_data'/-->
+            <property name='javax.persistence.jdbc.url' value='jdbc:mysql://10.211.55.8:3306/awection_data'/>
             <property name='javax.persistence.jdbc.user' value='awection_data'/>
             <property name='javax.persistence.jdbc.password' value='lKLDKEAne-8qNDjX'/>
 
