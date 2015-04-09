@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
         >
-    <h:panelGroup id="cdaPanel" styleClass="auction-element-wrapper" style="border: none; padding: 0;">
+    <h:panelGroup id="cdaPanel" styleClass="auction-element-wrapper">
         <h:outputText value="#{msg['auction.trade.cda']}" styleClass="subheadline"/>
         <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.cdaType)}" var="auction">
             <div class="clearfix">
@@ -33,13 +33,13 @@
         </ui:repeat>
 
         <p:panel rendered="#{auctionSession.cdaOrderType eq elCdaOrderTypeWrapper.marketOrder}">
-
-            <h:outputLabel value="Market Order"/>
+            <h:outputLabel value="#{msg['auction.cda.marketorder']}"/>
 
         </p:panel>
 
         <p:panel rendered="#{auctionSession.cdaOrderType eq elCdaOrderTypeWrapper.limitOrder}">
-            <h:outputLabel value="Limit Order"/>
+            <h:outputLabel value="#{msg['auction.cda.limitorder']}"/>
+
         </p:panel>
 
     </h:panelGroup>

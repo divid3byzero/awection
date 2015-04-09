@@ -187,6 +187,37 @@
         </security-role-ref>
     </portlet>
 
+    <portlet>
+        <portlet-name>xchange</portlet-name>
+        <display-name>Xchange</display-name>
+        <portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/xchange.xhtml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <portlet-info>
+            <title>Xchange</title>
+            <short-title>Xchange</short-title>
+            <keywords>Xchange</keywords>
+        </portlet-info>
+        <security-role-ref>
+            <role-name>administrator</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
     <filter>
 		<filter-name>CDIPortletFilter</filter-name>
 		<filter-class>com.liferay.cdi.portlet.bridge.CDIPortletFilter</filter-class>
@@ -201,5 +232,6 @@
         <portlet-name>auction-article-add</portlet-name>
         <portlet-name>auctions-user-owned</portlet-name>
 		<portlet-name>auctions</portlet-name>
+        <portlet-name>xchange</portlet-name>
 	</filter-mapping>
 </portlet-app>
