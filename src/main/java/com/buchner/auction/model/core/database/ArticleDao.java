@@ -35,11 +35,12 @@ public class ArticleDao {
     }
 
     @SuppressWarnings("JpaQueryApiInspection")
-    public List<Article> findByName(String description) {
+    public List<Article> findByName(String description, long userId) {
 
         TypedQuery<Article> namedQuery =
             entityManager.createNamedQuery("Article.byDescription", Article.class);
         namedQuery.setParameter("description", "%" + description + "%");
+        namedQuery.setParameter("userId", userId);
         return namedQuery.getResultList();
     }
 
