@@ -14,6 +14,12 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Trader implementation for English auctions. Traders
+ * are created per request. This allows for automatic thread safety as
+ * each request is processed in a single thread that is distributed
+ * from the Tomcat thread pool.
+ */
 @RequestScoped
 public class EnglishTrader extends AbstractTrader {
 
@@ -28,6 +34,12 @@ public class EnglishTrader extends AbstractTrader {
         tradeResponse = new TradeResponse();
     }
 
+    /**
+     * In English auctions a new bid has to be higher than the currently highest bid.
+     * This is the first check in this implementation of the trade() method. If the bid
+     * is valid a new bid is created and added to the corresponding bidder. If the bid is invalid
+     * a message is presented to the user.
+     */
     @Override protected TradeResponse trade(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
@@ -54,6 +66,9 @@ public class EnglishTrader extends AbstractTrader {
         return null;
     }
 
+    /**
+     * In case of an auction timeout the auction is over and winner has to be found.
+     */
     @Override protected TradeResponse handleTimeOut(TradeRequest tradeRequest)
         throws SystemException, PortalException {
 
@@ -61,6 +76,11 @@ public class EnglishTrader extends AbstractTrader {
         return findAuctionWinner(tradeRequest);
     }
 
+    /**
+     * The winner of an English Auction is the bidder with the highest bid after the auction
+     * is over. In real life the auction lifetime is managed by an auctioneer. This application
+     * manages the lifetime of auctions by defining a time span.
+     */
     @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
@@ -70,6 +90,8 @@ public class EnglishTrader extends AbstractTrader {
             auctionBids.addAll(bidderElem.getBids());
         }
 
+        // After find all available bids they are sorted ascending according to their
+        // value by a Comparator implementation.
         auctionBids.sort(new BidComperator());
         Bid winningBid = auctionBids.get(0);
 

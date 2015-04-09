@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
+/**
+ * View model for the auction result panel
+ */
 @Named
 @RequestScoped
 public class AuctionResultView {

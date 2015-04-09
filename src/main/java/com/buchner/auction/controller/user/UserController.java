@@ -9,6 +9,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+/**
+ * Controller that adds a user to Liferay database after user registers.
+ */
 @Named
 @ApplicationScoped
 public class UserController {
@@ -26,11 +29,6 @@ public class UserController {
     public UserRegisterView getUserRegisterView() {
 
         return userRegisterView;
-    }
-
-    public LoginView getLoginView() {
-
-        return loginView;
     }
 
     public void registerUser() {

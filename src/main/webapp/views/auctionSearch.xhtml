@@ -31,7 +31,7 @@
                 <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
                     <h:outputText
                             styleClass="font"
-                            value="#{articleSearchView.getAuctionFromArticle(article.id).auctionType}"/>
+                            value="#{articleSearchView.getAuctionFromArticle(article.id).auctionType.name}"/>
                 </p:column>
                 <p:column styleClass="font" headerText="#{msg['auction.search.shortdesc']}">
                     <h:outputText styleClass="font" value="#{article.shorDesc}"/>

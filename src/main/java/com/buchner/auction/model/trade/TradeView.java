@@ -14,6 +14,11 @@ import javax.inject.Named;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * View model for auction portlet. Responsible for converting
+ * bids to trade requests and forwarding them to the trade/auction
+ * facades. Apart from that, just normal view related methods and boilerplate code.
+ */
 @Named
 @RequestScoped
 public class TradeView {
@@ -66,14 +71,14 @@ public class TradeView {
         tradeFacade.fireTrader(tradeRequest);
     }
 
-    public boolean isRegisteredBidder() {
+    public boolean isRegisteredBidder(int auctionId) {
 
-        return tradeFacade.hasBidden();
+        return tradeFacade.hasBidden(auctionId);
     }
 
-    public BigDecimal getSecondPriceBidAmount() {
+    public BigDecimal getSecondPriceBidAmount(int auctionId) {
 
-        return tradeFacade.getBidByUserId().getBidAmount();
+        return tradeFacade.getBidsByUserId(auctionId).get(0).getBidAmount();
     }
 
     private TradeRequest buildTradeRequest(int auctionId, BigDecimal amount) {

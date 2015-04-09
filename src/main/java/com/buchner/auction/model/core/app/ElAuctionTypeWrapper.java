@@ -5,6 +5,9 @@ import com.buchner.auction.model.core.entity.AuctionType;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+/**
+ * Wraps the auction type enum to make is accessible from Faceltes.
+ */
 @Named
 @ApplicationScoped
 public class ElAuctionTypeWrapper {

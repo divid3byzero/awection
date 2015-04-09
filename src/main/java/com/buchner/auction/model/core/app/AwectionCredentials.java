@@ -1,5 +1,8 @@
 package com.buchner.auction.model.core.app;
 
+/**
+ * Represents credentials as entered by a user when logging in.
+ */
 public class AwectionCredentials {
 
     private String userName;

@@ -13,6 +13,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.Date;
 
+/**
+ * Abstract base trader defining base functionality and declaring
+ * implementation specific methods.
+ */
 public abstract class AbstractTrader {
 
     protected AuctionType auctionType;
@@ -44,8 +48,7 @@ public abstract class AbstractTrader {
 
         DateTime now = new DateTime(DateTimeZone.forID("Europe/Berlin"));
         Date nowDate = now.toDate();
-        return nowDate.compareTo(auction.getEndTime()) == 0
-            || nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning();
+        return nowDate.compareTo(auction.getEndTime()) == 1 || !auction.isRunning();
     }
 
 

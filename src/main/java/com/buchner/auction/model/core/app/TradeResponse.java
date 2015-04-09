@@ -7,6 +7,10 @@ import com.buchner.auction.model.core.entity.Bidder;
 
 import java.math.BigDecimal;
 
+/**
+ * Representation of a bid result. Contains information enable processing of
+ * the result of a trade.
+ */
 public class TradeResponse {
 
     private String description;

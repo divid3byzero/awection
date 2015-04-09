@@ -1,5 +1,8 @@
 package com.buchner.auction.model.core.app;
 
+/**
+ * Simple model class representing an auction user.
+ */
 public class AuctionUser {
 
     private String firstName;

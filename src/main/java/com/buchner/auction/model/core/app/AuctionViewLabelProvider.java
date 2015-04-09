@@ -6,6 +6,9 @@ import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Builds label lists for UI select menus of the article creation portlet.
+ */
 @Named
 public class AuctionViewLabelProvider {
 
@@ -13,6 +16,9 @@ public class AuctionViewLabelProvider {
 
     }
 
+    /**
+     * @return List of available auction types
+     */
     public List<String> getAuctionTypes() {
 
         List<String> auctionTypes = new ArrayList<>();
@@ -22,6 +28,9 @@ public class AuctionViewLabelProvider {
         return auctionTypes;
     }
 
+    /**
+     * @return List of available article categories.
+     */
     public List<String> getAuctionCategory() {
 
         List<String> auctionCategory = new ArrayList<>();

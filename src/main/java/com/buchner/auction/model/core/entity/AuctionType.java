@@ -1,5 +1,9 @@
 package com.buchner.auction.model.core.entity;
 
+/**
+ * Enum that defines the different types of auctions. An enum is used
+ * to have type safety.
+ */
 public enum AuctionType {
 
     ENGLISH("English Auction", "english"),

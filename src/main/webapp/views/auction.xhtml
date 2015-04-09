@@ -20,16 +20,13 @@
                     <p:panel styleClass="pull-left auction-panel">
                         <ui:include src="dutchAuction.xhtml"/>
                     </p:panel>
-                    <p:panel styleClass="pull-left auction-panel auction-panel-last">
+                    <p:panel styleClass="pull-left auction-panel">
                         <ui:include src="englishAuction.xhtml"/>
                     </p:panel>
-                </div>
-                <div class="clearfix">
-                    <p:panel styleClass="auction-panel auction-panel-center">
+                    <p:panel styleClass="pull-left auction-panel auction-panel-last">
                         <ui:include src="secondPriceAuction.xhtml"/>
                     </p:panel>
                 </div>
-
                 <p:panel styleClass="auction-result-panel" id="tradingResults">
                     <h:outputText value="#{msg['auction.trade.result']}" styleClass="subheadline"/>
                     <ui:include src="tradingResults.xhtml"/>

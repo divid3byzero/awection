@@ -2,6 +2,9 @@ package com.buchner.auction.model.core.bean;
 
 import java.math.BigDecimal;
 
+/**
+ * Model class representing a bid.
+ */
 public class BidBean {
 
     private int bidderId;

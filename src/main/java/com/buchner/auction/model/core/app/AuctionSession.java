@@ -7,12 +7,15 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Session bean to hold search results after a user has searched for
+ * an article.
+ */
 @Named
 @SessionScoped
 public class AuctionSession implements Serializable {
 
     private List<ArticleBean> articleSearchResult;
-
 
     protected AuctionSession() {
 
@@ -26,5 +29,10 @@ public class AuctionSession implements Serializable {
     public void setArticleSearchResult(List<ArticleBean> articleSearchResult) {
 
         this.articleSearchResult = articleSearchResult;
+    }
+
+    public void clearSearchResults() {
+
+        articleSearchResult.clear();
     }
 }

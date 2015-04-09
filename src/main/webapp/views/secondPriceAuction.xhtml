@@ -14,22 +14,24 @@
                 <ui:include src="template/auction_item_temp.xhtml">
                     <ui:param name="articleId" value="#{auction.articleId}"/>
                     <ui:param name="articleDescription" value="#{auction.articleDescription}"/>
+                    <ui:param name="price" value="#{auction.price}"/>
                 </ui:include>
 
                 <div>
-                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}" rendered="#{!tradeView.registeredBidder}"/>
-                    <h:outputText rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{msg['auction.secondprice.isbidder']}"/>
+                    <p:inputText id="bidAmountEnglish" styleClass="font" value="#{tradeView.bidAmount}" rendered="#{!tradeView.isRegisteredBidder(auction.id)}"/>
+                    <h:outputText rendered="#{tradeView.isRegisteredBidder(auction.id)}" styleClass="font" value="#{msg['auction.secondprice.isbidder']} "/>
 
-                    <p:outputLabel for="secondPriceUserAmount" styleClass="font" rendered="#{tradeView.registeredBidder}" value="#{msg['auction.secondprice.yourprice']}"/>
-                    <h:outputText id="secondPriceUserAmount" rendered="#{tradeView.registeredBidder}" styleClass="font" value="#{tradeView.secondPriceBidAmount}"/>
+                    <h:outputText styleClass="font" rendered="#{tradeView.isRegisteredBidder(auction.id)}" value="#{msg['auction.secondprice.yourprice']} "/>
+                    <h:outputText rendered="#{tradeView.isRegisteredBidder(auction.id)}" styleClass="font" value="#{tradeView.getSecondPriceBidAmount(auction.id)}"/>
 
                     <p:watermark value="#{msg['auction.trade.enter.bidamount']}"
                                  for="bidAmountEnglish"/>
 
                     <p:commandButton styleClass="font"
-                                     rendered="#{!tradeView.registeredBidder}"
+                                     rendered="#{!tradeView.isRegisteredBidder(auction.id)}"
                                      value="#{msg['auction.trade.bid.button']}"
                                      action="#{tradeController.bid(auction.id)}" update=":form:tradingResults :form:secondPricePanel :form:auctionGrowl"/>
+                    <p:poll interval="10" update=":form:secondPricePanel :form:tradingResults"/>
                 </div>
             </div>
         </ui:repeat>

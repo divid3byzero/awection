@@ -1,6 +1,5 @@
 package com.buchner.auction.model.core.trade;
 
-import com.buchner.auction.model.core.app.BidComperator;
 import com.buchner.auction.model.core.app.LiferayComponentService;
 import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.app.TradeResponse;
@@ -9,13 +8,17 @@ import com.buchner.auction.model.core.entity.Bid;
 import com.buchner.auction.model.core.entity.Bidder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Trader implementation for simultaneous second price auctions. Traders
+ * are created per request. This allows for automatic thread safety as
+ * each request is processed in a single thread that is distributed
+ * from the Tomcat thread pool.
+ */
 @RequestScoped
 public class SecondPriceTrader extends AbstractTrader {
 
@@ -31,17 +34,22 @@ public class SecondPriceTrader extends AbstractTrader {
     }
 
 
+    /**
+     * This auction type allows only for one bid per bidder. The only requirements that this bid
+     * has to meet is, that its value has to be higher than the original article price.
+     */
     @Override protected TradeResponse trade(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
+        // Check if bid value is higher than article price.
         if (tradeRequest.getAuction().getPrice().compareTo(tradeRequest.getAmount()) == -1) {
 
+            // Create bid and add to bidder.
             tradeResponse.setAuctionRunning(true);
             List<Bidder> bidder = tradeRequest.getAuction().getBidder();
             Bid bid = new Bid();
             bid.setAmount(tradeRequest.getAmount());
             bid.setAuctionId(tradeRequest.getAuction().getId());
-            tradeRequest.getAuction().setPrice(tradeRequest.getAmount());
 
             for (Bidder bidderElem : bidder) {
                 if (tradeRequest.getUserId() == bidderElem.getUserId()) {
@@ -50,7 +58,6 @@ public class SecondPriceTrader extends AbstractTrader {
                     return tradeResponse;
                 }
             }
-
         } else {
             auctionMessage("Bid does not meet requirements");
         }
@@ -61,30 +68,20 @@ public class SecondPriceTrader extends AbstractTrader {
         throws SystemException, PortalException {
 
         tradeRequest.getAuction().setRunning(false);
-        return findAuctionWinner(tradeRequest);
+        tradeResponse.setAuctionTimeout();
+        return tradeResponse;
     }
 
+    /**
+     * Trader is not responsible for finding winner. The winner is determined after the auction is over
+     * in the same way as in English auctions. The difference is in the price the winner has to pay. The winner
+     * has to pay the price of the second highest bid. As the only request issued by a user is that single bid that is
+     * allowed, a Quartz scheduler job is responsible for finding the winners.
+     */
     @Override protected TradeResponse findAuctionWinner(TradeRequest tradeRequest)
         throws PortalException, SystemException {
 
-        List<Bidder> bidder = tradeRequest.getAuction().getBidder();
-        List<Bid> auctionBids = new ArrayList<>();
-        for (Bidder bidderElem : bidder) {
-            auctionBids.addAll(bidderElem.getBids());
-        }
-
-        auctionBids.sort(new BidComperator());
-        Bid winningBid = auctionBids.get(1);
-
-        long winningUserId = winningBid.getBidder().getUserId();
-        User user = liferayComponentService.findUserById(winningUserId);
-        tradeResponse.setAuctionRunning(false);
-        tradeResponse.setPrice(winningBid.getAmount());
-        tradeResponse.setFirstName(user.getFirstName());
-        tradeResponse.setSurname(user.getLastName());
-        tradeResponse.setMail(user.getEmailAddress());
-        tradeResponse.setAuctionType(tradeRequest.getAuction().getAuctionType());
-        tradeResponse.setDescription(tradeRequest.getAuction().getArticle().getShortDesc());
-        return tradeResponse;
+        // This method is not needed for this type of auction. Winners are found via AuctionManager class.
+        return null;
     }
 }

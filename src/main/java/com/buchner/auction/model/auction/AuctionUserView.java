@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
+/**
+ * View model for the article and auction portlets that shows
+ * user their added articles and the auctions they are taking part in.
+ */
 @Named
 @RequestScoped
 public class AuctionUserView {

@@ -7,7 +7,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.Collections;
+import java.util.List;
 
+/**
+ * DAO to access and persist bids in a database.
+ */
 @RequestScoped
 public class BidDao {
 
@@ -18,17 +23,18 @@ public class BidDao {
 
     }
 
-    public Bid getbyUserId(long userId) {
+    public List<Bid> getByBidderAndAuction(long userId, int auctionId) {
 
-        TypedQuery<Bid> namedQuery = entityManager.createNamedQuery("Bid.getByUserId", Bid.class);
+        TypedQuery<Bid> namedQuery = entityManager.createNamedQuery("Bid.getByAuction", Bid.class);
         namedQuery.setParameter("userId", userId);
+        namedQuery.setParameter("auctionId", auctionId);
 
         try {
 
-            return namedQuery.getSingleResult();
+            return namedQuery.getResultList();
         } catch (NoResultException e) {
 
-            return null;
+            return Collections.emptyList();
         }
     }
 }

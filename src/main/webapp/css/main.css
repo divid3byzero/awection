@@ -10,21 +10,19 @@ table, tbody {
     line-height: normal !important;
 }
 
+.user-reg {
+    margin-bottom: 10px;
+}
+
 .auction-search-panel {
     width: 99.5%;
 }
 
 .auction-panel {
-    width: 48.92%;
+    width: 32.1%;
     margin-right: 15px;
     margin-top: 15px;
-}
-
-.auction-panel-center {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 15px;
-    float: none;
+    min-height: 250px;
 }
 
 .auction-result-panel {
@@ -32,7 +30,12 @@ table, tbody {
     margin-top: 15px;
 }
 
-.auction-panel-last {
+.auction-result-panel .ui-accordion .ui-accordion-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.auction-panel-last, .auction-result-last {
     margin-right: 0;
 }
 

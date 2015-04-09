@@ -4,6 +4,10 @@ import com.buchner.auction.model.core.entity.Auction;
 
 import java.math.BigDecimal;
 
+/**
+ * Representation of a bid on an auction by a user.
+ * Holds all needed information to process a bid.
+ */
 public class TradeRequest {
 
     private Auction auction;
