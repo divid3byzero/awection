@@ -43,6 +43,18 @@
                 </ui:include>
             </p:dataTable>
         </p:tab>
+        <p:tab titleStyleClass="font" title="#{msg['auction.trade.cda']}">
+            <p:dataTable value="#{auctionResultView.auctionResultsByType(elAuctionTypeWrapper.cdaType)}" var="auction">
+
+                <ui:include src="template/result_columns.xhtml">
+                    <ui:param name="desc" value="#{auction.description}"/>
+                    <ui:param name="price" value="#{auction.price}"/>
+                    <ui:param name="firstName" value="#{auction.firstName}"/>
+                    <ui:param name="surname" value="#{auction.surname}"/>
+                    <ui:param name="mail" value="#{auction.mail}"/>
+                </ui:include>
+            </p:dataTable>
+        </p:tab>
     </p:accordionPanel>
 
 </ui:composition>
