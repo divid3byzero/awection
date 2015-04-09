@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "articles")
 @NamedQueries({
     @NamedQuery(name = "Article.byUserId", query = "select a from Article a where a.userId = :userId"),
-    @NamedQuery(name = "Article.byDescription", query = "select a from Article a where a.shortDesc like :description or a.longDesc like :description")
+    @NamedQuery(name = "Article.byDescription", query = "select a from Article a where a.shortDesc like :description and a.userId <> :userId or a.longDesc like :description and a.userId <> :userId")
 })
 public class Article {
 

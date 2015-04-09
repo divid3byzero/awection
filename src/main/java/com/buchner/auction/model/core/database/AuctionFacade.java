@@ -67,7 +67,7 @@ public class AuctionFacade {
 
     public List<ArticleBean> getArticlesByDescription(String description, long userId) {
 
-        List<Article> articlesByDescription = articleDao.findByName(description);
+        List<Article> articlesByDescription = articleDao.findByName(description, userId);
         List<Article> filteredArticles = new ArrayList<>();
         for (Article article : articlesByDescription) {
 
@@ -78,8 +78,8 @@ public class AuctionFacade {
             }
 
             filteredArticles.addAll(
-                bidder.stream().filter(bidderElem -> userId != bidderElem.getUserId())
-                    .map(bidderElem -> article).collect(Collectors.toList()));
+                    bidder.stream().filter(bidderElem -> userId != bidderElem.getUserId())
+                            .map(bidderElem -> article).collect(Collectors.toList()));
         }
         return beanService.buildArticleBeans(filteredArticles);
     }
