@@ -39,4 +39,13 @@ public class AuctionViewLabelProvider {
         auctionCategory.add("Clothing/Shoes");
         return auctionCategory;
     }
+
+    public List<CdaOrderType> getCdaSubTypes() {
+
+        List<CdaOrderType> cdaOrderTypes = new ArrayList<>();
+        for (CdaOrderType cdaOrderType : CdaOrderType.values()) {
+            cdaOrderTypes.add(cdaOrderType);
+        }
+        return cdaOrderTypes;
+    }
 }

@@ -1,6 +1,7 @@
 package com.buchner.auction.controller.trade;
 
 import com.buchner.auction.model.core.app.AuctionSession;
+import com.buchner.auction.model.core.app.CdaOrderType;
 import com.buchner.auction.model.trade.TradeView;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +30,12 @@ public class TradeController {
 
         tradeView.joinAuction(articleId);
         auctionSession.clearSearchResults();
+    }
+
+    public void orderTypeSelected() {
+
+        CdaOrderType cdaOrderType = tradeView.getCdaOrderType();
+        auctionSession.setCdaOrderType(cdaOrderType);
     }
 
     public void bid(int auctionId) {
