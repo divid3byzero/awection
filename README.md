@@ -1,13 +1,20 @@
 # Awection Portlets
-Auction implementation based on the Portlet 2.0 specification for use in a Liferay Portlet container.
+Auction implementation based on the Portlet 2.0 specification for use in a Liferay Portlet container. Should be used in conjunction with [Auction Theme](https://github.com/divid3byzero/awection-theme) for best results.
 
 **Note:** 
 The theme is to be used in conjunction with Liferay 6.2 GA 3 bundled with a Apache Tomcat server. 
 It will **probably** also work using the Glassfish or JBoss bundle, but this has **not** been tested and is therefore not advised.
 The correct version can be downloaded from [here](http://sourceforge.net/projects/lportal/files/?source=navbar). If you've never used Liferay before, I suggest you read the according documentation [here](http://www.liferay.com/documentation/liferay-portal/6.2/user-guide).
 
-## Usage
+## Available portlets
+- User registration, uses Liferay API to save users to the Liferay database and put them under the conrtol of the Liferay user admininstration
+- Add articles
+- Show articles
+- Show joined auctions
+- Trading; English, Dutch and simultaneous second price auction
+- Login portlet; needs to be statically referenced from a theme in the navigation template. Please refer to the official [Liferay documentation](http://www.liferay.com/documentation/liferay-portal/6.2/user-guide) on how this is done if you do not want to use the [Auction Theme](https://github.com/divid3byzero/awection-theme).
 
+## Usage
 - Check out master branch
 - Configure database:
 
