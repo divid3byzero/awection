@@ -8,8 +8,8 @@ The correct version can be downloaded from [here](http://sourceforge.net/project
 
 ## Usage
 
-1. Check out master branch
-2. Configure database:
+- Check out master branch
+- Configure database:
 
 **Note:** This portlet application assumes the usage of a MySQL database and Hibernate as the database abstraction layer.
 If you wish to use a different database, please consult the according documentation for the necessary configuration parameters/attributes. This guide is for MySQL/Hibernate only.
@@ -22,8 +22,8 @@ connection. The relevant properties that need to be modified to your needs are:
 <property name='javax.persistence.jdbc.user' value='your-database-user'/>
 <property name='javax.persistence.jdbc.password' value='database-user-password'/>
 ```
-3. Compile and package using Maven with **mvn clean package**
-4. Copy the resulting WAR file in the **target/** folder to **/path/to/liferay**/deploy
+- Compile and package using Maven with **mvn clean package**
+- Copy the resulting WAR file in the **target/** folder to **/path/to/liferay**/deploy
 
 If Apache Tomcat is already running the WAR will be immediately deployed by the Liferay deployment mechanism. Otherwise Liferay
 will add the theme WAR to its deployment queue after starting Tomcat and deploy the application after finishing the start-up routine.
