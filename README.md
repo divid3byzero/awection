@@ -1,5 +1,5 @@
 # Awection Portlets
-Auction implementation based on the Portlet 2.0 specification for use in a Liferay Portlet. Should be used in conjunction with [Auction Theme](https://github.com/divid3byzero/awection-theme) for best results.
+Auction implementation based on the Portlet 2.0 specification for use in a Liferay Portal. Should be used in conjunction with [Auction Theme](https://github.com/divid3byzero/awection-theme) for best results.
 
 **Note:** 
 The theme is to be used in conjunction with Liferay 6.2 GA 3 bundled with a Apache Tomcat server. 
