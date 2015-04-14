@@ -8,7 +8,8 @@ public enum AuctionType {
 
     ENGLISH("English Auction", "english"),
     DUTCH("Dutch Auction", "dutch"),
-    SECOND_PRICE("Second Price Auction", "second_price");
+    SECOND_PRICE("Second Price Auction", "second_price"),
+    CDA("Continuous Double Auction", "cda");
 
     private String name;
     private String identifier;

@@ -12,5 +12,6 @@
     </category>
     <category name="Auctions">
         <portlet id="auctions"/>
+        <portlet id="xchange"/>
     </category>
 </display>

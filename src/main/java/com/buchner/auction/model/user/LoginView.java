@@ -17,6 +17,7 @@ public class LoginView {
 
     public LoginView() {
 
+        userName = "benebuchner@gmail.com";
     }
 
     public String getUserName() {

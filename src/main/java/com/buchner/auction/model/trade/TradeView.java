@@ -1,5 +1,6 @@
 package com.buchner.auction.model.trade;
 
+import com.buchner.auction.model.core.app.CdaOrderType;
 import com.buchner.auction.model.core.app.TradeRequest;
 import com.buchner.auction.model.core.bean.AuctionBean;
 import com.buchner.auction.model.core.database.AuctionFacade;
@@ -34,6 +35,8 @@ public class TradeView {
 
     private BigDecimal bidAmount;
 
+    private CdaOrderType cdaOrderType;
+
     protected TradeView() {
 
     }
@@ -58,6 +61,16 @@ public class TradeView {
         this.bidAmount = amount;
     }
 
+    public CdaOrderType getCdaOrderType() {
+
+        return cdaOrderType;
+    }
+
+    public void setCdaOrderType(CdaOrderType cdaOrderType) {
+
+        this.cdaOrderType = cdaOrderType;
+    }
+
     public void sendBid(int auctionId) {
 
         TradeRequest tradeRequest = buildTradeRequest(auctionId, bidAmount);
@@ -67,7 +80,7 @@ public class TradeView {
     public void sendBid(int auctionId, String bidAmount) {
 
         TradeRequest tradeRequest =
-            buildTradeRequest(auctionId, new BigDecimal(bidAmount));
+                buildTradeRequest(auctionId, new BigDecimal(bidAmount));
         tradeFacade.fireTrader(tradeRequest);
     }
 

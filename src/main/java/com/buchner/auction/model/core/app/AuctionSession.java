@@ -17,6 +17,8 @@ public class AuctionSession implements Serializable {
 
     private List<ArticleBean> articleSearchResult;
 
+    private CdaOrderType cdaOrderType;
+
     protected AuctionSession() {
 
     }
@@ -29,6 +31,16 @@ public class AuctionSession implements Serializable {
     public void setArticleSearchResult(List<ArticleBean> articleSearchResult) {
 
         this.articleSearchResult = articleSearchResult;
+    }
+
+    public CdaOrderType getCdaOrderType() {
+
+        return cdaOrderType;
+    }
+
+    public void setCdaOrderType(CdaOrderType cdaOrderType) {
+
+        this.cdaOrderType = cdaOrderType;
     }
 
     public void clearSearchResults() {

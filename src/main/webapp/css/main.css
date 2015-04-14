@@ -18,11 +18,15 @@ table, tbody {
     width: 99.5%;
 }
 
-.auction-panel {
+.auction-panel, .cda-panel {
     width: 32.1%;
     margin-right: 15px;
     margin-top: 15px;
     min-height: 250px;
+}
+
+.cda-panel {
+    width: 48%;
 }
 
 .auction-result-panel {
@@ -35,7 +39,7 @@ table, tbody {
     padding-right: 0;
 }
 
-.auction-panel-last, .auction-result-last {
+.auction-panel-last, .auction-result-last, .cda-panel-last {
     margin-right: 0;
 }
 

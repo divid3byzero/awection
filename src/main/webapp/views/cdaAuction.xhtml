@@ -1,0 +1,45 @@
+<ui:composition
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <h:panelGroup id="cdaPanel" styleClass="auction-element-wrapper">
+        <h:outputText value="#{msg['auction.trade.cda']}" styleClass="subheadline"/>
+        <ui:repeat value="#{tradeView.getRunningUserAuctions(elAuctionTypeWrapper.cdaType)}" var="auction">
+            <div class="clearfix">
+
+                <ui:include src="template/auction_item_temp.xhtml">
+                    <ui:param name="articleId" value="#{auction.articleId}"/>
+                    <ui:param name="articleDescription" value="#{auction.articleDescription}"/>
+                    <ui:param name="price" value="#{auction.price}"/>
+                </ui:include>
+
+                <div>
+                    <p:selectOneMenu styleClass="font" id="orderType"
+                                     value="#{tradeView.cdaOrderType}">
+                        <p:ajax event="change" listener="#{tradeController.orderTypeSelected()}" update=":form:cdaPanel"/>
+                        <f:selectItem itemLabel="#{msg['auction.cda.ordertype']}"
+                                      itemValue=""/>
+                        <f:selectItems
+                                value="#{auctionViewLabelProvider.cdaSubTypes}" var="cdaOrderType" itemLabel="#{cdaOrderType.name}" itemValue="#{cdaOrderType}"/>
+                    </p:selectOneMenu>
+                </div>
+
+            </div>
+        </ui:repeat>
+
+        <p:panel rendered="#{auctionSession.cdaOrderType eq elCdaOrderTypeWrapper.marketOrder}">
+            <h:outputLabel value="#{msg['auction.cda.marketorder']}"/>
+
+        </p:panel>
+
+        <p:panel rendered="#{auctionSession.cdaOrderType eq elCdaOrderTypeWrapper.limitOrder}">
+            <h:outputLabel value="#{msg['auction.cda.limitorder']}"/>
+
+        </p:panel>
+
+    </h:panelGroup>
+</ui:composition>
