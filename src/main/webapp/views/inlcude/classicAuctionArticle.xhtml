@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+    <p:panel id="classicArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.classic}">
+        <h:form enctype="multipart/form-data">
+            <p:panelGrid>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel styleClass="font" for="articleShortDescription"
+                                       value="#{msg['article.add.shortdesc']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="articleShortDescription"
+                                     styleClass="font"
+                                     required="true"
+                                     value="#{addArticleView.shortDescription}"/>
+                    </p:column>
+                    <p:column rowspan="5">
+                        <p:outputLabel styleClass="font" for="articleLongDescription"
+                                       value="#{msg['article.add.longdesc']}"/>
+                        <p:inputTextarea styleClass="font" rows="15" id="articleLongDescription"
+                                         required="true"
+                                         value="#{addArticleView.longDescription}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+
+                        <p:outputLabel styleClass="font" for="articleImage"
+                                       value="#{msg['article.add.price']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText required="true" styleClass="font"
+                                     value="#{addArticleView.startPrice}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel styleClass="font" for="articleCategory"
+                                       value="#{msg['article.add.category']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu styleClass="font" id="articleCategory"
+                                         value="#{addArticleView.articleCategory}"
+                                         required="true">
+                            <f:selectItem itemLabel="#{msg['article.add.category']}"
+                                          itemValue=""/>
+                            <f:selectItems
+                                    value="#{auctionViewLabelProvider.auctionCategory}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel styleClass="font" for="auctionType"
+                                       value="#{msg['article.add.type']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu styleClass="font" id="auctionType"
+                                         value="#{addArticleView.auctionType}"
+                                         required="true">
+                            <f:selectItem itemLabel="#{msg['article.add.type']}"
+                                          itemValue=""/>
+                            <f:selectItems
+                                    value="#{auctionViewLabelProvider.auctionTypes}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+
+                        <p:outputLabel styleClass="font" for="articleImage"
+                                       value="#{msg['article.add.image']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
+                                      id="articleImage"
+                                      value="#{addArticleView.uploadedFile}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel styleClass="font" for="endDate"
+                                       value="#{msg['article.add.enddate']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu id="endDate" value="#{addArticleView.daysAuctionActive}">
+                            <f:selectItem itemLabel="1 Day" itemValue="1"/>
+                            <f:selectItem itemLabel="3 Days" itemValue="3"/>
+                            <f:selectItem itemLabel="1 Week" itemValue="7"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+
+
+            </p:panelGrid>
+
+            <div>
+                <p:commandButton value="#{msg['form.send']}"
+                                 ajax="false"
+                                 action="#{articleController.saveArticle()}"/>
+            </div>
+        </h:form>
+    </p:panel>
+</ui:composition>

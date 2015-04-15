@@ -19,6 +19,8 @@ public class AuctionSession implements Serializable {
 
     private CdaOrderType cdaOrderType;
 
+    private TradingType tradingType;
+
     protected AuctionSession() {
 
     }
@@ -41,6 +43,16 @@ public class AuctionSession implements Serializable {
     public void setCdaOrderType(CdaOrderType cdaOrderType) {
 
         this.cdaOrderType = cdaOrderType;
+    }
+
+    public TradingType getTradingType() {
+
+        return tradingType;
+    }
+
+    public void setTradingType(TradingType tradingType) {
+
+        this.tradingType = tradingType;
     }
 
     public void clearSearchResults() {

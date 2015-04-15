@@ -41,6 +41,7 @@ public class ElAuctionTypeWrapper {
     }
 
     public AuctionType getCdaType() {
+
         return cdaType;
     }
 }

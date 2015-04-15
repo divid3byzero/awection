@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+    <p:panel id="xchangeArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.xchange}">
+        <h:form>
+            <h:outputText value="Stock"/>
+        </h:form>
+    </p:panel>
+</ui:composition>

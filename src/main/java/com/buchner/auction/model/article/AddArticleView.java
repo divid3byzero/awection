@@ -1,5 +1,6 @@
 package com.buchner.auction.model.article;
 
+import com.buchner.auction.model.core.app.TradingType;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.database.AuctionFacade;
 import com.buchner.auction.model.core.entity.Article;
@@ -28,6 +29,7 @@ public class AddArticleView {
     private UploadedFile uploadedFile;
     private String startPrice;
     private int daysAuctionActive;
+    private TradingType tradingType;
 
     @Inject
     private AuctionFacade auctionFacade;
@@ -117,6 +119,16 @@ public class AddArticleView {
     public void setDaysAuctionActive(int daysAuctionActive) {
 
         this.daysAuctionActive = daysAuctionActive;
+    }
+
+    public TradingType getTradingType() {
+
+        return tradingType;
+    }
+
+    public void setTradingType(TradingType tradingType) {
+
+        this.tradingType = tradingType;
     }
 
     /**
