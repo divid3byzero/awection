@@ -7,8 +7,36 @@
         >
 
     <p:panel id="xchangeArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.xchange}">
-        <h:form>
+        <h:form enctype="multipart/form-data">
             <h:outputText value="Stock"/>
+
+            <div class="clearfix">
+                <div class="pull-left">
+                    <p:outputLabel styleClass="font" for="articleImage"
+                                   value="#{msg['article.add.image']}"/>
+                </div>
+                <div class="pull-right">
+                    <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
+                                  id="articleImage"
+                                  value="#{addArticleView.uploadedFile}"/>
+                </div>
+            </div>
+
+            <div class="clearfix">
+                <div class="pull-left">
+                    <p:outputLabel styleClass="font" for="articleName"
+                                   value="#{msg['article.add.image']}"/>
+                </div>
+                <div class="pull-right">
+
+                </div>
+            </div>
+
+            <div>
+                <p:commandButton value="#{msg['form.send']}"
+                                 ajax="false"
+                                 action="#{articleController.saveArticle()}"/>
+            </div>
         </h:form>
     </p:panel>
 </ui:composition>
