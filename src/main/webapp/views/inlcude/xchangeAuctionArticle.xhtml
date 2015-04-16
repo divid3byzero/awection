@@ -8,34 +8,28 @@
 
     <p:panel id="xchangeArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.xchange}">
         <h:form enctype="multipart/form-data">
-            <h:outputText value="Stock"/>
 
             <div class="clearfix">
                 <div class="pull-left">
-                    <p:outputLabel styleClass="font" for="articleImage"
-                                   value="#{msg['article.add.image']}"/>
+                    <h:outputText value="#{msg['auction.cda.amount']}"/>
                 </div>
                 <div class="pull-right">
-                    <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
-                                  id="articleImage"
-                                  value="#{addArticleView.uploadedFile}"/>
+                    <p:inputText value="#{stockView.amount}"/>
                 </div>
             </div>
 
             <div class="clearfix">
                 <div class="pull-left">
-                    <p:outputLabel styleClass="font" for="articleName"
-                                   value="#{msg['article.add.image']}"/>
+                    <h:outputText value="#{msg['auction.cda.unitprice']}"/>
                 </div>
                 <div class="pull-right">
-
+                    <p:inputText value="#{stockView.unitPrice}"/>
                 </div>
             </div>
-
             <div>
-                <p:commandButton value="#{msg['form.send']}"
-                                 ajax="false"
-                                 action="#{articleController.saveArticle()}"/>
+                <p:commandButton value="#{msg['form.save']}"
+                                 ajax="true"
+                                 action="#{stockController.saveStock()}"/>
             </div>
         </h:form>
     </p:panel>

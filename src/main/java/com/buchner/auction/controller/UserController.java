@@ -1,4 +1,4 @@
-package com.buchner.auction.controller.user;
+package com.buchner.auction.controller;
 
 import com.buchner.auction.model.core.app.AuctionUser;
 import com.buchner.auction.model.core.app.LiferayComponentService;

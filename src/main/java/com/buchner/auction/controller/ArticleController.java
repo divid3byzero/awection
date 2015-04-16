@@ -1,4 +1,4 @@
-package com.buchner.auction.controller.article;
+package com.buchner.auction.controller;
 
 import com.buchner.auction.model.article.ArticleSearchView;
 import com.buchner.auction.model.article.AddArticleView;
@@ -41,9 +41,4 @@ public class ArticleController {
         articleSearchView.getArticlesByName();
     }
 
-    public void onTradingTypeSelect() {
-
-        TradingType tradingType = addArticleView.getTradingType();
-        auctionSession.setTradingType(tradingType);
-    }
 }

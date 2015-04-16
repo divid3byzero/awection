@@ -1,4 +1,4 @@
-package com.buchner.auction.controller.trade;
+package com.buchner.auction.controller;
 
 import com.buchner.auction.model.core.app.AuctionSession;
 import com.buchner.auction.model.core.app.CdaOrderType;
