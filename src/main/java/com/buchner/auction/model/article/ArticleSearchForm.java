@@ -1,6 +1,7 @@
 package com.buchner.auction.model.article;
 
 import com.buchner.auction.model.core.app.AuctionSession;
+import com.buchner.auction.model.core.app.AuctionForm;
 import com.buchner.auction.model.core.bean.ArticleBean;
 import com.buchner.auction.model.core.database.AuctionFacade;
 import com.buchner.auction.model.core.entity.Auction;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Named
 @RequestScoped
-public class ArticleSearchView {
+public class ArticleSearchForm implements AuctionForm {
 
     @Inject
     private AuctionFacade auctionFacade;
@@ -29,7 +30,7 @@ public class ArticleSearchView {
 
     private String articleName;
 
-    protected ArticleSearchView() {
+    protected ArticleSearchForm() {
 
     }
 
@@ -53,5 +54,11 @@ public class ArticleSearchView {
     public Auction getAuctionFromArticle(int articleId) {
 
         return auctionFacade.getAuctionFromArticle(articleId);
+    }
+
+    @Override
+    public void clearView() {
+
+        articleName = "";
     }
 }

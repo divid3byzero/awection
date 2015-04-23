@@ -8,6 +8,8 @@
 
     <p:panel id="classicArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.classic}">
         <h:form enctype="multipart/form-data">
+
+            <p:growl id="articleGrowl" showDetail="true"/>
             <p:panelGrid>
                 <p:row>
                     <p:column>
@@ -18,14 +20,14 @@
                         <p:inputText id="articleShortDescription"
                                      styleClass="font"
                                      required="true"
-                                     value="#{addArticleView.shortDescription}"/>
+                                     value="#{addArticleForm.shortDescription}"/>
                     </p:column>
                     <p:column rowspan="5">
                         <p:outputLabel styleClass="font" for="articleLongDescription"
                                        value="#{msg['article.add.longdesc']}"/>
                         <p:inputTextarea styleClass="font" rows="15" id="articleLongDescription"
                                          required="true"
-                                         value="#{addArticleView.longDescription}"/>
+                                         value="#{addArticleForm.longDescription}"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -36,7 +38,7 @@
                     </p:column>
                     <p:column>
                         <p:inputText required="true" styleClass="font"
-                                     value="#{addArticleView.startPrice}"/>
+                                     value="#{addArticleForm.startPrice}"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -46,7 +48,7 @@
                     </p:column>
                     <p:column>
                         <p:selectOneMenu styleClass="font" id="articleCategory"
-                                         value="#{addArticleView.articleCategory}"
+                                         value="#{addArticleForm.articleCategory}"
                                          required="true">
                             <f:selectItem itemLabel="#{msg['article.add.category']}"
                                           itemValue=""/>
@@ -62,7 +64,7 @@
                     </p:column>
                     <p:column>
                         <p:selectOneMenu styleClass="font" id="auctionType"
-                                         value="#{addArticleView.auctionType}"
+                                         value="#{addArticleForm.auctionType}"
                                          required="true">
                             <f:selectItem itemLabel="#{msg['article.add.type']}"
                                           itemValue=""/>
@@ -80,7 +82,7 @@
                     <p:column>
                         <p:fileUpload required="true" styleClass="font" mode="simple" skinSimple="true"
                                       id="articleImage"
-                                      value="#{addArticleView.uploadedFile}"/>
+                                      value="#{addArticleForm.uploadedFile}"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -89,7 +91,7 @@
                                        value="#{msg['article.add.enddate']}"/>
                     </p:column>
                     <p:column>
-                        <p:selectOneMenu id="endDate" value="#{addArticleView.daysAuctionActive}">
+                        <p:selectOneMenu id="endDate" value="#{addArticleForm.daysAuctionActive}">
                             <f:selectItem itemLabel="1 Day" itemValue="1"/>
                             <f:selectItem itemLabel="3 Days" itemValue="3"/>
                             <f:selectItem itemLabel="1 Week" itemValue="7"/>
@@ -97,13 +99,13 @@
                     </p:column>
                 </p:row>
 
-
             </p:panelGrid>
 
             <div>
                 <p:commandButton value="#{msg['form.send']}"
                                  ajax="false"
-                                 action="#{articleController.saveArticle()}"/>
+                                 action="#{articleController.saveArticle()}"
+                                 update=":classicArticlePanel"/>
             </div>
         </h:form>
     </p:panel>

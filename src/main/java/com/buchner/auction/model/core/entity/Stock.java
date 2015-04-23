@@ -13,12 +13,14 @@ public class Stock {
     private int id;
 
     private long userId;
+    private String article;
     private int amount;
     private BigDecimal unitPrice;
 
-    public Stock(long userId, int amount, BigDecimal unitPrice) {
+    public Stock(long userId, String article, int amount, BigDecimal unitPrice) {
 
         this.userId = userId;
+        this.article = article;
         this.amount = amount;
         this.unitPrice = unitPrice;
     }
@@ -31,6 +33,11 @@ public class Stock {
     public long getUserId() {
 
         return userId;
+    }
+
+    public String getArticle() {
+
+        return article;
     }
 
     public int getAmount() {

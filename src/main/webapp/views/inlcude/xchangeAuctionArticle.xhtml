@@ -9,12 +9,23 @@
     <p:panel id="xchangeArticlePanel" rendered="#{auctionSession.tradingType eq elTradingTypeWrapper.xchange}">
         <h:form enctype="multipart/form-data">
 
+            <p:growl id="articleGrowl" showDetail="true"/>
+
+            <div class="clearfix">
+                <div class="pull-left">
+                    <h:outputText value="#{msg['auction.cda.article']}"/>
+                </div>
+                <div class="pull-right">
+                    <p:inputText value="#{stockForm.article}"/>
+                </div>
+            </div>
+
             <div class="clearfix">
                 <div class="pull-left">
                     <h:outputText value="#{msg['auction.cda.amount']}"/>
                 </div>
                 <div class="pull-right">
-                    <p:inputText value="#{stockView.amount}"/>
+                    <p:inputText value="#{stockForm.amount}"/>
                 </div>
             </div>
 
@@ -23,13 +34,14 @@
                     <h:outputText value="#{msg['auction.cda.unitprice']}"/>
                 </div>
                 <div class="pull-right">
-                    <p:inputText value="#{stockView.unitPrice}"/>
+                    <p:inputText value="#{stockForm.unitPrice}"/>
                 </div>
             </div>
             <div>
                 <p:commandButton value="#{msg['form.save']}"
                                  ajax="true"
-                                 action="#{stockController.saveStock()}"/>
+                                 action="#{stockController.saveStock()}"
+                                 update=":xchangeArticlePanel"/>
             </div>
         </h:form>
     </p:panel>

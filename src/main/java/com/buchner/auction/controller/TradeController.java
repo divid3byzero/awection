@@ -14,7 +14,7 @@ import javax.inject.Named;
  */
 @Named
 @ApplicationScoped
-public class TradeController {
+public class TradeController extends AbstractBaseController {
 
     @Inject
     private TradeView tradeView;

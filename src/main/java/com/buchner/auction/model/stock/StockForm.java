@@ -1,5 +1,6 @@
 package com.buchner.auction.model.stock;
 
+import com.buchner.auction.model.core.app.AuctionForm;
 import com.buchner.auction.model.core.database.StockFacade;
 import com.buchner.auction.model.core.entity.Stock;
 import com.liferay.portal.model.User;
@@ -11,8 +12,9 @@ import java.math.BigDecimal;
 
 @Named
 @RequestScoped
-public class StockView {
+public class StockForm implements AuctionForm {
 
+    private String article;
     private int amount;
     private BigDecimal unitPrice;
 
@@ -20,16 +22,26 @@ public class StockView {
     private StockFacade stockFacade;
 
     @Inject
-    private User currenUser;
+    private User currentUser;
 
-    protected StockView() {
+    protected StockForm() {
 
     }
 
     public void createStockElement() {
 
-        Stock stock = new Stock(currenUser.getUserId(), amount, unitPrice);
+        Stock stock = new Stock(currentUser.getUserId(), article, amount, unitPrice);
         stockFacade.saveStock(stock);
+    }
+
+    public String getArticle() {
+
+        return article;
+    }
+
+    public void setArticle(String article) {
+
+        this.article = article;
     }
 
     public int getAmount() {
@@ -52,4 +64,10 @@ public class StockView {
         this.unitPrice = unitPrice;
     }
 
+    public void clearView() {
+
+        article = "";
+        amount = 0;
+        unitPrice = null;
+    }
 }

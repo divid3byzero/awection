@@ -15,15 +15,15 @@
                 <p:outputLabel styleClass="font" for="firstName"
                                value="#{msg['form.firstname']}"/>
                 <p:inputText id="firstName" styleClass="pull-left font" required="true"
-                             value="#{userController.userRegisterView.firstName}"/>
+                             value="#{userController.userRegisterForm.firstName}"/>
 
                 <p:outputLabel styleClass="font" for="surname" value="#{msg['form.surname']}"/>
                 <p:inputText styleClass="pull-left font" id="surname" required="true"
-                             value="#{userController.userRegisterView.surName}"/>
+                             value="#{userController.userRegisterForm.surName}"/>
 
                 <p:outputLabel styleClass="font" for="mail" value="#{msg['form.mail']}"/>
                 <p:inputText id="mail" required="true" styleClass="font"
-                             value="#{userController.userRegisterView.mail}">
+                             value="#{userController.userRegisterForm.mail}">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                 </p:inputText>
@@ -31,7 +31,7 @@
                 <p:outputLabel styleClass="font" for="password"
                                value="#{msg['form.password']}"/>
                 <p:password styleClass="pull-left" id="password" required="true"
-                            value="#{userController.userRegisterView.password}">
+                            value="#{userController.userRegisterForm.password}">
                     <f:validator validatorId="passwordConfirm"/>
                     <f:attribute name="equalPassword" value="#{equalPassword}"/>
                 </p:password>

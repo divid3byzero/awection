@@ -1,5 +1,6 @@
 package com.buchner.auction.model.user;
 
+import com.buchner.auction.model.core.app.AuctionForm;
 import com.buchner.auction.model.core.app.AuctionUser;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,7 +9,7 @@ import javax.enterprise.context.RequestScoped;
  * View model for user registration.
  */
 @RequestScoped
-public class UserRegisterView {
+public class UserRegisterForm implements AuctionForm {
 
 
     private String firstName;
@@ -16,7 +17,7 @@ public class UserRegisterView {
     private String mail;
     private String password;
 
-    public UserRegisterView() {
+    public UserRegisterForm() {
 
     }
 
@@ -63,5 +64,14 @@ public class UserRegisterView {
     public AuctionUser createAuctionUser() {
 
         return new AuctionUser(firstName, surName, mail, password);
+    }
+
+    @Override
+    public void clearView() {
+
+        firstName = "";
+        surName = "";
+        mail = "";
+        password = "";
     }
 }

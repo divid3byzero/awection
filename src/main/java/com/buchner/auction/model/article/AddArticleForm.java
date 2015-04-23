@@ -1,5 +1,6 @@
 package com.buchner.auction.model.article;
 
+import com.buchner.auction.model.core.app.AuctionForm;
 import com.buchner.auction.model.core.app.TradingType;
 import com.buchner.auction.model.core.entity.AuctionType;
 import com.buchner.auction.model.core.database.AuctionFacade;
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
  */
 @Named
 @RequestScoped
-public class AddArticleView {
+public class AddArticleForm implements AuctionForm {
 
     private AuctionType auctionType;
     private String articleCategory;
@@ -37,7 +38,7 @@ public class AddArticleView {
     @Inject
     private User currentUser;
 
-    public AddArticleView() {
+    public AddArticleForm() {
 
     }
 
@@ -167,5 +168,12 @@ public class AddArticleView {
             }
         }
         return null;
+    }
+
+    @Override
+    public void clearView() {
+
+        // No need to implement this method as the article view is sent via
+        // full non-ajax request clearing the view due to re-rendering of the complete page.
     }
 }

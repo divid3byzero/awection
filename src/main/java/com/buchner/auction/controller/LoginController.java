@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 @Named
 @ApplicationScoped
-public class LoginController {
+public class LoginController extends AbstractBaseController {
 
     @Inject
     private LiferayComponentService liferayComponentService;

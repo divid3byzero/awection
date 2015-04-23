@@ -3,7 +3,7 @@ package com.buchner.auction.controller;
 import com.buchner.auction.model.core.app.AuctionUser;
 import com.buchner.auction.model.core.app.LiferayComponentService;
 import com.buchner.auction.model.user.LoginView;
-import com.buchner.auction.model.user.UserRegisterView;
+import com.buchner.auction.model.user.UserRegisterForm;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,10 +14,10 @@ import javax.inject.Named;
  */
 @Named
 @ApplicationScoped
-public class UserController {
+public class UserController extends AbstractBaseController {
 
     @Inject
-    private UserRegisterView userRegisterView;
+    private UserRegisterForm userRegisterForm;
 
     @Inject
     private LoginView loginView;
@@ -26,14 +26,15 @@ public class UserController {
     private LiferayComponentService lrayComponentService;
 
 
-    public UserRegisterView getUserRegisterView() {
+    public UserRegisterForm getUserRegisterForm() {
 
-        return userRegisterView;
+        return userRegisterForm;
     }
 
     public void registerUser() {
 
-        AuctionUser auctionUser = userRegisterView.createAuctionUser();
+        AuctionUser auctionUser = userRegisterForm.createAuctionUser();
         lrayComponentService.createLrayUser(auctionUser);
+        clearView(userRegisterForm);
     }
 }

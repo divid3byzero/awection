@@ -13,7 +13,7 @@
             <h:outputText styleClass="subheadline"
                           value="#{msg['auction.search.title']}"/>
             <p:inputText id="auctionSearchInput" styleClass="font"
-                         value="#{articleSearchView.articleName}"/>
+                         value="#{articleSearchForm.articleName}"/>
             <p:watermark for="auctionSearchInput" value="#{msg['auction.search.search.hint']}"/>
             <p:commandButton styleClass="font"
                              ajax="true"
@@ -31,7 +31,7 @@
                 <p:column styleClass="font" headerText="#{msg['auction.search.auctiontype']}">
                     <h:outputText
                             styleClass="font"
-                            value="#{articleSearchView.getAuctionFromArticle(article.id).auctionType.name}"/>
+                            value="#{articleSearchForm.getAuctionFromArticle(article.id).auctionType.name}"/>
                 </p:column>
                 <p:column styleClass="font" headerText="#{msg['auction.search.shortdesc']}">
                     <h:outputText styleClass="font" value="#{article.shorDesc}"/>
@@ -39,7 +39,7 @@
                 <p:column styleClass="font" headerText="#{msg['auction.search.currentprice']}">
                     <h:outputText
                             styleClass="font"
-                            value="#{articleSearchView.getAuctionFromArticle(article.id).price}"/>
+                            value="#{articleSearchForm.getAuctionFromArticle(article.id).price}"/>
                 </p:column>
                 <p:column styleClass="font" headerText="#{msg['auction.search.image']}">
                     <p:graphicImage width="50px" value="#{imageStreamerService.imageStream}">

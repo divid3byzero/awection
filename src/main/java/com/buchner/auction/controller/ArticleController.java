@@ -1,12 +1,10 @@
 package com.buchner.auction.controller;
 
-import com.buchner.auction.model.article.ArticleSearchView;
-import com.buchner.auction.model.article.AddArticleView;
+import com.buchner.auction.model.article.ArticleSearchForm;
+import com.buchner.auction.model.article.AddArticleForm;
 import com.buchner.auction.model.core.app.AuctionSession;
-import com.buchner.auction.model.core.app.TradingType;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,24 +14,26 @@ import javax.inject.Named;
  */
 @Named
 @ApplicationScoped
-public class ArticleController {
+public class ArticleController extends AbstractBaseController {
 
     @Inject
-    private AddArticleView addArticleView;
+    private AddArticleForm addArticleView;
 
     @Inject
-    private ArticleSearchView articleSearchView;
+    private ArticleSearchForm articleSearchView;
 
     @Inject
     private AuctionSession auctionSession;
 
-    public ArticleController() {
+    protected ArticleController() {
 
     }
 
     public void saveArticle() {
 
         addArticleView.buildAuctionWithArticle();
+
+        viewMessage("Article added");
     }
 
     public void searchArticlesByName() {
